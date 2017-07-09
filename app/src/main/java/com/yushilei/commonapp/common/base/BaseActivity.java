@@ -2,10 +2,13 @@ package com.yushilei.commonapp.common.base;
 
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
+import android.view.View;
 
 import com.yushilei.commonapp.common.manager.ActivityStack;
 
@@ -15,6 +18,7 @@ import com.yushilei.commonapp.common.manager.ActivityStack;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private boolean isResume = false;
+    private SparseArray<View> mViews = new SparseArray<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,6 +26,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityStack.inStack(this);
         setContentView(getLayoutId());
     }
+
+    @SuppressWarnings("unchecked")
+    protected <T extends View> T findView(int rid) {
+        View view = mViews.get(rid);
+        if (view == null) {
+            view = findView(rid);
+            mViews.append(rid, view);
+        }
+        return (T) view;
+    }
+
+    protected abstract void initView();
 
     @LayoutRes
     protected abstract int getLayoutId();
