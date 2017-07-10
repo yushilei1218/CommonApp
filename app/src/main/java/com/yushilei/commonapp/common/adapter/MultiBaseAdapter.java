@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.adapter;
 
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.List;
  * 多布局复用统一封装Adapter
  *
  * @author shilei.yu
+ * @see #getItemViewType(int) BaseAdapter的该方法返回值必须从0开始
+ * mViewTypeArr 用来实现{@link ItemWrapper} getItemViewType() 方法与 BaseAdapter getItemViewType()的对应关系
  * @since on 2017/7/10.
  */
 
@@ -28,8 +31,8 @@ public class MultiBaseAdapter extends BaseAdapter {
      */
     private int mViewTypeCount;
     /**
-     * 由于BaseAdapter {@see getItemViewType}必须从0开始
-     * 故用该mViewTypeArr 一一对应 ItemWrapper中的getViewType();
+     * ViewTypeArr value 从0开始根据mViewTypeCount的数量递增
+     * ViewTypeArr 一一对应 ItemWrapper中的getViewType();
      */
     @SuppressWarnings("unchecked")
     private SparseArray<Integer> mViewTypeArr = new SparseArray();
@@ -52,6 +55,21 @@ public class MultiBaseAdapter extends BaseAdapter {
         if (!SetUtil.isEmpty(mData)) {
             if (mData.contains(item)) {
                 mData.remove(item);
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void clear() {
+        if (!SetUtil.isEmpty(mData)) {
+            mData.clear();
+            notifyDataSetChanged();
+        }
+    }
+
+    public void update(ItemWrapper item) {
+        if (!SetUtil.isEmpty(mData)) {
+            if (mData.contains(item)) {
                 notifyDataSetChanged();
             }
         }
@@ -100,14 +118,24 @@ public class MultiBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        /*
+         *  BaseAdapter会根据当前的ViewType返回convertView
+         *  如果convertView==null ，当前数据项ItemWrapper 也会创建正确的convertView并绑定holder
+         */
         int itemViewType = getItemViewType(position);
         ItemWrapper item = mData.get(position);
 
         if (convertView == null) {
+            /*
+             * 创建BaseViewHolder的时候 内部已经将该Holder与convertView进行绑定
+             */
             BaseViewHolder holder = item.onCreateViewHolder(parent, itemViewType);
             convertView = holder.itemView;
         }
         BaseViewHolder holder = (BaseViewHolder) convertView.getTag();
+        /*
+         *直接调用数据项的 onBindViewHolder 方法实现Holder convertView 数据项的绑定
+         */
         item.onBindViewHolder(holder, position);
         return convertView;
     }

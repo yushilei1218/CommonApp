@@ -23,8 +23,11 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public MultiRecyclerAdapter() {
     }
 
+    /**
+     * 清空原数据集合，将新的数据集合添加到数据源中并刷新
+     */
     public void addAll(List<ItemWrapper> data) {
-        if (data != null && data.size() > 0) {
+        if (!SetUtil.isEmpty(data)) {
             mData.clear();
             mData.addAll(data);
             notifyDataSetChanged();
@@ -34,18 +37,36 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    /**
+     * 清空数据源并刷新RecyclerView
+     */
     public void clear() {
         if (mData != null)
             mData.clear();
         notifyDataSetChanged();
     }
 
+    /**
+     * 移除数据源中的某一项，并刷新
+     */
     public void remove(ItemWrapper item) {
         if (!SetUtil.isEmpty(mData)) {
             int index = mData.indexOf(item);
             if (index > -1) {
                 mData.remove(index);
                 notifyItemRemoved(index);
+            }
+        }
+    }
+
+    /**
+     * 刷新数据源中的某一项
+     */
+    public void update(ItemWrapper item) {
+        if (!SetUtil.isEmpty(mData)) {
+            int index = mData.indexOf(item);
+            if (index > -1) {
+                notifyItemChanged(index);
             }
         }
     }
