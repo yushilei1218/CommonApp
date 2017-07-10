@@ -1,6 +1,6 @@
 package com.yushilei.commonapp.common.adapter;
 
-import android.view.LayoutInflater;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,9 +17,23 @@ import java.util.List;
  */
 
 public class MultiBaseAdapter extends BaseAdapter {
+    /**
+     * 数据源
+     */
     private List<ItemWrapper> mData = new LinkedList<>();
+    /**
+     * 用于设定当前AdapterView 支持的布局类型总数
+     */
+    private int mViewTypeCount;
+    /**
+     * 由于BaseAdapter {@see getItemViewType}必须从0开始
+     * 故用该mViewTypeArr 一一对应 ItemWrapper中的getViewType();
+     */
+    @SuppressWarnings("unchecked")
+    private SparseArray<Integer> mViewTypeArr = new SparseArray();
 
-    public MultiBaseAdapter() {
+    public MultiBaseAdapter(int viewTypeCount) {
+        this.mViewTypeCount = viewTypeCount;
     }
 
     public void addAll(List<ItemWrapper> data) {
@@ -47,22 +61,39 @@ public class MultiBaseAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * ViewType 必须从0 开始
+     */
     @Override
     public int getItemViewType(int position) {
-        return mData.get(position).getItemViewType();
+        //形成 ItemWrapper.getItemViewType() 与ViewType一一对应关系
+        int viewType = 0;
+        if (mData != null && mData.size() > 0) {
+            for (ItemWrapper i : mData) {
+                Integer integer = mViewTypeArr.get(i.getItemViewType());
+                if (integer == null) {
+                    mViewTypeArr.append(i.getItemViewType(), viewType);
+                    viewType++;
+                }
+            }
+            return mViewTypeArr.get(mData.get(position).getItemViewType());
+        }
+        return 0;
     }
 
     @Override
     public int getViewTypeCount() {
-        return super.getViewTypeCount();
+        return mViewTypeCount;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        int itemViewType = getItemViewType(position);
         ItemWrapper item = mData.get(position);
 
         if (convertView == null) {
-            BaseViewHolder holder = item.onCreateViewHolder(parent, 0);
+            BaseViewHolder holder = item.onCreateViewHolder(parent, itemViewType);
             convertView = holder.itemView;
         }
         BaseViewHolder holder = (BaseViewHolder) convertView.getTag();

@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         GridView mGridV = findView(R.id.main_grid);
-        MultiBaseAdapter adapter = new MultiBaseAdapter();
+        MultiBaseAdapter adapter = new MultiBaseAdapter(1);
         mGridV.setAdapter(adapter);
         List<ItemWrapper> data = new LinkedList<>();
         HomeItem item1 = new HomeItem(new HomeBean(Constant.MULTI_RECYCLER));
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent ;
+            Intent intent;
             switch (bean.name) {
                 case Constant.MULTI_RECYCLER:
                     intent = new Intent(MainActivity.this, MultiRecyclerActivity.class);

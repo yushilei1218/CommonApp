@@ -7,10 +7,11 @@
     tools:context="com.yushilei.commonapp.ui.multilv.MultiListViewActivity">
 
     <ListView
+        android:id="@+id/activity_multi_lv"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="#cccccc"
         android:dividerHeight="1px"
-        android:id="@+id/activity_multi_lv"
-        android:layout_height="match_parent" />
+        android:padding="10dp" />
 
 </RelativeLayout>

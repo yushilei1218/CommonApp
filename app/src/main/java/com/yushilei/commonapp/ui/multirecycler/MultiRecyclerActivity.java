@@ -1,6 +1,8 @@
 package com.yushilei.commonapp.ui.multirecycler;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,15 @@ public class MultiRecyclerActivity extends BaseActivity {
         MultiRecyclerAdapter adapter = new MultiRecyclerAdapter();
         mRecycler.setAdapter(adapter);
 
+        List<ItemWrapper> mData = getItemWrappers();
+
+        adapter.addAll(mData);
+
+    }
+
+    @NonNull
+    private List<ItemWrapper> getItemWrappers() {
+        List<ItemWrapper> mData = new LinkedList<>();
         BeanA a1 = new BeanA("yushilei");
         BeanA a2 = new BeanA("ceshi");
         BeanA a3 = new BeanA("just test");
@@ -41,18 +52,35 @@ public class MultiRecyclerActivity extends BaseActivity {
         BaseItemB item6 = new BaseItemB(b3);
         BaseItemB item7 = new BaseItemB(b4);
         BaseItemB item8 = new BaseItemB(b5);
-        List<ItemWrapper> mData = new LinkedList<>();
+
         mData.add(item1);
+        mData.add(item1);
+        mData.add(item1);
+        mData.add(item3);
+        mData.add(item3);
+        mData.add(item3);
         mData.add(item3);
         mData.add(item2);
         mData.add(item4);
         mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
+        mData.add(item5);
         mData.add(item6);
         mData.add(item7);
         mData.add(item8);
-
-        adapter.addAll(mData);
-
+        mData.add(item8);
+        mData.add(item8);
+        mData.add(item8);
+        mData.add(item8);
+        mData.add(item8);
+        mData.add(item8);
+        mData.add(item8);
+        return mData;
     }
 
     @Override
@@ -63,7 +91,7 @@ public class MultiRecyclerActivity extends BaseActivity {
     /*
         数据源封装
      */
-    public  static class BaseItemB extends ItemWrapper<BeanB> {
+    public class BaseItemB extends ItemWrapper<BeanB> implements View.OnClickListener {
 
         public BaseItemB(BeanB bean) {
             super(bean);
@@ -82,10 +110,16 @@ public class MultiRecyclerActivity extends BaseActivity {
             String text = bean.age + " 岁";
             view.setText(text);
             img.setImageResource(R.mipmap.ic_launcher);
+            holder.itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            showToast("Age=" + bean.age);
         }
     }
 
-    public static class BaseItemA extends ItemWrapper<BeanA> {
+    public class BaseItemA extends ItemWrapper<BeanA> implements View.OnClickListener {
         public BaseItemA(BeanA bean) {
             super(bean);
         }
@@ -102,6 +136,12 @@ public class MultiRecyclerActivity extends BaseActivity {
 
             view.setText(bean.name);
             img.setImageResource(R.mipmap.ic_launcher_round);
+            holder.itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            showToast("Name=" + bean.name);
         }
     }
 }

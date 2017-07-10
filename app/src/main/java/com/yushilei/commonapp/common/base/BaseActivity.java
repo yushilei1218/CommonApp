@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yushilei.commonapp.common.manager.ActivityStack;
 
@@ -51,6 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showDialog(AlertDialog dialog) {
         dialog.show();
+    }
+
+    public void showToast(String msg) {
+        Toast.makeText(BaseApp.AppContext, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -11,7 +11,11 @@
         android:id="@+id/main_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2" />
+        android:background="#b4b4b4"
+        android:horizontalSpacing="2dp"
+        android:numColumns="2"
+        android:padding="2dp"
+        android:verticalSpacing="2dp" />
 
 
 </LinearLayout>
