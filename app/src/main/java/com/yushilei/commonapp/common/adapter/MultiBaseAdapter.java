@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.yushilei.commonapp.common.util.SetUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,6 +46,15 @@ public class MultiBaseAdapter extends BaseAdapter {
             mData.clear();
         }
         notifyDataSetChanged();
+    }
+
+    public void remove(ItemWrapper item) {
+        if (!SetUtil.isEmpty(mData)) {
+            if (mData.contains(item)) {
+                mData.remove(item);
+                notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

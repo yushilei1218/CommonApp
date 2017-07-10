@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.yushilei.commonapp.common.util.SetUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +34,22 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    public void clear() {
+        if (mData != null)
+            mData.clear();
+        notifyDataSetChanged();
+    }
+
+    public void remove(ItemWrapper item) {
+        if (!SetUtil.isEmpty(mData)) {
+            int index = mData.indexOf(item);
+            if (index > -1) {
+                mData.remove(index);
+                notifyItemRemoved(index);
+            }
+        }
+    }
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mData != null && mData.size() > 0) {
@@ -43,7 +61,7 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
         return null;
     }
-    
+
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         ItemWrapper item = mData.get(position);

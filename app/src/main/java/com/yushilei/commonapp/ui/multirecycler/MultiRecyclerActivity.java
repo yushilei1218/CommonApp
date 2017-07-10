@@ -19,10 +19,12 @@ import java.util.List;
 
 public class MultiRecyclerActivity extends BaseActivity {
 
+    private MultiRecyclerAdapter adapter;
+
     @Override
     protected void initView() {
         RecyclerView mRecycler = findView(R.id.activity_multi_recycler);
-        MultiRecyclerAdapter adapter = new MultiRecyclerAdapter();
+        adapter = new MultiRecyclerAdapter();
         mRecycler.setAdapter(adapter);
 
         List<ItemWrapper> mData = getItemWrappers();
@@ -115,6 +117,7 @@ public class MultiRecyclerActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
+            adapter.remove(this);
             showToast("Age=" + bean.age);
         }
     }
@@ -141,6 +144,7 @@ public class MultiRecyclerActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
+            adapter.remove(this);
             showToast("Name=" + bean.name);
         }
     }

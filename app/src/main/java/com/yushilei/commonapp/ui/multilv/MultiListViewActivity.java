@@ -24,10 +24,12 @@ import java.util.List;
 public class MultiListViewActivity extends BaseActivity {
 
 
+    private MultiBaseAdapter adapter;
+
     @Override
     protected void initView() {
         ListView mLv = findView(R.id.activity_multi_lv);
-        MultiBaseAdapter adapter = new MultiBaseAdapter(2);
+        adapter = new MultiBaseAdapter(2);
         mLv.setAdapter(adapter);
         //构造数据源
         List<ItemWrapper> data = getItemWrappers();
@@ -74,7 +76,7 @@ public class MultiListViewActivity extends BaseActivity {
     /*
         数据源封装
      */
-    public static class BaseItemB extends ItemWrapper<BeanB> implements View.OnClickListener {
+    public class BaseItemB extends ItemWrapper<BeanB> implements View.OnClickListener {
 
         public BaseItemB(BeanB bean) {
             super(bean);
@@ -98,11 +100,12 @@ public class MultiListViewActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
+            adapter.remove(this);
             Toast.makeText(v.getContext(), "Age=" + bean.age, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public static class BaseItemA extends ItemWrapper<BeanA> implements View.OnClickListener {
+    public class BaseItemA extends ItemWrapper<BeanA> implements View.OnClickListener {
         public BaseItemA(BeanA bean) {
             super(bean);
         }
@@ -125,6 +128,7 @@ public class MultiListViewActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
+            adapter.remove(this);
             Toast.makeText(v.getContext(), "Name=" + bean.name, Toast.LENGTH_SHORT).show();
         }
     }
