@@ -17,7 +17,7 @@ import com.yushilei.commonapp.common.manager.ActivityStack;
  * Activity基类
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     /**
      * 当前Activity是否处于活动状态
      */
@@ -33,7 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityStack.inStack(this);
         setContentView(getLayoutId());
         initView();
+        initData();
     }
+
 
     @SuppressWarnings("unchecked")
     protected <T extends View> T findView(int rid) {
@@ -46,6 +48,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract void initView();
+
+    protected void initData() {
+    }
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -81,4 +86,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityStack.outStack(this);
         super.onDestroy();
     }
+
+    //***点击事件绑定开始
+    protected void setOnClick(View v) {
+        v.setOnClickListener(this);
+    }
+
+    protected void setOnClick(View... views) {
+        for (View v : views) {
+            setOnClick(v);
+        }
+    }
+
+    protected void setOnClick(@IdRes int rid) {
+        findView(rid).setOnClickListener(this);
+    }
+
+    protected void setOnClick(@IdRes int... rids) {
+        for (int rid : rids) {
+            setOnClick(rid);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+    //***点击事件绑定结束
+
 }
