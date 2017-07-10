@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yushilei.commonapp.MainActivity">
+    tools:context="com.yushilei.commonapp.ui.home.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <GridView
+        android:id="@+id/main_grid"
         android:layout_width="match_parent"
-        android:id="@+id/recycler"
-        app:layoutManager="LinearLayoutManager"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:numColumns="2" />
 
 
 </LinearLayout>

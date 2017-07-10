@@ -17,7 +17,13 @@ import com.yushilei.commonapp.common.manager.ActivityStack;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+    /**
+     * 当前Activity是否处于活动状态
+     */
     private boolean isResume = false;
+    /**
+     * 用于存储 或查询 当前Activity findViewById() 查找过的View
+     */
     private SparseArray<View> mViews = new SparseArray<>();
 
     @Override
@@ -25,13 +31,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityStack.inStack(this);
         setContentView(getLayoutId());
+        initView();
     }
 
     @SuppressWarnings("unchecked")
     protected <T extends View> T findView(int rid) {
         View view = mViews.get(rid);
         if (view == null) {
-            view = findView(rid);
+            view = findViewById(rid);
             mViews.append(rid, view);
         }
         return (T) view;

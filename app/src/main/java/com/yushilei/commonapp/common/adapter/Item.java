@@ -5,7 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by shilei.yu on 2017/7/9.
+ * 列表数据适配Adapter 接口
+ *
+ * @author shilei.yu
+ * @since on 2017/7/10.
  */
 
 public interface Item<ViewHolder extends BaseViewHolder> {
@@ -15,4 +18,6 @@ public interface Item<ViewHolder extends BaseViewHolder> {
 
     @LayoutRes
     int getLayoutRes();
+
+    void onBindViewHolder(BaseViewHolder holder, int pos);
 }

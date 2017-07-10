@@ -5,17 +5,20 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * Created by shilei.yu on 2017/7/9.
+ * ViewHolder基类封装
+ * {@link MultiBaseAdapter}适配 AdapterView
+ * {@link MultiRecyclerAdapter} 适配RecyclerView
+ *
+ * @author shilei.yu
+ * @since on 2017/7/10.
  */
 
-public abstract class BaseViewHolder<Bean> extends RecyclerView.ViewHolder {
+public class BaseViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews = new SparseArray<>();
 
     public BaseViewHolder(View itemView) {
         super(itemView);
     }
-
-    public abstract void onBindViewHolder(BaseViewHolder holder, Bean bean, int pos);
 
     @SuppressWarnings("unchecked")
     public <T extends View> T findView(int rid) {

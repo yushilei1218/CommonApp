@@ -1,25 +1,27 @@
 package com.yushilei.commonapp.common.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by shilei.yu on 2017/7/9.
+ * 试用于RecyclerView
+ * 多布局复用统一封装Adapter
+ *
+ * @author shilei.yu
+ * @since on 2017/7/10.
  */
 
-public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
-    private List<BaseItem> mData = new LinkedList<>();
-    Context context;
+public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+    private List<ItemWrapper> mData = new LinkedList<>();
 
-    public BaseRecyclerAdapter(Context context) {
-        this.context = context;
+    public MultiRecyclerAdapter() {
     }
 
-    public void addAll(List<BaseItem> data) {
+    public void addAll(List<ItemWrapper> data) {
         if (data != null && data.size() > 0) {
             mData.clear();
             mData.addAll(data);
@@ -33,7 +35,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mData != null && mData.size() > 0) {
-            for (BaseItem item : mData) {
+            for (ItemWrapper item : mData) {
                 if (item.getItemViewType() == viewType) {
                     return item.onCreateViewHolder(parent, viewType);
                 }
@@ -41,12 +43,11 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
         return null;
     }
-
-    @SuppressWarnings("unchecked")
+    
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        BaseItem item = mData.get(position);
-        holder.onBindViewHolder(holder, item.bean, position);
+        ItemWrapper item = mData.get(position);
+        item.onBindViewHolder(holder, position);
     }
 
     @Override
