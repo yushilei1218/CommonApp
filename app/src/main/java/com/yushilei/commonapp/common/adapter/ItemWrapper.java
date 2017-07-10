@@ -22,6 +22,9 @@ public abstract class ItemWrapper<T> implements Item {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*
+        加载当前数据项指定的布局id 作为converterView 即 holder中的itemView
+         */
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false);
         BaseViewHolder holder = new BaseViewHolder(itemView);
         itemView.setTag(holder);

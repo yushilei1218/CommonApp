@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 /**
  * 列表数据适配Adapter 接口
+ * 默认的实现类为{@link ItemWrapper},不推荐数据源bean直接实现该接口
+ * 如需使用请 将 数据源bean 包装成 ItemWrapper
  *
  * @author shilei.yu
  * @since on 2017/7/10.

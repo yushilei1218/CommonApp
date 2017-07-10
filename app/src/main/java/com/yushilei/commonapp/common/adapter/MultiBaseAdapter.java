@@ -134,7 +134,7 @@ public class MultiBaseAdapter extends BaseAdapter {
         }
         BaseViewHolder holder = (BaseViewHolder) convertView.getTag();
         /*
-         *直接调用数据项的 onBindViewHolder 方法实现Holder convertView 数据项的绑定
+         *直接调用数据项的 onBindViewHolder 方法实现Holder convertView 数据项三者的绑定
          */
         item.onBindViewHolder(holder, position);
         return convertView;

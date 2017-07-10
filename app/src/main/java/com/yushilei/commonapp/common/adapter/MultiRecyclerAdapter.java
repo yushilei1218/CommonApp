@@ -73,6 +73,9 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*
+        根据当前的viewType 从数据源中ItemWrapper 找到匹配的数据项，并由数据项创建匹配的BaseViewHolder
+         */
         if (mData != null && mData.size() > 0) {
             for (ItemWrapper item : mData) {
                 if (item.getItemViewType() == viewType) {
