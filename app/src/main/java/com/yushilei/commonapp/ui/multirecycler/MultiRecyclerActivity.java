@@ -36,51 +36,40 @@ public class MultiRecyclerActivity extends BaseActivity {
     @NonNull
     private List<ItemWrapper> getItemWrappers() {
         List<ItemWrapper> mData = new LinkedList<>();
-        BeanA a1 = new BeanA("yushilei");
-        BeanA a2 = new BeanA("ceshi");
-        BeanA a3 = new BeanA("just test");
+        BeanA a1 = new BeanA("BeanA0");
+        BeanA a2 = new BeanA("BeanA1");
+        BeanA a3 = new BeanA("BeanA2");
+
         BeanB b1 = new BeanB(121);
         BeanB b2 = new BeanB(123);
         BeanB b3 = new BeanB(456);
         BeanB b4 = new BeanB(382);
         BeanB b5 = new BeanB(222);
+
         BaseItemA item1 = new BaseItemA(a1);
+        BaseItemA item01 = new BaseItemA(a1);
+        BaseItemA item02 = new BaseItemA(a1);
         BaseItemA item2 = new BaseItemA(a2);
         BaseItemB item3 = new BaseItemB(b1);
         BaseItemB item4 = new BaseItemB(b2);
 
 
         BaseItemA item5 = new BaseItemA(a3);
+
         BaseItemB item6 = new BaseItemB(b3);
         BaseItemB item7 = new BaseItemB(b4);
         BaseItemB item8 = new BaseItemB(b5);
 
         mData.add(item1);
-        mData.add(item1);
-        mData.add(item1);
-        mData.add(item3);
-        mData.add(item3);
-        mData.add(item3);
-        mData.add(item3);
+        mData.add(item01);
+        mData.add(item02);
         mData.add(item2);
+        mData.add(item3);
         mData.add(item4);
-        mData.add(item5);
-        mData.add(item5);
-        mData.add(item5);
-        mData.add(item5);
-        mData.add(item5);
-        mData.add(item5);
-        mData.add(item5);
+
         mData.add(item5);
         mData.add(item6);
         mData.add(item7);
-        mData.add(item8);
-        mData.add(item8);
-        mData.add(item8);
-        mData.add(item8);
-        mData.add(item8);
-        mData.add(item8);
-        mData.add(item8);
         mData.add(item8);
         return mData;
     }
