@@ -1,10 +1,15 @@
 package com.yushilei.commonapp.ui.multirecycler;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.adapter.BaseViewHolder;
@@ -24,6 +29,9 @@ public class MultiRecyclerActivity extends BaseActivity {
     @Override
     protected void initView() {
         RecyclerView mRecycler = findView(R.id.activity_multi_recycler);
+        //手工画分割线
+        initRecyclerDecoration(mRecycler);
+
         adapter = new MultiRecyclerAdapter();
         mRecycler.setAdapter(adapter);
 
@@ -31,6 +39,31 @@ public class MultiRecyclerActivity extends BaseActivity {
 
         adapter.addAll(mData);
 
+    }
+
+    private void initRecyclerDecoration(RecyclerView mRecycler) {
+        mRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+            @Override
+            public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                int childCount = parent.getChildCount();
+                paint.setColor(Color.parseColor("#cccccc"));
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(1f);
+                for (int i = 0; i < childCount; i++) {
+                    View child = parent.getChildAt(i);
+                    int bottom = child.getBottom();
+                    c.drawLine(child.getLeft(), bottom, child.getRight(), bottom, paint);
+                }
+            }
+
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.bottom = 1;
+                super.getItemOffsets(outRect, view, parent, state);
+            }
+        });
     }
 
     @NonNull
@@ -59,7 +92,9 @@ public class MultiRecyclerActivity extends BaseActivity {
         BaseItemB item6 = new BaseItemB(b3);
         BaseItemB item7 = new BaseItemB(b4);
         BaseItemB item8 = new BaseItemB(b5);
-
+        BaseItemC itemC = new BaseItemC(new BeanA("头部"));
+        BaseItemC itemEnd = new BaseItemC(new BeanA("尾巴"));
+        mData.add(itemC);
         mData.add(item1);
         mData.add(item01);
         mData.add(item02);
@@ -71,6 +106,7 @@ public class MultiRecyclerActivity extends BaseActivity {
         mData.add(item6);
         mData.add(item7);
         mData.add(item8);
+        mData.add(itemEnd);
         return mData;
     }
 
@@ -82,6 +118,32 @@ public class MultiRecyclerActivity extends BaseActivity {
     /*
         数据源封装
      */
+
+    public class BaseItemC extends ItemWrapper<BeanA> implements View.OnClickListener {
+
+        public BaseItemC(BeanA bean) {
+            super(bean);
+        }
+
+        @Override
+        public int getLayoutRes() {
+            return R.layout.item_c;
+        }
+
+        @Override
+        public void onBindViewHolder(BaseViewHolder holder, int pos) {
+            holder.itemView.setOnClickListener(this);
+            TextView tv = holder.findView(R.id.item_c_tv);
+            String text = "Name=" + bean.name;
+            tv.setText(text);
+        }
+
+        @Override
+        public void onClick(View v) {
+            showToast("Name=" + bean.name);
+        }
+    }
+
     public class BaseItemB extends ItemWrapper<BeanB> implements View.OnClickListener {
 
         public BaseItemB(BeanB bean) {
