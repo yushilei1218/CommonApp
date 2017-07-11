@@ -1,33 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_load_finish"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="loadFinish" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_no_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="noMore" />
+            <Button
+                android:id="@+id/btn_load_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="loadFinish" />
+
+            <Button
+                android:id="@+id/btn_no_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="noMore" />
+        </LinearLayout>
+
+        <in.srain.cube.views.ptr.PtrFrameLayout
+            android:id="@+id/load_more_ptr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.yushilei.commonapp.common.widget.LoadMoreRecyclerView
+                android:id="@+id/load_more_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="LinearLayoutManager" />
+        </in.srain.cube.views.ptr.PtrFrameLayout>
+
+
     </LinearLayout>
 
-    <com.yushilei.commonapp.common.widget.LoadMoreRecyclerView
-        android:id="@+id/load_more_recycler"
+    <RelativeLayout
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager" />
-</LinearLayout>
+        android:background="#55000000"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>
