@@ -1,10 +1,12 @@
 package com.yushilei.commonapp.ui.loadmorerecycler;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,12 +27,12 @@ import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 
 public class LoadMoreRecyclerActivity extends BaseActivity {
 
     private LoadMoreRecyclerView mRecycler;
     private MultiRecyclerAdapter mAdapter;
+    private PtrFrameLayout mPtr;
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -45,28 +47,59 @@ public class LoadMoreRecyclerActivity extends BaseActivity {
                         mAdapter.addAllLast(mCacheWrappers);
                         mRecycler.noMore();
                     }
-
                     break;
                 case 2:
                     mPtr.refreshComplete();
                     mAdapter.addAll(mCacheWrappers);
+                    mRecycler.loadFinish();
                     break;
             }
             return true;
         }
     });
-    private PtrFrameLayout mPtr;
+
 
     @Override
     protected void initView() {
 
-        View mLoadV = findView(R.id.loading_layout);
         mRecycler = findView(R.id.load_more_recycler);
-
         mPtr = findView(R.id.load_more_ptr);
+
+        mAdapter = new MultiRecyclerAdapter();
+        mRecycler.setAdapter(mAdapter);
+        /*RecyclerView Item画分割线*/
+        mRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+            @Override
+            public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                RecyclerView.LayoutManager manager = parent.getLayoutManager();
+                int count = manager.getChildCount();
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(1f);
+                paint.setColor(Color.parseColor("#cccccc"));
+                for (int i = 0; i < count; i++) {
+                    View child = manager.getChildAt(i);
+                    if (i == 0) {
+                        c.drawLine(child.getLeft(), child.getTop(), child.getRight(), child.getTop(), paint);
+                    }
+                    c.drawLine(child.getLeft(), child.getBottom(), child.getRight(), child.getBottom(), paint);
+                }
+            }
+        });
+        /*设置上拉加载更多监听器*/
+        mRecycler.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.i(getTAG(), "onLoadMore");
+                loadMore();
+            }
+        });
+        /*设置下拉刷新Header*/
         PtrCustomHeader header = new PtrCustomHeader(this);
         mPtr.addPtrUIHandler(header);
         mPtr.setHeaderView(header);
+        /*设置触发刷新时回调*/
         mPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
@@ -75,17 +108,7 @@ public class LoadMoreRecyclerActivity extends BaseActivity {
         });
 
         setOnClick(R.id.btn_load_finish, R.id.btn_no_more);
-        mAdapter = new MultiRecyclerAdapter();
-        mRecycler.setAdapter(mAdapter);
 
-
-        mRecycler.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                Log.i(getTAG(), "onLoadMore");
-                doLoadMore();
-            }
-        });
         mPtr.autoRefresh();
     }
 
@@ -112,7 +135,7 @@ public class LoadMoreRecyclerActivity extends BaseActivity {
         }).start();
     }
 
-    private void doLoadMore() {
+    private void loadMore() {
         new Thread(new Runnable() {
             @Override
             public void run() {

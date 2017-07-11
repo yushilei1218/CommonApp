@@ -48,7 +48,7 @@ public class PtrCustomHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-
+        mHeaderTv.setText("下拉刷新");
     }
 
     @Override
