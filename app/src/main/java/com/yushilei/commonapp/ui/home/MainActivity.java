@@ -16,6 +16,7 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 
@@ -34,8 +35,10 @@ public class MainActivity extends BaseActivity {
         List<ItemWrapper> data = new LinkedList<>();
         HomeItem item1 = new HomeItem(new HomeBean(Constant.MULTI_RECYCLER));
         HomeItem item2 = new HomeItem(new HomeBean(Constant.MULTI_LIST_VIEW));
+        HomeItem item3 = new HomeItem(new HomeBean(Constant.LOAD_MORE_RECYCLER));
         data.add(item1);
         data.add(item2);
+        data.add(item3);
         adapter.addAll(data);
     }
 
@@ -72,6 +75,10 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.MULTI_LIST_VIEW:
                     intent = new Intent(MainActivity.this, MultiListViewActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case Constant.LOAD_MORE_RECYCLER:
+                    intent = new Intent(MainActivity.this, LoadMoreRecyclerActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
             }

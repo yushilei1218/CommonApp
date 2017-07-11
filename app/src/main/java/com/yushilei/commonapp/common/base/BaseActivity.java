@@ -114,4 +114,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
     //***点击事件绑定结束
 
+    public String getTAG() {
+        return this.getClass().getSimpleName();
+    }
+
 }

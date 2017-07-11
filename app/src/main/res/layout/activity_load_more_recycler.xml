@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_load_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="loadFinish" />
+
+        <Button
+            android:id="@+id/btn_no_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="noMore" />
+    </LinearLayout>
+
+    <com.yushilei.commonapp.common.widget.LoadMoreRecyclerView
+        android:id="@+id/load_more_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager" />
+</LinearLayout>

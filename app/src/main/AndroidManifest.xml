@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.multirecycler.MultiRecyclerActivity" />
-        <activity android:name=".ui.multilv.MultiListViewActivity"></activity>
+        <activity android:name=".ui.multilv.MultiListViewActivity" />
+        <activity android:name=".ui.loadmorerecycler.LoadMoreRecyclerActivity"></activity>
     </application>
 
 </manifest>
