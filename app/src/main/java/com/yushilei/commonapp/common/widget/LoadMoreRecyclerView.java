@@ -31,9 +31,13 @@ import com.yushilei.commonapp.common.adapter.MultiRecyclerAdapter;
 
 public class LoadMoreRecyclerView extends RecyclerView {
     private static final String TAG = "LoadMoreRecyclerView";
-
+    /*当前View 使用的MultiRecyclerAdapter*/
     private MultiRecyclerAdapter mAdapter;
-
+    /**
+     * 当前LoadMoreRecyclerView Footer
+     * 如需更改Footer样子{@link FootWrapper#getLayoutRes()}
+     * Footer维护的UI 方法参见 {@link FootWrapper#onBindViewHolder(BaseViewHolder, int)} }
+     */
     private FootWrapper mFooter = new FootWrapper(new FootItem(FootSate.NORMAL));
     /**
      * 是否向下滑动
@@ -43,6 +47,28 @@ public class LoadMoreRecyclerView extends RecyclerView {
      * 加载更多 回调接口，如不设置，则默认不支持Footer
      */
     private LoadMoreListener loadMoreListener;
+    /**
+     * 是否需要loadMore功能，当loadMoreListener 不为空时才起作用
+     * 使用场景：当触发下拉刷新时，loading过程中，不应该触发上拉刷新
+     */
+    private boolean canLoadMore = true;
+
+    /**
+     * @see #loadMoreListener 在监听不为空的时候才有效
+     * 设置上拉时是否可以触发 加载更多
+     */
+    public void setCanLoadMore(boolean needLoadMore) {
+        this.canLoadMore = needLoadMore;
+    }
+
+    /**
+     * 上拉操作是否可以触发加载更多
+     *
+     * @return true 可以；false 不可以
+     */
+    public boolean isCanLoadMore() {
+        return loadMoreListener != null && canLoadMore;
+    }
 
     public LoadMoreRecyclerView(Context context) {
         this(context, null);
@@ -77,11 +103,16 @@ public class LoadMoreRecyclerView extends RecyclerView {
     private void processScrollDown() {
         if (loadMoreListener == null)
             return;
+        if (!canLoadMore) {
+            return;
+        }
         if (mFooter.bean.curState != FootSate.NORMAL) {
             return;
         }
         if (mAdapter == null)
             return;
+        if (getLayoutManager() instanceof LinearLayoutManager)
+            throw new IllegalArgumentException("LoadMoreRecyclerView 仅支持LinearLayoutManager，如需支持其他，请自行修改源码！");
         LinearLayoutManager manager = (LinearLayoutManager) getLayoutManager();
         if (manager == null)
             return;

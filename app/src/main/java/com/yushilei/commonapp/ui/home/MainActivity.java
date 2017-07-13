@@ -19,6 +19,7 @@ import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
+import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,9 +37,11 @@ public class MainActivity extends BaseActivity {
         HomeItem item1 = new HomeItem(new HomeBean(Constant.MULTI_RECYCLER));
         HomeItem item2 = new HomeItem(new HomeBean(Constant.MULTI_LIST_VIEW));
         HomeItem item3 = new HomeItem(new HomeBean(Constant.LOAD_MORE_RECYCLER));
+        HomeItem item4 = new HomeItem(new HomeBean(Constant.ZP_PTR));
         data.add(item1);
         data.add(item2);
         data.add(item3);
+        data.add(item4);
         adapter.addAll(data);
     }
 
@@ -79,6 +82,10 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.LOAD_MORE_RECYCLER:
                     intent = new Intent(MainActivity.this, LoadMoreRecyclerActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case Constant.ZP_PTR:
+                    intent = new Intent(MainActivity.this, PtrZpActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
             }

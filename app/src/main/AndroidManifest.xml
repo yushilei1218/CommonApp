@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".ui.multirecycler.MultiRecyclerActivity" />
         <activity android:name=".ui.multilv.MultiListViewActivity" />
-        <activity android:name=".ui.loadmorerecycler.LoadMoreRecyclerActivity"></activity>
+        <activity android:name=".ui.loadmorerecycler.LoadMoreRecyclerActivity" />
+        <activity android:name=".ui.ptr.PtrZpActivity"></activity>
     </application>
 
 </manifest>

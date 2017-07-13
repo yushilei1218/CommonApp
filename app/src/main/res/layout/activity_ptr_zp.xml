@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<in.srain.cube.views.ptr.PtrFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ptr_zp_ptr"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yushilei.commonapp.ui.ptr.PtrZpActivity">
+
+    <com.yushilei.commonapp.common.widget.LoadMoreRecyclerView
+        android:id="@+id/ptr_load_more_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager" />
+
+</in.srain.cube.views.ptr.PtrFrameLayout>
