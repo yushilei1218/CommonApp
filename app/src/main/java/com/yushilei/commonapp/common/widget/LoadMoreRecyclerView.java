@@ -111,7 +111,8 @@ public class LoadMoreRecyclerView extends RecyclerView {
         }
         if (mAdapter == null)
             return;
-        if (getLayoutManager() instanceof LinearLayoutManager)
+        boolean match = getLayoutManager() instanceof LinearLayoutManager;
+        if (!match)
             throw new IllegalArgumentException("LoadMoreRecyclerView 仅支持LinearLayoutManager，如需支持其他，请自行修改源码！");
         LinearLayoutManager manager = (LinearLayoutManager) getLayoutManager();
         if (manager == null)

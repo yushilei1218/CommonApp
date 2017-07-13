@@ -10,4 +10,5 @@ public interface Constant {
     String MULTI_LIST_VIEW = "多布局ListView";
     String LOAD_MORE_RECYCLER = "LoadMoreRecyclerView";
     String ZP_PTR = "智联Ptr";
+    String TEST = "TEST";
 }
