@@ -1,8 +1,12 @@
 package com.yushilei.commonapp.ui.ptr;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,10 +46,10 @@ public class PtrZpActivity extends BaseActivity {
                     adapter.addAll(mCacheList);
                     break;
                 case LOAD_MORE:
-                    if (mCacheList.size()<9){
+                    if (mCacheList.size() < 9) {
                         adapter.addAllLast(mCacheList);
                         mRecycler.noMore();
-                    }else {
+                    } else {
                         mRecycler.loadFinish();
                         adapter.addAllLast(mCacheList);
                     }
