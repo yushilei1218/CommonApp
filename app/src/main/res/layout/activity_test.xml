@@ -7,13 +7,22 @@
     android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.test.TestActivity">
 
-    <TextView
-        android:id="@+id/continue_talk"
+
+    <com.yushilei.commonapp.common.widget.LoadingTextView
+        android:id="@+id/loading_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/rotate_drawable"
+        android:background="@drawable/bg_shape"
         android:gravity="center"
         android:padding="10dp"
-        android:text="继续聊" />
+        android:text="约聊一下"
+        android:textSize="18sp"
+        app:atextColor="#ffffff" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/test_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager" />
 
 </LinearLayout>
