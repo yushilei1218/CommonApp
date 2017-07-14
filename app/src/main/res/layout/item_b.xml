@@ -2,7 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:clipChildren="false"
     android:orientation="vertical">
+
+    <com.yushilei.commonapp.common.widget.BezierView
+        android:id="@+id/drop_fake"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/nim_icon_reddot" />
 
     <TextView
         android:id="@+id/item_b_tv"

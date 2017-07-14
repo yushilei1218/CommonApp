@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,10 @@ import com.yushilei.commonapp.common.adapter.MultiRecyclerAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.common.bean.BeanB;
+import com.yushilei.commonapp.common.widget.BezierView;
+import com.yushilei.commonapp.common.widget.drop.DropCover;
+import com.yushilei.commonapp.common.widget.drop.DropFake;
+import com.yushilei.commonapp.common.widget.drop.DropManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +30,15 @@ import java.util.List;
 public class MultiRecyclerActivity extends BaseActivity {
 
     private MultiRecyclerAdapter adapter;
+
+    private DropCover.IDropCompletedListener dropListener = new DropCover.IDropCompletedListener() {
+        @Override
+        public void onCompleted(Object id, boolean explosive) {
+
+            Log.i(getTAG(), " explosive=" + explosive);
+
+        }
+    };
 
     @Override
     protected void initView() {
@@ -38,8 +52,8 @@ public class MultiRecyclerActivity extends BaseActivity {
         List<ItemWrapper> mData = getItemWrappers();
 
         adapter.addAll(mData);
-
     }
+
 
     private void initRecyclerDecoration(RecyclerView mRecycler) {
         mRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -80,8 +94,7 @@ public class MultiRecyclerActivity extends BaseActivity {
         BeanB b5 = new BeanB(222);
 
         BaseItemA item1 = new BaseItemA(a1);
-        BaseItemA item01 = new BaseItemA(a1);
-        BaseItemA item02 = new BaseItemA(a1);
+
         BaseItemA item2 = new BaseItemA(a2);
         BaseItemB item3 = new BaseItemB(b1);
         BaseItemB item4 = new BaseItemB(b2);
@@ -96,8 +109,6 @@ public class MultiRecyclerActivity extends BaseActivity {
         BaseItemC itemEnd = new BaseItemC(new BeanA("尾巴"));
         mData.add(itemC);
         mData.add(item1);
-        mData.add(item01);
-        mData.add(item02);
         mData.add(item2);
         mData.add(item3);
         mData.add(item4);
@@ -115,6 +126,10 @@ public class MultiRecyclerActivity extends BaseActivity {
         return R.layout.activity_multi_recycler;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     /*
         数据源封装
      */
@@ -150,6 +165,8 @@ public class MultiRecyclerActivity extends BaseActivity {
             super(bean);
         }
 
+        private BaseViewHolder holder;
+
         @Override
         public int getLayoutRes() {
             return R.layout.item_b;
@@ -157,8 +174,19 @@ public class MultiRecyclerActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(BaseViewHolder holder, int pos) {
+            this.holder = holder;
             TextView view = holder.findView(R.id.item_b_tv);
             ImageView img = holder.findView(R.id.item_b_img);
+            BezierView fake = holder.findView(R.id.drop_fake);
+            fake.setListener(new BezierView.DropCompleteListener() {
+                @Override
+                public void onDropComplete() {
+                    BaseItemB.this.holder.findView(R.id.drop_fake).setVisibility(View.GONE);
+                }
+            });
+            String tip = "" + bean.age;
+            fake.setText(tip);
+
 
             String text = bean.age + " 岁";
             view.setText(text);

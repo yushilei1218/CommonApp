@@ -63,7 +63,7 @@ public class TestActivity extends BaseActivity {
         return R.layout.activity_test;
     }
 
-    public class BeanWrapperA extends ItemWrapper<BeanA> {
+    public class BeanWrapperA extends ItemWrapper<BeanA> implements View.OnClickListener {
         public BeanWrapperA(BeanA bean) {
             super(bean);
         }
@@ -77,6 +77,12 @@ public class TestActivity extends BaseActivity {
         public void onBindViewHolder(BaseViewHolder holder, int pos) {
             TextView tv = (TextView) holder.findView(R.id.item_a_nest_tv);
             tv.setText(bean.name);
+            holder.itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            showToast(bean.name);
         }
     }
 

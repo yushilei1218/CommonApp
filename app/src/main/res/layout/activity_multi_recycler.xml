@@ -13,4 +13,9 @@
         android:padding="10dp"
         app:layoutManager="LinearLayoutManager" />
 
+    <com.yushilei.commonapp.common.widget.drop.DropCover
+        android:id="@+id/dropCover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
