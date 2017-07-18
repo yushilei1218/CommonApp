@@ -11,4 +11,5 @@ public interface Constant {
     String LOAD_MORE_RECYCLER = "LoadMoreRecyclerView";
     String ZP_PTR = "智联Ptr";
     String TEST = "TEST";
+    String AMAP = "高德Map";
 }

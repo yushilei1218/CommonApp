@@ -2,10 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
+        release {
             keyAlias 'key0'
             keyPassword '123456'
             storeFile file('D:/Android/key/key.jks')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'key1'
+            keyPassword '123456'
+            storeFile file('D:/Android/key/debugKey.jks')
             storePassword '123456'
         }
     }
@@ -23,7 +29,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -33,6 +39,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -40,5 +47,10 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
+
     testCompile 'junit:junit:4.12'
 }

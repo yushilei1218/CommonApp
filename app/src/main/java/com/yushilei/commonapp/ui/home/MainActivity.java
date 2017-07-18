@@ -17,6 +17,7 @@ import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
+import com.yushilei.commonapp.ui.map.MapActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
@@ -40,11 +41,13 @@ public class MainActivity extends BaseActivity {
         HomeItem item3 = new HomeItem(new HomeBean(Constant.LOAD_MORE_RECYCLER));
         HomeItem item4 = new HomeItem(new HomeBean(Constant.ZP_PTR));
         HomeItem item5 = new HomeItem(new HomeBean(Constant.TEST));
+        HomeItem item6 = new HomeItem(new HomeBean(Constant.AMAP));
         data.add(item1);
         data.add(item2);
         data.add(item3);
         data.add(item4);
         data.add(item5);
+        data.add(item6);
         adapter.addAll(data);
     }
 
@@ -73,29 +76,29 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent;
+            Intent intent = null;
             switch (bean.name) {
                 case Constant.MULTI_RECYCLER:
                     intent = new Intent(MainActivity.this, MultiRecyclerActivity.class);
-                    MainActivity.this.startActivity(intent);
                     break;
                 case Constant.MULTI_LIST_VIEW:
                     intent = new Intent(MainActivity.this, MultiListViewActivity.class);
-                    MainActivity.this.startActivity(intent);
                     break;
                 case Constant.LOAD_MORE_RECYCLER:
                     intent = new Intent(MainActivity.this, LoadMoreRecyclerActivity.class);
-                    MainActivity.this.startActivity(intent);
                     break;
                 case Constant.ZP_PTR:
                     intent = new Intent(MainActivity.this, PtrZpActivity.class);
-                    MainActivity.this.startActivity(intent);
                     break;
                 case Constant.TEST:
                     intent = new Intent(MainActivity.this, TestActivity.class);
-                    MainActivity.this.startActivity(intent);
+                    break;
+                case Constant.AMAP:
+                    intent = new Intent(MainActivity.this, MapActivity.class);
                     break;
             }
+            if (intent != null)
+                MainActivity.this.startActivity(intent);
         }
     }
 }
