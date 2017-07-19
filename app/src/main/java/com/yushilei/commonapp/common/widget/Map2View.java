@@ -51,7 +51,7 @@ public class Map2View extends MapView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int newHSpec = MeasureSpec.makeMeasureSpec(outSize.x, MeasureSpec.EXACTLY);
+        int newHSpec = MeasureSpec.makeMeasureSpec((int) (outSize.y * 3f / 4f), MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, newHSpec);
     }
 }

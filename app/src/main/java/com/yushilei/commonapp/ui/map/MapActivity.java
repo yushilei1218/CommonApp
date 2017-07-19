@@ -41,6 +41,9 @@ public class MapActivity extends BaseActivity {
         data.add(new BeanWrapper(new BeanA("噗噗")));
         data.add(new BeanWrapper(new BeanA("次次")));
         data.add(new BeanWrapper(new BeanA("乐乐")));
+        data.add(new BeanWrapper(new BeanA("哟哟")));
+        data.add(new BeanWrapper(new BeanA("渣渣")));
+        data.add(new BeanWrapper(new BeanA("讷讷")));
         adapter.addAll(data);
 
     }
