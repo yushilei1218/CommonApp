@@ -10,7 +10,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.RelativeLayout;
 
+import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.widget.Map2View;
 
 /**
@@ -18,7 +20,7 @@ import com.yushilei.commonapp.common.widget.Map2View;
  * @since on 2017/7/19.
  */
 
-public class ScrollBehavior extends CoordinatorLayout.Behavior<Map2View> {
+public class ScrollBehavior extends CoordinatorLayout.Behavior<RelativeLayout> {
     public ScrollBehavior() {
     }
 
@@ -27,12 +29,12 @@ public class ScrollBehavior extends CoordinatorLayout.Behavior<Map2View> {
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, Map2View child, View directTargetChild, View target, int nestedScrollAxes) {
-        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, RelativeLayout child, View directTargetChild, View target, int nestedScrollAxes) {
+        return target.getId()== R.id.map_recycler && nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 
     @Override
-    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, Map2View child, View target, int dx, int dy, int[] consumed) {
+    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, RelativeLayout child, View target, int dx, int dy, int[] consumed) {
         int offset = getOffset(coordinatorLayout, child, target);
         RecyclerView mTarget = (RecyclerView) target;
         RecyclerView.LayoutManager layoutManager = mTarget.getLayoutManager();
@@ -65,7 +67,7 @@ public class ScrollBehavior extends CoordinatorLayout.Behavior<Map2View> {
         }
     }
 
-    private int getOffset(CoordinatorLayout coordinatorLayout, Map2View child, View target) {
+    private int getOffset(CoordinatorLayout coordinatorLayout, RelativeLayout child, View target) {
         int containerHeight = coordinatorLayout.getHeight();
         int mapHeight = child.getHeight();
         int recyclerHeight = target.getHeight();
@@ -73,7 +75,7 @@ public class ScrollBehavior extends CoordinatorLayout.Behavior<Map2View> {
     }
 
     @Override
-    public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, Map2View child, View target) {
+    public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, RelativeLayout child, View target) {
         //嵌套滑动结束
         int offset = getOffset(coordinatorLayout, child, target);
         int curY = (int) child.getY();

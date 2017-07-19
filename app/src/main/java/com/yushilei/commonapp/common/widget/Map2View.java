@@ -1,7 +1,9 @@
 package com.yushilei.commonapp.common.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
@@ -9,6 +11,7 @@ import android.view.WindowManager;
 
 import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.MapView;
+import com.yushilei.commonapp.R;
 
 /**
  * @author shilei.yu
@@ -39,6 +42,7 @@ public class Map2View extends MapView {
     public Map2View(Context context, AMapOptions aMapOptions) {
         super(context, aMapOptions);
         init(context);
+
     }
 
     private void init(Context context) {

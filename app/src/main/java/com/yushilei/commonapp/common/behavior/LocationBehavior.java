@@ -25,7 +25,7 @@ public class LocationBehavior extends CoordinatorLayout.Behavior<FixedHeightRecy
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, FixedHeightRecyclerView child, View dependency) {
-        return dependency.getId() == R.id.map_v;
+        return dependency.getId() == R.id.map_container;
     }
 
     @Override

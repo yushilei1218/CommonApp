@@ -6,11 +6,24 @@
     android:layout_height="match_parent"
     tools:context="com.yushilei.commonapp.ui.map.MapActivity">
 
-    <com.yushilei.commonapp.common.widget.Map2View
-        android:id="@+id/map_v"
-        app:layout_behavior=".common.behavior.ScrollBehavior"
+    <RelativeLayout
+        android:id="@+id/map_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:layout_behavior=".common.behavior.ScrollBehavior">
+
+        <com.yushilei.commonapp.common.widget.Map2View
+            android:id="@+id/map_v"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/marker" />
+    </RelativeLayout>
+
 
     <com.yushilei.commonapp.common.widget.FixedHeightRecyclerView
         android:id="@+id/map_recycler"
@@ -18,5 +31,44 @@
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
         app:layout_behavior=".common.behavior.LocationBehavior" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_wihte_round_conner"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/log_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/map_key_word_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btn_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/btn_location" />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
