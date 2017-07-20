@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.test.TestActivity">
 
+    <com.yushilei.commonapp.common.widget.SwitchButton
+        android:padding="5dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp" />
 
     <com.yushilei.commonapp.common.widget.LoadingTextView
         android:id="@+id/loading_tv"

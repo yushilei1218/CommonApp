@@ -3,4 +3,9 @@
     <declare-styleable name="LoadingTextView">
         <attr name="atextColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="SwitchButton">
+        <attr name="strokeColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="tagColor" format="color" />
+    </declare-styleable>
 </resources>

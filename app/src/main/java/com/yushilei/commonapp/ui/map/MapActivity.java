@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
@@ -197,11 +198,14 @@ public class MapActivity extends BaseActivity implements Inputtips.InputtipsList
         if (aMapLocation != null) {
             if (aMapLocation.getErrorCode() == 0) {
                 //绘制marker
+                LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                 Marker marker = aMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()))
+                        .position(latLng)
                         .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                                 .decodeResource(getResources(), R.mipmap.marker)))
                         .draggable(true));
+                aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                        latLng, 18, 30, 30)));
 
             }
             logTV.setText(aMapLocation.toString());
@@ -220,9 +224,9 @@ public class MapActivity extends BaseActivity implements Inputtips.InputtipsList
         LatLng target = cameraPosition.target;
 
         PoiSearch.Query query = new PoiSearch.Query("", "190400", "");
-//keyWord表示搜索字符串，
-//第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
-//cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
+        //keyWord表示搜索字符串，
+        //第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
+        //cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
         query.setPageSize(10);// 设置每页最多返回多少条poiitem
         query.setPageNum(1);//设置查询页码
 
