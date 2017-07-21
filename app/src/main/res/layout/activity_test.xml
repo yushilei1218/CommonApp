@@ -7,10 +7,23 @@
     android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.test.TestActivity">
 
-    <com.yushilei.commonapp.common.widget.SwitchButton
-        android:padding="5dp"
-        android:layout_width="80dp"
-        android:layout_height="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/show_recy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="showRecycler" />
+
+        <Button
+            android:id="@+id/show_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="showList" />
+    </LinearLayout>
 
     <com.yushilei.commonapp.common.widget.LoadingTextView
         android:id="@+id/loading_tv"
@@ -23,10 +36,29 @@
         android:textSize="18sp"
         app:atextColor="#ffffff" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/test_recycler"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/test_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layoutManager="LinearLayoutManager" />
+
+        <ListView
+            android:id="@+id/test_lv"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="1px" />
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
 </LinearLayout>

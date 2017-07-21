@@ -1,7 +1,7 @@
 package com.yushilei.commonapp.common.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.ViewGroup;
 
 import com.yushilei.commonapp.common.util.SetUtil;
@@ -18,7 +18,14 @@ import java.util.List;
  */
 
 public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+    /**
+     * 数据源
+     */
     private List<ItemWrapper> mData = new LinkedList<>();
+    /**
+     * viewType 匹配到具体的 数据源中具体的position
+     */
+    private SparseIntArray mViewTypeMatchPosArr = new SparseIntArray();
 
     public MultiRecyclerAdapter() {
     }
@@ -97,17 +104,19 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        /*
-        根据当前的viewType 从数据源中ItemWrapper 找到匹配的数据项，并由数据项创建匹配的BaseViewHolder
-         */
-        if (mData != null && mData.size() > 0) {
-            for (ItemWrapper item : mData) {
-                if (item.getItemViewType() == viewType) {
-                    return item.onCreateViewHolder(parent, viewType);
-                }
-            }
-        }
-        return null;
+        return mData.get(mViewTypeMatchPosArr.get(viewType))
+                .onCreateViewHolder(parent, viewType);
+//        /*
+//        根据当前的viewType 从数据源中ItemWrapper 找到匹配的数据项，并由数据项创建匹配的BaseViewHolder
+//         */
+//        if (mData != null && mData.size() > 0) {
+//            for (ItemWrapper item : mData) {
+//                if (item.getItemViewType() == viewType) {
+//                    return item.onCreateViewHolder(parent, viewType);
+//                }
+//            }
+//        }
+//        return null;
     }
 
     @Override
@@ -118,7 +127,9 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return mData.get(position).getItemViewType();
+        int viewType = mData.get(position).getItemViewType();
+        mViewTypeMatchPosArr.append(viewType, position);
+        return viewType;
     }
 
     @Override
