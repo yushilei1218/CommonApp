@@ -1,6 +1,7 @@
 package com.yushilei.commonapp.common.base;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -11,13 +12,16 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
+import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.manager.ActivityStack;
+import com.yushilei.commonapp.common.mvp.ErrorViewHolder;
+import com.yushilei.commonapp.common.mvp.IBaseView;
 
 /**
  * Activity基类
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
     /**
      * 当前Activity是否处于活动状态
      */
@@ -27,18 +31,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     private SparseArray<View> mViews = new SparseArray<>();
 
+    private ErrorViewHolder mHolder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.inStack(this);
         setContentView(getLayoutId());
+        initErrorView();
         initView();
         initData();
     }
 
-
     @SuppressWarnings("unchecked")
-    protected <T extends View> T findView(int rid) {
+    public <T extends View> T findView(int rid) {
         View view = mViews.get(rid);
         if (view == null) {
             view = findViewById(rid);
@@ -47,44 +53,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return (T) view;
     }
 
-    protected abstract void initView();
-
-    protected void initData() {
-    }
-
     @LayoutRes
     protected abstract int getLayoutId();
 
-    public void showDialog(AlertDialog dialog) {
-        dialog.show();
-    }
-
-    public void showToast(String msg) {
-        Toast.makeText(BaseApp.AppContext, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        isResume = false;
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isResume = true;
-    }
-
-    @Override
-    protected void onPause() {
-        isResume = false;
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        ActivityStack.outStack(this);
-        super.onDestroy();
+    public boolean isResume() {
+        return isResume;
     }
 
     //***点击事件绑定开始
@@ -112,10 +85,72 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
 
     }
-    //***点击事件绑定结束
 
+    //***点击事件绑定结束
+    @Override
     public String getTAG() {
-        return this.getClass().getSimpleName();
+        String name = this.getClass().getSimpleName();
+        if (name.length() > 23)
+            name = name.substring(0, 23);
+        return name;
     }
 
+    @Override
+    public Context getActivityContext() {
+        return this;
+    }
+
+    @Override
+    public void showDialog(AlertDialog dialog) {
+        dialog.show();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(BaseApp.AppContext, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void initErrorView() {
+        mHolder = new ErrorViewHolder(this);
+    }
+
+    @Override
+    public void showLoading() {
+        mHolder.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        mHolder.hideLoading();
+    }
+
+    @Override
+    public void onError(int imageId, String msg, String btnText, View.OnClickListener onClickListener) {
+        mHolder.onError(imageId, msg, btnText, onClickListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        isResume = false;
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isResume = true;
+    }
+
+    @Override
+    protected void onPause() {
+        isResume = false;
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ActivityStack.outStack(this);
+        super.onDestroy();
+    }
 }

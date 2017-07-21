@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,9 +23,20 @@ public class Client {
             client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(@NonNull Chain chain) throws IOException {
-                    Request request = chain.request();
-                    String url = request.url().toString();
-                    return chain.proceed(request);
+                    Request oldRequest = chain.request();
+                    HttpUrl.Builder builder = oldRequest.url().newBuilder();
+
+                    builder.addQueryParameter("device", "android")
+                            .addQueryParameter("deviceId", "ffffffff-d31d-8252-ffff-ffff97b77fee")
+                            .addQueryParameter("version", "6.3.9")
+                            .addQueryParameter("code", "43_110000_1100");
+
+                    Request.Builder requestBuilder = oldRequest.newBuilder()
+                            .addHeader("user-agent", "ting_6.3.9(MI+NOTE+LTE,Android19)");
+
+                    Request newRequest = requestBuilder.url(builder.build()).build();
+
+                    return chain.proceed(newRequest);
                 }
             }).build();
         return client;

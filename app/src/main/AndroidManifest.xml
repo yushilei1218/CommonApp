@@ -2,18 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yushilei.commonapp">
 
-    <!--用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <!--用于申请调用A-GPS模块-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <!--用于申请获取蓝牙信息进行室内定位-->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <!-- 允许程序打开网络套接字 -->   <!--用于访问网络，网络定位需要上网-->
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 允许程序打开网络套接字 -->
+    <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -52,7 +53,8 @@
         <activity android:name=".ui.loadmorerecycler.LoadMoreRecyclerActivity" />
         <activity android:name=".ui.ptr.PtrZpActivity" />
         <activity android:name=".ui.test.TestActivity" />
-        <activity android:name=".ui.map.MapActivity"></activity>
+        <activity android:name=".ui.map.MapActivity" />
+        <activity android:name=".ui.mvp.view.HomeActivity"></activity>
     </application>
 
 </manifest>
