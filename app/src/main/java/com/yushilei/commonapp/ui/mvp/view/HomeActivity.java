@@ -1,15 +1,17 @@
 package com.yushilei.commonapp.ui.mvp.view;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.yushilei.commonapp.R;
+import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiRecyclerAdapter;
 import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
 import com.yushilei.commonapp.common.widget.PtrFirstHeader;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
+import com.yushilei.commonapp.ui.mvp.model.HomeModel;
 import com.yushilei.commonapp.ui.mvp.presenter.HomePresenter;
+
+import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -27,7 +29,7 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
 
     @Override
     public HomeContract.Presenter getPresenter() {
-        return new HomePresenter(this);
+        return new HomePresenter(this, new HomeModel());
     }
 
     @Override
@@ -39,7 +41,7 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         mPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                presenter.refreshData();
+                presenter.beginRefreshData(true);
             }
         });
         mRecycler = (RecyclerView) findView(R.id.home_recycler);
@@ -50,5 +52,15 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    public void onRefreshing() {
+        mPtr.autoRefresh();
+    }
+
+    @Override
+    public void onRefreshFinish(List<ItemWrapper> data) {
+        adapter.addAll(data);
     }
 }

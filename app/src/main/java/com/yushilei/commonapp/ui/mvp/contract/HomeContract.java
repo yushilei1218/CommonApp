@@ -14,11 +14,14 @@ import java.util.List;
 
 public class HomeContract {
     public interface IView extends IBaseView {
+        void onRefreshing();
+
+        void onRefreshFinish(List<ItemWrapper> data);
 
     }
 
     public interface Presenter extends IBasePresenter {
-        void refreshData();
+        void beginRefreshData(boolean isRefresh);
     }
 
     public interface IModel {
