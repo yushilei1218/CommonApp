@@ -30,14 +30,14 @@ public class FixPtrFrameLayout extends PtrFrameLayout {
 
     @Override
     public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-        Log.i(TAG, "requestDisallowInterceptTouchEvent " + disallowIntercept);
         this.disallowIntercept = disallowIntercept;
         super.requestDisallowInterceptTouchEvent(disallowIntercept);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
-        if (e.getAction() == MotionEvent.ACTION_UP) {
+        int action = e.getAction();
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             disallowIntercept = false;
         }
         if (disallowIntercept) {

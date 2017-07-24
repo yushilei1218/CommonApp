@@ -9,14 +9,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.util.SetUtil;
 
 import java.util.LinkedList;
@@ -30,10 +25,20 @@ import java.util.List;
  * @since on 2017/7/10.
  */
 
-public class BannerView extends ViewPager {
+public class BannerView extends ViewPager implements Runnable {
+    private static final String TAG = "BannerView";
+
+    private static final int SLEEP_TIME = 3000;
+    /**
+     * 是否已经附在window上
+     */
+    private boolean isAttachedToWindow = false;
+    /**
+     * 是否处于轮播状态
+     */
+    private boolean isLooping = false;
 
     private Adapter adapter;
-    private int touchSlop;
 
     public BannerView(Context context) {
         this(context, null);
@@ -47,10 +52,46 @@ public class BannerView extends ViewPager {
     private void init(Context context, AttributeSet attrs) {
         adapter = new Adapter();
         setAdapter(adapter);
+    }
 
-        ViewConfiguration con = ViewConfiguration.get(context);
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.i(TAG,"onAttachedToWindow");
+        isAttachedToWindow = true;
+        stopLoop();
+        if (adapter.isCanLoop()) {
+            startLoop();
+        }
+    }
 
-        touchSlop = con.getScaledTouchSlop();
+    @Override
+    protected void onDetachedFromWindow() {
+        Log.i(TAG,"onDetachedFromWindow");
+        stopLoop();
+        isAttachedToWindow = false;
+        super.onDetachedFromWindow();
+    }
+
+    /**
+     * 开始轮播
+     */
+    public void startLoop() {
+        if (!adapter.isCanLoop())
+            return;
+        if (isLooping) {
+            stopLoop();
+        }
+        isLooping = true;
+        postDelayed(this, SLEEP_TIME);
+    }
+
+    /**
+     * 结束轮播
+     */
+    public void stopLoop() {
+        isLooping = false;
+        removeCallbacks(this);
     }
 
     @Override
@@ -60,30 +101,68 @@ public class BannerView extends ViewPager {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         View child = getChildAt(0);
         if (child != null) {
             measureChild(child, widthMeasureSpec, heightMeasureSpec);
-            setMeasuredDimension(child.getMeasuredWidth(), child.getMeasuredHeight());
+            int newHSpec = MeasureSpec.makeMeasureSpec(child.getMeasuredHeight(), MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, newHSpec);
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
+    /*BannerView 实现Runnable*/
+    @Override
+    public void run() {
+        int currentItem = getCurrentItem();
+        setCurrentItem(currentItem + 1, true);
+        postDelayed(this, SLEEP_TIME);
+    }
+
     public class Adapter extends PagerAdapter {
-        List<BannerWrapper> data = new LinkedList<>();
+        /*数据源*/
+        private List<BannerWrapper> data = new LinkedList<>();
+        /*ItemView 缓存*/
+        private Pools.SimplePool<View> mViewPool = new Pools.SimplePool<>(5);
 
-        Pools.SimplePool<View> mViewPool = new Pools.SimplePool<>(5);
+        /**
+         * 添加轮播数据源 ，刷新BannerView，自动判断是否开启轮播
+         *
+         * @param data 数据源
+         */
+        public void addDataAndLoop(List<BannerWrapper> data) {
+            stopLoop();
 
-        public void addAll(List<BannerWrapper> data) {
             if (SetUtil.isEmpty(data)) {
                 this.data.clear();
             } else {
                 this.data.addAll(data);
             }
             notifyDataSetChanged();
+
+            if (isCanLoop()) {
+                startLoop();
+            }
+        }
+
+        /**
+         * 结合BannerView 状态，和数据源 判定是否可以进行轮播
+         *
+         * @return true:可以轮播；false 不可轮播
+         */
+        @SuppressWarnings("RedundantIfStatement")
+        private boolean isCanLoop() {
+            if (!isAttachedToWindow) {
+                return false;
+            }
+            if (SetUtil.isEmpty(data))
+                return false;
+            if (data.size() == 1)
+                return false;
+            return true;
         }
 
         @Override
-
         public int getCount() {
             if (SetUtil.isEmpty(data))
                 return 0;
@@ -100,7 +179,6 @@ public class BannerView extends ViewPager {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            Log.i("BannerView", "instantiateItem" + position);
             BannerWrapper wrapper = data.get(position % data.size());
 
             View itemView = mViewPool.acquire();
@@ -115,16 +193,14 @@ public class BannerView extends ViewPager {
 
             container.addView(itemView);
 
-
             return itemView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            Log.i("BannerView", "destroyItem" + position);
             View view = (View) object;
-            mViewPool.release(view);
             container.removeView(view);
+            mViewPool.release(view);
         }
     }
 
@@ -148,6 +224,11 @@ public class BannerView extends ViewPager {
         }
     }
 
+    /**
+     * BannerView  item 抽象类 ,需要创建新的包装类继承该抽象类，并且包装数据源
+     *
+     * @param <T> 数据源
+     */
     public static abstract class BannerWrapper<T> implements IBannerItem {
         public T bean;
 

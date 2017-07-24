@@ -47,7 +47,7 @@ public class BannerWrapper extends ItemWrapper<Type> {
                 for (Focus f : focuses) {
                     list.add(new BannerWrapper.FocusWrapper(f));
                 }
-                adapter.addAll(list);
+                adapter.addDataAndLoop(list);
             }
         }
     }
@@ -72,7 +72,6 @@ public class BannerWrapper extends ItemWrapper<Type> {
         @Override
         public void onClick(View v) {
             Toast.makeText(v.getContext(), bean.getCover(), Toast.LENGTH_SHORT).show();
-
         }
     }
 }
