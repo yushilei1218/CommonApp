@@ -4,30 +4,18 @@ import java.util.List;
 
 /**
  * @author shilei.yu
- * @since on 2017/7/21.
+ * @since on 2017/7/24.
+ * <p>
+ * ret: 0,
+ * maxPageId: 5,
+ * totalCount: 100,
  */
 
 public class Recommend {
-    private String code;
-    private String msg;
     private int ret;
-    private List<Type> list;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private int maxPageId;
+    private List<Data> list;
+    private int totalCount;
 
     public int getRet() {
         return ret;
@@ -37,11 +25,27 @@ public class Recommend {
         this.ret = ret;
     }
 
-    public List<Type> getList() {
+    public int getMaxPageId() {
+        return maxPageId;
+    }
+
+    public void setMaxPageId(int maxPageId) {
+        this.maxPageId = maxPageId;
+    }
+
+    public List<Data> getList() {
         return list;
     }
 
-    public void setList(List<Type> list) {
+    public void setList(List<Data> list) {
         this.list = list;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 }

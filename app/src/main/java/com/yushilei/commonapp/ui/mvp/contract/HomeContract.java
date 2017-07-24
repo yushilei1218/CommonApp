@@ -3,6 +3,7 @@ package com.yushilei.commonapp.ui.mvp.contract;
 import android.support.annotation.Nullable;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
+import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
@@ -27,6 +28,9 @@ public class HomeContract {
          */
         void onRefreshFinish(boolean isByRefresh, boolean isNetSuccess, @Nullable List<ItemWrapper> data);
 
+        void onLoadMoreFinish(boolean isNetSuccess, List<ItemWrapper> data);
+
+        void onCancelLoadMore();
     }
 
     public interface Presenter extends IBasePresenter {
@@ -41,6 +45,11 @@ public class HomeContract {
     }
 
     public interface IModel {
-        List<ItemWrapper> obtainItems(Recommend recommend);
+        List<ItemWrapper> obtainItems(Discovery discovery);
+        List<ItemWrapper> obtainAlbums(Recommend recommend);
+
+        int getPageId();
+
+        int getPageSize();
     }
 }

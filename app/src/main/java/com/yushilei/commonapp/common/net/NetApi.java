@@ -1,11 +1,13 @@
 package com.yushilei.commonapp.common.net;
 
+import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Retrofit2 网络封装
@@ -29,6 +31,10 @@ public class NetApi {
 
     public interface API {
         @GET("/mobile/discovery/v3/recommend/ts-1500624532898")
-        Call<Recommend> getRecommend();
+        Call<Discovery> getDiscovery();
+
+        @GET("/mobile/discovery/v1/recommend/albums")
+        Call<Recommend> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
+
     }
 }

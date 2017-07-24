@@ -3,6 +3,7 @@ package com.yushilei.commonapp.ui.mvp.presenter;
 import android.support.annotation.NonNull;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
+import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
 import com.yushilei.commonapp.common.net.NetApi;
@@ -33,16 +34,15 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
     @Override
     public void beginRefreshData(final boolean isByRefresh) {
-        Call<Recommend> call = NetApi.api.getRecommend();
         if (isByRefresh) {//用户触发刷新
             mView.onRefreshing();
         } else {//App加载触发刷新
             mView.showLoading();
         }
-        call.enqueue(new Callback<Recommend>() {
+        Call<Discovery> call = NetApi.api.getDiscovery();
+        call.enqueue(new Callback<Discovery>() {
             @Override
-            public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
-
+            public void onResponse(@NonNull Call<Discovery> call, @NonNull Response<Discovery> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ItemWrapper> items = model.obtainItems(response.body());
                     mView.onRefreshFinish(isByRefresh, true, items);
@@ -50,7 +50,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             }
 
             @Override
-            public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Discovery> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 mView.onRefreshFinish(isByRefresh, false, null);
             }
@@ -59,6 +59,19 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
     @Override
     public void beginLoadMore() {
+        Call<Recommend> call = NetApi.api.getRecommend(model.getPageId(), model.getPageSize());
+        call.enqueue(new Callback<Recommend>() {
+            @Override
+            public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
+                List<ItemWrapper> data = model.obtainAlbums(response.body());
+                mView.onLoadMoreFinish(true, data);
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
+                t.printStackTrace();
+                mView.onLoadMoreFinish(false, null);
+            }
+        });
     }
 }

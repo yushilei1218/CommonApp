@@ -19,16 +19,27 @@ import java.util.List;
 
 /**
  * 广告位轮换View
+ * <p>
+ * 正常使用时，一般无需直接调用开启轮播or结束轮播，
+ * 每次添加数据源{@link Adapter#addDataAndLoop(List)} 或者{@link BannerView#onAttachedToWindow()}
+ * 方法内部会自动判定是否要触发轮播;
+ * <p>
+ * 在{@link BannerView#onDetachedFromWindow()}会自动结束轮播
  *
  * @author shilei.yu
  * @see #onMeasure(int, int) 重写该方法BannerView 宽高依赖其第一个child
+ * @see #SLEEP_TIME 每次触发轮播时间间隔,使用该值
+ * @see #startLoop() 触发BannerView 进行轮播
+ * @see #stopLoop() 结束BannerView 轮播
  * @since on 2017/7/10.
  */
 
 public class BannerView extends ViewPager implements Runnable {
     private static final String TAG = "BannerView";
-
-    private static final int SLEEP_TIME = 3000;
+    /**
+     * 每次轮播时间间隔 毫秒
+     */
+    private static final int SLEEP_TIME = 5000;
     /**
      * 是否已经附在window上
      */
@@ -57,7 +68,6 @@ public class BannerView extends ViewPager implements Runnable {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        Log.i(TAG,"onAttachedToWindow");
         isAttachedToWindow = true;
         stopLoop();
         if (adapter.isCanLoop()) {
@@ -67,7 +77,6 @@ public class BannerView extends ViewPager implements Runnable {
 
     @Override
     protected void onDetachedFromWindow() {
-        Log.i(TAG,"onDetachedFromWindow");
         stopLoop();
         isAttachedToWindow = false;
         super.onDetachedFromWindow();
@@ -97,6 +106,15 @@ public class BannerView extends ViewPager implements Runnable {
     @Override
     public Adapter getAdapter() {
         return adapter;
+    }
+
+    @Override
+    public void setAdapter(PagerAdapter adapter) {
+        if (adapter instanceof Adapter) {
+            super.setAdapter(adapter);
+        } else {
+            throw new RuntimeException("BannerView 必须使用BannerView内部类Adapter作为适配器！");
+        }
     }
 
     @Override

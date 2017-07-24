@@ -91,6 +91,23 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         mRecycler.loadFinish();
     }
 
+    @Override
+    public void onLoadMoreFinish(boolean isNetSuccess, List<ItemWrapper> data) {
+        if (!isNetSuccess) {
+            showToast("网络异常！");
+            mRecycler.loadFinish();
+        } else {
+            adapter.addAllLast(data);
+            mRecycler.loadFinish();
+        }
+
+    }
+
+    @Override
+    public void onCancelLoadMore() {
+        mRecycler.loadFinish();
+    }
+
     /*LoadMoreRecyclerView 触发加载更多回调*/
     @Override
     public void onLoadMore() {
