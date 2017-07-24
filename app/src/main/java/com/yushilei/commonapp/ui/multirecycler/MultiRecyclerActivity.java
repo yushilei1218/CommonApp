@@ -41,7 +41,7 @@ public class MultiRecyclerActivity extends BaseActivity {
     };
 
     @Override
-    protected void initView() {
+    public void initView() {
         RecyclerView mRecycler = findView(R.id.activity_multi_recycler);
         //手工画分割线
         initRecyclerDecoration(mRecycler);

@@ -63,7 +63,7 @@ public class PtrZpActivity extends BaseActivity {
     private PtrFrameLayout mPtr;
 
     @Override
-    protected void initView() {
+    public void initView() {
         mPtr = findView(R.id.ptr_zp_ptr);
         mRecycler = findView(R.id.ptr_load_more_recycler);
 

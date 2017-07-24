@@ -27,7 +27,7 @@ public class MultiListViewActivity extends BaseActivity {
     private MultiBaseAdapter adapter;
 
     @Override
-    protected void initView() {
+    public void initView() {
         ListView mLv = findView(R.id.activity_multi_lv);
         adapter = new MultiBaseAdapter(2);
         mLv.setAdapter(adapter);

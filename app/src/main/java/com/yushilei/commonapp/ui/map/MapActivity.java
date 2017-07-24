@@ -102,7 +102,7 @@ public class MapActivity extends BaseActivity implements Inputtips.InputtipsList
 
 
     @Override
-    protected void initView() {
+    public void initView() {
 
     }
 

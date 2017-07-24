@@ -61,7 +61,8 @@ public class ErrorViewHolder implements IErrorView {
         if (hasView) {
             mViewLayout.setVisibility(View.VISIBLE);
             mEmptyLayout.setVisibility(View.VISIBLE);
-            mEmptyImg.setImageResource(imageId);
+            if (imageId != 0)
+                mEmptyImg.setImageResource(imageId);
             mErrTv.setText(msg);
             mErrTv.setOnClickListener(onClickListener);
             mProcessBar.setVisibility(View.GONE);

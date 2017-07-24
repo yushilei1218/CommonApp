@@ -34,7 +34,7 @@ public class TestActivity extends BaseActivity {
     private MultiBaseAdapter adapter1;
 
     @Override
-    protected void initView() {
+    public void initView() {
         LoadingTextView loadingTextView = (LoadingTextView) findView(R.id.loading_tv);
         loadingTextView.startAni();
         mRecycler = findView(R.id.test_recycler);

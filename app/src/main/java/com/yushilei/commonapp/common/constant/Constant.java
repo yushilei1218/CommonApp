@@ -12,4 +12,5 @@ public interface Constant {
     String ZP_PTR = "智联Ptr";
     String TEST = "TEST";
     String AMAP = "高德Map";
+    String XMLY = "喜马拉雅";
 }

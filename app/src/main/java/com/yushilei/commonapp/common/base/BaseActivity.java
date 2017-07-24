@@ -60,6 +60,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return isResume;
     }
 
+    @Override
+    public void initData() {
+
+    }
+
     //***点击事件绑定开始
     protected void setOnClick(View v) {
         v.setOnClickListener(this);

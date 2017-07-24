@@ -29,7 +29,12 @@ public class Client {
                     builder.addQueryParameter("device", "android")
                             .addQueryParameter("deviceId", "ffffffff-d31d-8252-ffff-ffff97b77fee")
                             .addQueryParameter("version", "6.3.9")
-                            .addQueryParameter("code", "43_110000_1100");
+                            .addQueryParameter("code", "43_110000_1100")
+                            .addQueryParameter("includeActivity", "true")
+                            .addQueryParameter("includeSpecial", "true")
+                            .addQueryParameter("categoryId", "-2")
+                            .addQueryParameter("inreview", "false")
+                            .addQueryParameter("network", "wifi");
 
                     Request.Builder requestBuilder = oldRequest.newBuilder()
                             .addHeader("user-agent", "ting_6.3.9(MI+NOTE+LTE,Android19)");

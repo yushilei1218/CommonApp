@@ -32,27 +32,33 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     }
 
     @Override
-    public void beginRefreshData(boolean is) {
+    public void beginRefreshData(final boolean isByRefresh) {
         Call<Recommend> call = NetApi.api.getRecommend();
-        mView.showLoading();
-        mView.onRefreshing();
+        if (isByRefresh) {//用户触发刷新
+            mView.onRefreshing();
+        } else {//App加载触发刷新
+            mView.showLoading();
+        }
         call.enqueue(new Callback<Recommend>() {
             @Override
             public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
-                mView.hideLoading();
+
                 if (response.isSuccessful() && response.body() != null) {
                     List<ItemWrapper> items = model.obtainItems(response.body());
-                    mView.onRefreshFinish(items);
+                    mView.onRefreshFinish(isByRefresh, true, items);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
-                mView.hideLoading();
-                mView.onRefreshFinish(null);
                 t.printStackTrace();
-                mView.showToast("网络异常");
+                mView.onRefreshFinish(isByRefresh, false, null);
             }
         });
+    }
+
+    @Override
+    public void beginLoadMore() {
+
     }
 }

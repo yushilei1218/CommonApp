@@ -60,7 +60,7 @@ public class LoadMoreRecyclerActivity extends BaseActivity {
 
 
     @Override
-    protected void initView() {
+    public void initView() {
 
         mRecycler = findView(R.id.load_more_recycler);
         mPtr = findView(R.id.load_more_ptr);
