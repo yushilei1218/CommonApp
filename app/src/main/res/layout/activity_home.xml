@@ -8,18 +8,18 @@
 
     <include layout="@layout/error_layout" />
 
-    <in.srain.cube.views.ptr.PtrFrameLayout
+    <com.yushilei.commonapp.common.widget.FixPtrFrameLayout
         android:id="@+id/home_ptr"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.yushilei.commonapp.common.widget.LoadMoreRecyclerView
             android:id="@+id/home_recycler"
-            app:layoutManager="LinearLayoutManager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
 
-    </in.srain.cube.views.ptr.PtrFrameLayout>
+    </com.yushilei.commonapp.common.widget.FixPtrFrameLayout>
 
 
 </LinearLayout>

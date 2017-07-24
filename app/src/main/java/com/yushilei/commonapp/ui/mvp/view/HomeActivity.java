@@ -40,6 +40,9 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         PtrFirstHeader header = new PtrFirstHeader(this);
         mPtr.setHeaderView(header);
         mPtr.addPtrUIHandler(header);
+        //禁止拦截横向移动
+        mPtr.disableWhenHorizontalMove(true);
+
         mPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
@@ -69,7 +72,7 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         mRecycler.setCanLoadMore(true);
         if (!isByRefresh) {
             hideLoading();
-        }else {
+        } else {
             mPtr.refreshComplete();
         }
         if (!isNetSuccess) {
