@@ -21,7 +21,8 @@ public abstract class BasePresenter<View extends IBaseView> implements IBasePres
     @Override
     public void onDestroy() {
         removeTask();
-        mView = null;
+        if (mView != null)
+            mView = null;
     }
 
     @Override

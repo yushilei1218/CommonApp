@@ -69,8 +69,10 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         mRecycler.setCanLoadMore(true);
         if (!isByRefresh) {
             hideLoading();
+        }else {
+            mPtr.refreshComplete();
         }
-        if (isNetSuccess) {
+        if (!isNetSuccess) {
             showToast("网络异常！");
             if (!isByRefresh) {
                 onError(0, "网络异常,点击重试!", "点击", new View.OnClickListener() {
@@ -91,4 +93,5 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
     public void onLoadMore() {
         presenter.beginLoadMore();
     }
+
 }

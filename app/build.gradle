@@ -43,8 +43,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //    compile 'com.amap.api:map2d:latest.integration'
-//    compile 'com.amap.api:search:latest.integration'
-//    compile 'com.amap.api:location:latest.integration'
+    //    compile 'com.amap.api:search:latest.integration'
+    //    compile 'com.amap.api:location:latest.integration'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -53,4 +53,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     testCompile 'junit:junit:4.12'
+    compile 'com.facebook.fresco:fresco:1.4.0'
 }
