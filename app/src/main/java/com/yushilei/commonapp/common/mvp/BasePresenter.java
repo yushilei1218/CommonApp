@@ -1,5 +1,7 @@
 package com.yushilei.commonapp.common.mvp;
 
+import com.yushilei.commonapp.common.retrofit.CallPool;
+
 /**
  * @author shilei.yu
  * @since on 2017/7/21.
@@ -27,6 +29,6 @@ public abstract class BasePresenter<View extends IBaseView> implements IBasePres
 
     @Override
     public void removeTask() {
-
+        CallPool.cancelCall(mTaskId);
     }
 }

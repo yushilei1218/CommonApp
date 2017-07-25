@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.item;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -33,7 +34,17 @@ public class TypeWrapper extends ItemWrapper<Type> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int pos) {
         TextView nameTv = holder.findView(R.id.item_album_list_name_tv);
-        nameTv.setText(bean.getModuleType());
+        if (TextUtils.isEmpty(bean.getTitle())) {
+            String title = "";
+            switch (bean.getModuleType()) {
+                case "guessYouLike":
+                    title = "猜你喜欢";
+                    break;
+            }
+            nameTv.setText(title);
+        } else {
+            nameTv.setText(bean.getTitle());
+        }
 
         GridView albumGrid = holder.findView(R.id.item_album_grid);
         MultiBaseAdapter adapter = new MultiBaseAdapter(1);

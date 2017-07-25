@@ -9,5 +9,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:viewAspectRatio="2" />
+        app:viewAspectRatio="2.4" />
 </RelativeLayout>

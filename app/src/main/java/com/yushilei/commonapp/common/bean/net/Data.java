@@ -3,7 +3,7 @@ package com.yushilei.commonapp.common.bean.net;
 import com.yushilei.commonapp.common.bean.base.Album;
 import com.yushilei.commonapp.common.bean.base.Focus;
 import com.yushilei.commonapp.common.bean.base.IFocus;
-import com.yushilei.commonapp.common.bean.base.Tag;
+import com.yushilei.commonapp.common.bean.base.Square;
 import com.yushilei.commonapp.common.bean.base.Topic;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @since on 2017/7/21.
  */
 
-public class Data implements Album, Tag, Topic, IFocus {
+public class Data implements Album, Square, Topic, IFocus {
     /**/
     private int albumId;
     private String infoType;

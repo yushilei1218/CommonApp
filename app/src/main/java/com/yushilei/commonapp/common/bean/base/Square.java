@@ -17,7 +17,7 @@ package com.yushilei.commonapp.common.bean.base;
  * url: ""
  */
 
-public interface Tag {
+public interface Square {
     public String getTitle();
 
     public void setTitle(String title);

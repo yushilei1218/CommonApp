@@ -39,7 +39,7 @@ public class BannerView extends ViewPager implements Runnable {
     /**
      * 每次轮播时间间隔 毫秒
      */
-    private static final int SLEEP_TIME = 5000;
+    private static final int SLEEP_TIME = 3000;
     /**
      * 是否已经附在window上
      */

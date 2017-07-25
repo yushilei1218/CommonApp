@@ -7,6 +7,7 @@ import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.bean.net.Type;
 import com.yushilei.commonapp.common.item.Album2Wrapper;
 import com.yushilei.commonapp.common.item.BannerWrapper;
+import com.yushilei.commonapp.common.item.SquareTypeWrapper;
 import com.yushilei.commonapp.common.item.TypeWrapper;
 import com.yushilei.commonapp.common.util.SetUtil;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
@@ -40,6 +41,9 @@ public class HomeModel implements HomeContract.IModel {
                     break;
                 case "focus":
                     data.add(new BannerWrapper(t));
+                    break;
+                case "square":
+                    data.add(new SquareTypeWrapper(t));
                     break;
             }
         }

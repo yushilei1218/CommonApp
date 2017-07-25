@@ -18,6 +18,15 @@ public class Type {
     private int loopCount;
     private String moduleType;
     private List<Data> list;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public boolean isBottomHasMore() {
         return bottomHasMore;

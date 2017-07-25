@@ -8,6 +8,13 @@ import android.view.MotionEvent;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
+ * 修复PtrFrameLayout 在子view 调用
+ * {@link android.view.ViewGroup#requestDisallowInterceptTouchEvent(boolean)}
+ * 时，PtrFrameLayout无处理事件冲突的问题
+ * <p>
+ * 解决方法，记录当前requestDisallowInterceptTouchEvent boolean值:disallowIntercept；
+ * 在dispatchTouchEvent 根据 disallowIntercept 进行判断是否允许PtrFrameLayout拦截事件
+ *
  * @author shilei.yu
  * @since on 2017/7/24.
  */

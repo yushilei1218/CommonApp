@@ -79,8 +79,8 @@ public class LoadMoreRecyclerView extends RecyclerView {
         addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (BuildConfig.DEBUG)
-                    Log.i(TAG, "onScrollStateChanged newState=" + newState);
+//                if (BuildConfig.DEBUG)
+//                    Log.i(TAG, "onScrollStateChanged newState=" + newState);
 
                 if (isScrollDown && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     processScrollDown();
@@ -89,8 +89,8 @@ public class LoadMoreRecyclerView extends RecyclerView {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (BuildConfig.DEBUG)
-                    Log.i(TAG, "onScrolled dy=" + dy);
+//                if (BuildConfig.DEBUG)
+//                    Log.i(TAG, "onScrolled dy=" + dy);
                 isScrollDown = dy >= 0;
             }
         });
@@ -123,8 +123,9 @@ public class LoadMoreRecyclerView extends RecyclerView {
         }
         int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
         int totalItemCount = manager.getItemCount();
-        if (BuildConfig.DEBUG)
-            Log.i(TAG, "processScrollDown lastVisibleItem=" + lastVisibleItem + " totalItemCount=" + totalItemCount);
+//        if (BuildConfig.DEBUG)
+//            Log.i(TAG, "processScrollDown lastVisibleItem=" + lastVisibleItem + " totalItemCount=" + totalItemCount);
+//
         if (lastVisibleItem == (totalItemCount - 1)) {
             //加载更多功能的代码
             mFooter.bean.curState = FootSate.LOADING;
