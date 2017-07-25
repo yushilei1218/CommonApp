@@ -1,6 +1,8 @@
 package com.yushilei.commonapp.common.retrofit;
 
-import java.io.IOException;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 
 /**
  * @author shilei.yu
@@ -23,6 +25,7 @@ public class IhrException extends Exception{
         super(cause);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public IhrException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }

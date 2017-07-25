@@ -24,13 +24,19 @@ import retrofit2.Response;
 
 public class HomePresenter extends BasePresenter<HomeContract.IView> implements HomeContract.Presenter {
 
+    private Call<Recommend> mLoadMoreCall;
+
+    private boolean isLoadingMore = false;
+
     public HomePresenter(HomeContract.IView view, HomeContract.IModel model) {
         super(view);
         this.model = model;
     }
 
     private HomeContract.IModel model;
-
+    /**
+     * 网络层代理实现
+     */
     private NetProxy mNetProxy = new NetProxy() {
         @Override
         public int getTaskId() {
@@ -40,12 +46,19 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
     @Override
     public void beginRefreshData(final boolean isByRefresh) {
-        if (isByRefresh) {//用户触发刷新
+        if (isByRefresh) {
+            //用户触发刷新
             mView.onRefreshing();
-        } else {//App加载触发刷新
+        } else {
+            //App加载触发刷新
             mView.showLoading();
         }
-        // Call<Discovery> call = NetApi.api.getDiscovery();
+        if (isLoadingMore) {
+            //当前正处于加载更多时，进行刷新应该取消view 加载更多状态，并cancel Call
+            mLoadMoreCall.cancel();
+            mView.onCancelLoadMore();
+        }
+
         Call<Discovery> call = mNetProxy.getDiscovery();
         call.enqueue(new CommonCallBack<Discovery>(new Callback<Discovery>() {
             @Override
@@ -66,19 +79,21 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
     @Override
     public void beginLoadMore() {
-        // Call<Recommend> call = NetApi.api.getRecommend(model.getPageId(), model.getPageSize());
-        Call<Recommend> call = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
-        call.enqueue(new SimpleCallBack<Recommend>(new Callback<Recommend>() {
+        isLoadingMore = true;
+        mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
+        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>(new Callback<Recommend>() {
             @Override
             public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
                 List<ItemWrapper> data = model.obtainAlbums(response.body());
                 mView.onLoadMoreFinish(true, data);
+                isLoadingMore = false;
             }
 
             @Override
             public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 mView.onLoadMoreFinish(false, null);
+                isLoadingMore = false;
             }
         }));
     }
