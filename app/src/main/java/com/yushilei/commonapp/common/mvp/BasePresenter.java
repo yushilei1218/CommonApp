@@ -11,6 +11,8 @@ public abstract class BasePresenter<View extends IBaseView> implements IBasePres
     protected View mView;
     protected int mTaskId;
 
+    protected boolean isDestroyed = false;
+
     public BasePresenter(View view) {
         this.mView = view;
         mTaskId = view.hashCode();
@@ -22,6 +24,7 @@ public abstract class BasePresenter<View extends IBaseView> implements IBasePres
 
     @Override
     public void onDestroy() {
+        isDestroyed = true;
         removeTask();
         if (mView != null)
             mView = null;

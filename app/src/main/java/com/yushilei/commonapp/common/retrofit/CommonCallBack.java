@@ -51,8 +51,6 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
             /*异常的cancel也是异步，避免 callback.onFailure(call, t)引发空指针 ,
             因Presenter onDestroy时会将view置null*/
             t.printStackTrace();
-        } else if (t instanceof UnknownHostException) {
-            t.printStackTrace();
         } else {
             callback.onFailure(call, t);
         }
