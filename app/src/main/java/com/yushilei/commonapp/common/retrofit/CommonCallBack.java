@@ -31,7 +31,7 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
         /*这个地方可以处理API公共逻辑*/
         if (response.code() >= 1000 && response.code() <= 1010) {
             /*账号异常，请重新登录*/
-
+            callback.onFailure(call, new IhrException("账号冻结"));
         } else {
             callback.onResponse(call, response);
         }
