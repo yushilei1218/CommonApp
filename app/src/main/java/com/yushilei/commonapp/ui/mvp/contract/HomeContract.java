@@ -39,6 +39,9 @@ public class HomeContract {
          */
         void onLoadMoreFinish(boolean isNetSuccess, @Nullable List<ItemWrapper> data);
 
+        /**
+         * 取消View loadMore 的loading状态
+         */
         void onCancelLoadMore();
     }
 
@@ -57,12 +60,34 @@ public class HomeContract {
     }
 
     public interface IModel {
+        /**
+         * 首页 网络数据整合
+         *
+         * @param discovery 网络数据
+         * @return home 刷新 items or null
+         */
         List<ItemWrapper> obtainItems(Discovery discovery);
 
+        /**
+         * 首页 加载更多数据整合
+         *
+         * @param recommend 网络请求回调的数据
+         * @return home 加载更多items or null
+         */
         List<ItemWrapper> obtainAlbums(Recommend recommend);
 
+        /**
+         * 获取加载更多的pageID
+         *
+         * @return pageId
+         */
         int getPageId();
 
+        /**
+         * 获取加载更多分页item数量
+         *
+         * @return 默认20
+         */
         int getPageSize();
     }
 }
