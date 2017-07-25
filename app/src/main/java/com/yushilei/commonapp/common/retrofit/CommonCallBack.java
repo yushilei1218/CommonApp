@@ -29,11 +29,16 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
     public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
         super.onResponse(call, response);
         /*这个地方可以处理API公共逻辑*/
-        if (response.code() >= 1000 && response.code() <= 1010) {
+        if (response.isSuccessful()) {
+            callback.onResponse(call, response);
+        } else if (response.code() >= 1000 && response.code() <= 1010) {
             /*账号异常，请重新登录*/
             callback.onFailure(call, new IhrException("账号冻结"));
+            /*处理公共逻辑todo*/
+        } else if (response.code() == 404) {
+            callback.onFailure(call, new IhrException("服务器未找到资源"));
         } else {
-            callback.onResponse(call, response);
+            callback.onFailure(call, new IhrException("未知原因"));
         }
     }
 
