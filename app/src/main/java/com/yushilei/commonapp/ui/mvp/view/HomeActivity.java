@@ -62,6 +62,7 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
 
     }
 
+    /*HomeContract.IView 实现*/
     @Override
     public void onRefreshing() {
         mRecycler.setCanLoadMore(false);
@@ -100,7 +101,6 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
             adapter.addAllLast(data);
             mRecycler.loadFinish();
         }
-
     }
 
     @Override
@@ -108,7 +108,7 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
         mRecycler.loadFinish();
     }
 
-    /*LoadMoreRecyclerView 触发加载更多回调*/
+    /*LoadMoreRecyclerView 触发加载实现*/
     @Override
     public void onLoadMore() {
         presenter.beginLoadMore();

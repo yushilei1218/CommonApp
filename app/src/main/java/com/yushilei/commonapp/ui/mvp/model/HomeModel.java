@@ -62,7 +62,6 @@ public class HomeModel implements HomeContract.IModel {
         return data;
     }
 
-
     @Override
     public int getPageId() {
         return mCurPageId;

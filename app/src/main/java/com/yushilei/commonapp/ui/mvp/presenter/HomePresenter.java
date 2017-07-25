@@ -23,9 +23,6 @@ import retrofit2.Response;
  */
 
 public class HomePresenter extends BasePresenter<HomeContract.IView> implements HomeContract.Presenter {
-    public HomePresenter(HomeContract.IView view) {
-        super(view);
-    }
 
     public HomePresenter(HomeContract.IView view, HomeContract.IModel model) {
         super(view);
