@@ -2,6 +2,7 @@ package com.yushilei.commonapp.common.base;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -12,7 +13,6 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
-import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.manager.ActivityStack;
 import com.yushilei.commonapp.common.mvp.ErrorViewHolder;
 import com.yushilei.commonapp.common.mvp.IBaseView;
@@ -35,12 +35,25 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState!=null){
+            restoreDataBySavedInstanceState(savedInstanceState);
+        }else {
+            parseDataByIntent(getIntent());
+        }
         super.onCreate(savedInstanceState);
         ActivityStack.inStack(this);
         setContentView(getLayoutId());
         initErrorView();
         initView();
         initData();
+    }
+
+    protected void restoreDataBySavedInstanceState(Bundle savedInstanceState) {
+
+    }
+
+    protected void parseDataByIntent(Intent intent) {
+
     }
 
     @SuppressWarnings("unchecked")

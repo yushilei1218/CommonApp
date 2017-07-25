@@ -92,7 +92,8 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             @Override
             public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
                 t.printStackTrace();
-                mView.onLoadMoreFinish(false, null);
+                if (mView != null)
+                    mView.onLoadMoreFinish(false, null);
                 isLoadingMore = false;
             }
         }));

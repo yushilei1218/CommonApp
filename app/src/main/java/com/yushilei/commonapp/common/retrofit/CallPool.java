@@ -8,6 +8,7 @@ import com.yushilei.commonapp.common.util.SetUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
@@ -49,7 +50,7 @@ public final class CallPool {
             }
         }
         if (!contains) {
-            Log.i(TAG, "addCall ok " + taskId);
+            Log.i(TAG, "addCall ok " + taskId+" "+call.toString());
             list.add(new WeakReference<Call>(call));
         }
     }
@@ -57,13 +58,15 @@ public final class CallPool {
     static synchronized void removeCall(Call call) {
         for (int i = 0; i < pool.size(); i++) {
             int key = pool.keyAt(i);
-            List<WeakReference<Call>> set = pool.get(key);
-            if (!SetUtil.isEmpty(set)) {
-                for (WeakReference<Call> w : set) {
-                    if (w.get() != null && w.get().equals(call)) {
-                        Log.i(TAG, "removeCall ok");
-                        set.remove(w);
-                    }
+            List<WeakReference<Call>> list = pool.get(key);
+            if (SetUtil.isEmpty(list))
+                break;
+            Iterator<WeakReference<Call>> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                WeakReference<Call> next = iterator.next();
+                if (next.get() != null && next.get().equals(call)) {
+                    Log.i(TAG, "removeCall ok "+call.toString());
+                    iterator.remove();
                 }
             }
         }
@@ -80,7 +83,7 @@ public final class CallPool {
             for (WeakReference<Call> w : set) {
                 if (w != null && w.get() != null) {
                     w.get().cancel();
-                    Log.i(TAG, "cancelCall ok " + taskId);
+                    Log.i(TAG, "cancelCall ok " + taskId+" "+w.get().toString());
                 }
             }
         }

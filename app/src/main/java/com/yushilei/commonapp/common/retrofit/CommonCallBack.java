@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +50,8 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
             /*公共逻辑处理,此时为页面消耗主动cancel 抛出的异常*/
             /*异常的cancel也是异步，避免 callback.onFailure(call, t)引发空指针 ,
             因Presenter onDestroy时会将view置null*/
+            t.printStackTrace();
+        } else if (t instanceof UnknownHostException) {
             t.printStackTrace();
         } else {
             callback.onFailure(call, t);
