@@ -69,16 +69,16 @@ public class HomeActivity extends MvpBaseActivity<HomeContract.Presenter> implem
     }
 
     @Override
-    public void onRefreshFinish(boolean isByRefresh, boolean isNetSuccess, List<ItemWrapper> data) {
+    public void onRefreshFinish(boolean isRefreshByUser, boolean isNetSuccess, List<ItemWrapper> data) {
         mRecycler.setCanLoadMore(true);
-        if (!isByRefresh) {
+        if (!isRefreshByUser) {
             hideLoading();
         } else {
             mPtr.refreshComplete();
         }
         if (!isNetSuccess) {
             showToast("网络异常！");
-            if (!isByRefresh) {
+            if (!isRefreshByUser) {
                 onError(0, "网络异常,点击重试!", "点击", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

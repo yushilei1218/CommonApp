@@ -6,15 +6,14 @@ import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
-import com.yushilei.commonapp.common.retrofit.CommonCallBack;
+import com.yushilei.commonapp.common.retrofit.callback.AbsCallBack;
+import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
-import com.yushilei.commonapp.common.retrofit.SimpleCallBack;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -25,7 +24,9 @@ import retrofit2.Response;
 public class HomePresenter extends BasePresenter<HomeContract.IView> implements HomeContract.Presenter {
 
     private Call<Recommend> mLoadMoreCall;
-
+    /**
+     * 是否正处于加载更多状态
+     */
     private boolean isLoadingMore = false;
 
     public HomePresenter(HomeContract.IView view, HomeContract.IModel model) {
@@ -45,8 +46,8 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     };
 
     @Override
-    public void beginRefreshData(final boolean isByRefresh) {
-        if (isByRefresh) {
+    public void beginRefreshData(final boolean isRefreshByUser) {
+        if (isRefreshByUser) {
             //用户触发刷新
             mView.onRefreshing();
         } else {
@@ -60,12 +61,14 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
         }
 
         Call<Discovery> call = mNetProxy.getDiscovery();
-        call.enqueue(new CommonCallBack<Discovery>(new Callback<Discovery>() {
+
+        call.enqueue(new CommonCallBack<Discovery>(new AbsCallBack<Discovery>() {
+
             @Override
             public void onResponse(@NonNull Call<Discovery> call, @NonNull Response<Discovery> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ItemWrapper> items = model.obtainItems(response.body());
-                    mView.onRefreshFinish(isByRefresh, true, items);
+                    mView.onRefreshFinish(isRefreshByUser, true, items);
                 }
             }
 
@@ -73,7 +76,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             public void onFailure(@NonNull Call<Discovery> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 if (mView != null)
-                    mView.onRefreshFinish(isByRefresh, false, null);
+                    mView.onRefreshFinish(isRefreshByUser, false, null);
             }
         }));
     }
@@ -82,7 +85,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     public void beginLoadMore() {
         isLoadingMore = true;
         mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
-        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>(new Callback<Recommend>() {
+        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>(new AbsCallBack<Recommend>() {
             @Override
             public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
                 List<ItemWrapper> data = model.obtainAlbums(response.body());

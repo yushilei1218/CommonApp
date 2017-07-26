@@ -1,4 +1,4 @@
-package com.yushilei.commonapp.common.retrofit;
+package com.yushilei.commonapp.common.retrofit.callback;
 
 import android.support.annotation.NonNull;
 

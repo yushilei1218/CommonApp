@@ -1,6 +1,8 @@
-package com.yushilei.commonapp.common.retrofit;
+package com.yushilei.commonapp.common.retrofit.callback;
 
 import android.support.annotation.NonNull;
+
+import com.yushilei.commonapp.common.retrofit.CallPool;
 
 import retrofit2.Call;
 import retrofit2.Callback;

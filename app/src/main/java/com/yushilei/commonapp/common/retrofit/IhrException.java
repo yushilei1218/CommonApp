@@ -9,7 +9,7 @@ import android.support.annotation.RequiresApi;
  * @since on 2017/7/25.
  */
 
-public class IhrException extends Exception{
+public class IhrException extends Exception {
     public IhrException() {
     }
 

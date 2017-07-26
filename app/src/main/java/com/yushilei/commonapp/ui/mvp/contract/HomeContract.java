@@ -25,11 +25,11 @@ public class HomeContract {
         /**
          * 刷新完毕
          *
-         * @param isByRefresh  是否是用户手动刷新
+         * @param isRefreshByUser  是否是用户手动刷新
          * @param isNetSuccess 网络请求是否成功
          * @param data         请求数据 可能为null
          */
-        void onRefreshFinish(boolean isByRefresh, boolean isNetSuccess, @Nullable List<ItemWrapper> data);
+        void onRefreshFinish(boolean isRefreshByUser, boolean isNetSuccess, @Nullable List<ItemWrapper> data);
 
         /**
          * 加载更多完毕
@@ -49,9 +49,9 @@ public class HomeContract {
         /**
          * 开始进行刷新数据
          *
-         * @param isRefresh true：用户触发刷新， false App触发刷新
+         * @param isRefreshByUser true：用户触发刷新， false App触发刷新
          */
-        void beginRefreshData(boolean isRefresh);
+        void beginRefreshData(boolean isRefreshByUser);
 
         /**
          * 开始进行加载更多

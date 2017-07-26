@@ -3,6 +3,8 @@ package com.yushilei.commonapp.common.retrofit;
 import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.net.NetApi;
+import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
+import com.yushilei.commonapp.common.retrofit.callback.SimpleCallBack;
 
 import retrofit2.Call;
 import retrofit2.Callback;

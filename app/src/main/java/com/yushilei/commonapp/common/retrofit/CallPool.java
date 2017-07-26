@@ -4,14 +4,16 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.yushilei.commonapp.common.mvp.BasePresenter;
+import com.yushilei.commonapp.common.retrofit.callback.BaseCallBack;
+import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
+import com.yushilei.commonapp.common.retrofit.callback.SimpleCallBack;
 import com.yushilei.commonapp.common.util.SetUtil;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
+
 
 import retrofit2.Call;
 
@@ -36,7 +38,7 @@ public final class CallPool {
 
     private static final SparseArray<List<WeakReference<Call>>> pool = new SparseArray<>();
 
-    static synchronized void addCall(Call call, int taskId) {
+    public static synchronized void addCall(Call call, int taskId) {
         int index = pool.indexOfKey(taskId);
         if (index < 0) {
             pool.put(taskId, new LinkedList<WeakReference<Call>>());
@@ -50,12 +52,12 @@ public final class CallPool {
             }
         }
         if (!contains) {
-            Log.i(TAG, "addCall ok " + taskId+" "+call.toString());
+            Log.i(TAG, "addCall ok " + taskId + " " + call.toString());
             list.add(new WeakReference<Call>(call));
         }
     }
 
-    static synchronized void removeCall(Call call) {
+    public static synchronized void removeCall(Call call) {
         for (int i = 0; i < pool.size(); i++) {
             int key = pool.keyAt(i);
             List<WeakReference<Call>> list = pool.get(key);
@@ -65,7 +67,7 @@ public final class CallPool {
             while (iterator.hasNext()) {
                 WeakReference<Call> next = iterator.next();
                 if (next.get() != null && next.get().equals(call)) {
-                    Log.i(TAG, "removeCall ok "+call.toString());
+                    Log.i(TAG, "removeCall ok " + call.toString());
                     iterator.remove();
                 }
             }
@@ -83,7 +85,7 @@ public final class CallPool {
             for (WeakReference<Call> w : set) {
                 if (w != null && w.get() != null) {
                     w.get().cancel();
-                    Log.i(TAG, "cancelCall ok " + taskId+" "+w.get().toString());
+                    Log.i(TAG, "cancelCall ok " + taskId + " " + w.get().toString());
                 }
             }
         }
