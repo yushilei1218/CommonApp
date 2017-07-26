@@ -24,13 +24,15 @@ import java.util.List;
  * 每次添加数据源{@link Adapter#addDataAndLoop(List)} 或者{@link BannerView#onAttachedToWindow()}
  * 方法内部会自动判定是否要触发轮播;
  * <p>
- * 在{@link BannerView#onDetachedFromWindow()}会自动结束轮播
+ * 方法介绍
+ * <p>
+ * {@link #onDetachedFromWindow()}会自动结束轮播
+ * {@link #onMeasure(int, int)} 重写该方法BannerView 宽高依赖其第一个child；
+ * {@link #startLoop()} 触发BannerView 进行轮播；
+ * {@link #stopLoop()}结束BannerView 轮播；
+ * {@link #SLEEP_TIME} 每次触发轮播时间间隔,使用该值；
  *
  * @author shilei.yu
- * @see #onMeasure(int, int) 重写该方法BannerView 宽高依赖其第一个child
- * @see #SLEEP_TIME 每次触发轮播时间间隔,使用该值
- * @see #startLoop() 触发BannerView 进行轮播
- * @see #stopLoop() 结束BannerView 轮播
  * @since on 2017/7/10.
  */
 

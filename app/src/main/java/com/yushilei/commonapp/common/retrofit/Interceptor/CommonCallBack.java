@@ -51,10 +51,9 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
     public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
         super.onResponse(call, response);
 
-        if (mInterceptor != null) {
-            if (mInterceptor.onResponse(call, response))
-                return;
-        }
+        if (mInterceptor != null && mInterceptor.onResponse(call, response))
+            return;
+
         /*这个地方可以处理API公共逻辑*/
         if (response.isSuccessful()) {
 
@@ -74,24 +73,20 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
     @Override
     public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
         super.onFailure(call, t);
-        if (mInterceptor != null)
-            /*如果拦截器关心并处理了该异常，则流程结束，否则交给公共逻辑*/
-            if (mInterceptor.onFailure(call, t))
-                return;
+        /*如果拦截器关心并处理了该异常，则流程结束，否则交给公共逻辑*/
+        if (mInterceptor != null && mInterceptor.onFailure(call, t))
+            return;
 
-        if (t instanceof TimeoutException)
-              /*如果callBack关心并处理了TimeOutEx，则流程结束，否则交给公共逻辑*/
-            if (callback.onTimeOutException(call, t))
-                return;
+        /*如果callBack关心并处理了TimeOutEx，则流程结束，否则交给公共逻辑*/
+        if (t instanceof TimeoutException && callback.onTimeOutException(call, t))
+            return;
 
         if (t instanceof IOException && t.getMessage().equals("Canceled")) {
-            /*公共逻辑处理,此时为页面消耗主动cancel 抛出的异常*/
-            /*异常的cancel也是异步，避免 callback.onFailure(call, t)引发空指针 ,
-            因Presenter onDestroy时会将view置null*/
+            /*公共逻辑处理,此时为页面消耗主动cancel 抛出的异常 egonDestroy时会将view置null:,避免view空指针*/
             t.printStackTrace();
-        } else {
-            /*交给业务层处理异常*/
-            callback.onFailure(call, t);
+            return;
         }
+        /*否则交给业务层处理异常*/
+        callback.onFailure(call, t);
     }
 }
