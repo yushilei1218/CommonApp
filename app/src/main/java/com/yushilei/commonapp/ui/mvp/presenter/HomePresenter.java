@@ -6,6 +6,7 @@ import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
+import com.yushilei.commonapp.common.net.ApiProxy;
 import com.yushilei.commonapp.common.retrofit.callback.AbsCallBack;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
@@ -60,8 +61,8 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             mView.onCancelLoadMore();
         }
 
-        Call<Discovery> call = mNetProxy.getDiscovery();
-
+        //Call<Discovery> call = mNetProxy.getDiscovery();
+        Call<Discovery> call = ApiProxy.get(mTaskId).getDiscovery();
         call.enqueue(new CommonCallBack<Discovery>(new AbsCallBack<Discovery>() {
 
             @Override
@@ -85,6 +86,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     public void beginLoadMore() {
         isLoadingMore = true;
         mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
+
         mLoadMoreCall.enqueue(new CommonCallBack<Recommend>(new AbsCallBack<Recommend>() {
             @Override
             public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
