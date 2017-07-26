@@ -15,7 +15,11 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
+import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.common.retrofit.Interceptor.AbsCallBack;
+import com.yushilei.commonapp.common.retrofit.Interceptor.CommonCallBack;
+import com.yushilei.commonapp.common.retrofit.NetProxy;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.map.MapActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
@@ -26,6 +30,9 @@ import com.yushilei.commonapp.ui.test.TestActivity;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class MainActivity extends BaseActivity {
