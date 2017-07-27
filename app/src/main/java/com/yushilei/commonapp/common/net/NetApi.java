@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.net;
 
+import com.shileiyu.RetrofitProxy;
 import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 
@@ -42,6 +43,7 @@ public class NetApi {
         api = retrofit.create(API.class);
     }
 
+    @RetrofitProxy
     public interface API {
         @GET("/mobile/discovery/v3/recommend/ts-1500624532898")
         Call<Discovery> getDiscovery();

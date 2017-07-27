@@ -7,6 +7,9 @@ import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
 import com.yushilei.commonapp.common.net.ApiProxy;
+
+import com.yushilei.commonapp.common.net.N.APIProxy1;
+import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.retrofit.callback.AbsCallBack;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
@@ -37,7 +40,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
     private HomeContract.IModel model;
     /**
-     * 网络层代理实现
+     * 网络层代理实现(普通代理)
      */
     private NetProxy mNetProxy = new NetProxy() {
         @Override
@@ -45,6 +48,16 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             return mTaskId;
         }
     };
+    /**
+     * 编译时注解自动生成的(普通代理)
+     */
+    private APIProxy1 mCompileProxy = new APIProxy1(NetApi.api, mTaskId);
+
+    private NetApi.API mDynamicProxy = ApiProxy.get(mTaskId);
+
+    /**
+     * @param isRefreshByUser true：用户触发刷新， false App触发刷新
+     */
 
     @Override
     public void beginRefreshData(final boolean isRefreshByUser) {
@@ -61,8 +74,10 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             mView.onCancelLoadMore();
         }
 
-        //Call<Discovery> call = mNetProxy.getDiscovery();
-        Call<Discovery> call = ApiProxy.get(mTaskId).getDiscovery();
+        /*Call<Discovery> call = mNetProxy.getDiscovery();*/
+        /*Call<Discovery> call = mDynamicProxy.getDiscovery();*/
+        Call<Discovery> call = mCompileProxy.getDiscovery();
+
         call.enqueue(new CommonCallBack<Discovery>(new AbsCallBack<Discovery>() {
 
             @Override

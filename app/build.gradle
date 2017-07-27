@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
 
 android {
     signingConfigs {
@@ -54,4 +56,6 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     testCompile 'junit:junit:4.12'
     compile 'com.facebook.fresco:fresco:1.4.0'
+    compile project(':c_annotation')
+    compile project(':c_compiler')
 }
