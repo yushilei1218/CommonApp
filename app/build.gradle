@@ -57,5 +57,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.facebook.fresco:fresco:1.4.0'
     compile project(':c_annotation')
-    compile project(':c_compiler')
+    apt project(':c_compiler')
 }
