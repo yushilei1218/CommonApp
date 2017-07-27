@@ -80,7 +80,9 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
             return;
 
         if (t instanceof IOException && t.getMessage().equals("Canceled")) {
-            /*公共逻辑处理,此时为页面消耗主动cancel 抛出的异常 egonDestroy时会将view置null:,避免view空指针*/
+            /*2种情况
+            * 1.主动cancel Call,既然是业务主动cancel,那就应该立刻维护自行维护view状态
+            * 2.onDestroy 公共组件cancel taskId关联的所有Call 页面已经消耗了也不必再传业务层了*/
             t.printStackTrace();
             return;
         }
