@@ -3,6 +3,8 @@ package com.yushilei.commonapp.common.net;
 import com.shileiyu.RetrofitProxy;
 import com.yushilei.commonapp.common.bean.net.Discovery;
 import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.net.encrypt.EncryptAnnotation;
+import com.yushilei.commonapp.common.net.encrypt.EncryptConverterFactory;
 
 import java.util.Map;
 
@@ -36,15 +38,26 @@ public class NetApi {
 
     static {
         Retrofit retrofit = new Retrofit.Builder()
+                /*设置指定的OkHttpClient*/
                 .client(Client.getClient())
+                /*Json数据加密 解密*/
+                .addConverterFactory(EncryptConverterFactory.create())
+                /*Json序列化、反序列化*/
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
         api = retrofit.create(API.class);
     }
 
+    /**
+     * 网络请求API
+     * <p>
+     * {@link RetrofitProxy} 自定义注解，使用编译时注解自动生成网络请求代理类
+     * {@link EncryptAnnotation}自定义注解，对需要的接口请求做加密和解密操作
+     */
     @RetrofitProxy
     public interface API {
+        @EncryptAnnotation
         @GET("/mobile/discovery/v3/recommend/ts-1500624532898")
         Call<Discovery> getDiscovery();
 

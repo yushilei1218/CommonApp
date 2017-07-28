@@ -22,7 +22,13 @@ import retrofit2.http.Query;
  * @since on 2017/7/25.
  */
 
-public abstract class NetProxy implements NetApi.API {
+public class NetProxy implements NetApi.API {
+    private int mTaskId;
+
+    public NetProxy(int mTaskId) {
+        this.mTaskId = mTaskId;
+    }
+
     @Override
     public Call<Discovery> getDiscovery() {
         Call<Discovery> call = NetApi.api.getDiscovery();
@@ -31,23 +37,13 @@ public abstract class NetProxy implements NetApi.API {
     }
 
     @Override
-    public Call<Recommend> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize) {
+    public Call<Recommend> getRecommend(int pageId, int pageSize) {
         Call<Recommend> call = NetApi.api.getRecommend(pageId, pageSize);
         addCall(call);
         return call;
     }
 
     private void addCall(Call call) {
-        CallPool.addCall(call, getTaskId());
+        CallPool.addCall(call, mTaskId);
     }
-
-    /**
-     * 子类需要重写该方法：
-     * 获取任务ID ,一个任务ID 可能与多个{@link Call} 关联；
-     * 这里的任务ID 一般是 MVP中 V的hashCode
-     *
-     * @return taskId
-     * @see com.yushilei.commonapp.common.mvp.BasePresenter#mTaskId
-     */
-    public abstract int getTaskId();
 }

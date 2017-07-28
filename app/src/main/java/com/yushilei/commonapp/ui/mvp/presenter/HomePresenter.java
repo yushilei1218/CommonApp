@@ -42,22 +42,16 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     /**
      * 网络层代理实现(普通代理)
      */
-    private NetProxy mNetProxy = new NetProxy() {
-        @Override
-        public int getTaskId() {
-            return mTaskId;
-        }
-    };
+    private NetProxy mNetProxy = new NetProxy(mTaskId);
     /**
      * 编译时注解自动生成的(普通代理)
      */
     private APIProxy1 mCompileProxy = new APIProxy1(NetApi.api, mTaskId);
-
+    /**
+     * 利用动态接口实现+反射生成的（动态代理）
+     */
     private NetApi.API mDynamicProxy = ApiProxy.get(mTaskId);
 
-    /**
-     * @param isRefreshByUser true：用户触发刷新， false App触发刷新
-     */
 
     @Override
     public void beginRefreshData(final boolean isRefreshByUser) {
