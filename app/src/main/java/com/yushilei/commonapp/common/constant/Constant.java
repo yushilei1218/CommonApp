@@ -13,4 +13,5 @@ public interface Constant {
     String TEST = "TEST";
     String AMAP = "高德Map";
     String XMLY = "喜马拉雅";
+    String DrawLayout = "DrawLayout";
 }

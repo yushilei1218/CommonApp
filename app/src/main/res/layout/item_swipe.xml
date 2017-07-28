@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.yushilei.commonapp.common.widget.SwipeLayout
+        android:id="@+id/item_swipe_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/item_swipe_content"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#CCC"
+            android:clickable="true"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/item_swipe_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/item_swipe_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_swipe_con"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="#ff1919">
+
+            <TextView
+                android:id="@+id/item_swipe_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="删除"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </com.yushilei.commonapp.common.widget.SwipeLayout>
+</LinearLayout>

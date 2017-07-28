@@ -22,6 +22,7 @@ import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.mvp.view.HomeActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
+import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
 
 import java.util.LinkedList;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item5 = new HomeItem(new HomeBean(Constant.TEST));
         HomeItem item6 = new HomeItem(new HomeBean(Constant.AMAP));
         HomeItem item7 = new HomeItem(new HomeBean(Constant.XMLY));
+        HomeItem item8 = new HomeItem(new HomeBean(Constant.DrawLayout));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -51,6 +53,7 @@ public class MainActivity extends BaseActivity {
         data.add(item5);
         data.add(item6);
         data.add(item7);
+        data.add(item8);
         adapter.addAll(data);
     }
 
@@ -101,6 +104,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.XMLY:
                     intent = new Intent(MainActivity.this, HomeActivity.class);
+                    break;
+                case Constant.DrawLayout:
+                    intent = new Intent(MainActivity.this, SwipeLayoutActivity.class);
                     break;
             }
             if (intent != null)
