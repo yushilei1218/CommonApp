@@ -14,30 +14,28 @@ import retrofit2.Response;
 /**
  * CommonCallBack 为处理网络请求公共CallBack ,内部处理API 公共事件
  * <p>
- * 如果需要业务层自己处理所有网络code ，请使用{@link SimpleCallBack}
+ * 如果需要业务层自己处理所有网络code和异常，请使用{@link SimpleCallBack}
+ * <p>
+ * 优化：CommonCallBack 抽象化，移除不必要的callBack ，由CommonCallBack 抽象方法替代；
+ * 子类方法需要重写
+ * {@link #onBizResponse(Call, Response)}、
+ * {@link #onBizFailure(Call, Throwable)}处理业务回调；
  *
  * @author shilei.yu
  * @since on 2017/7/25.
  */
 
-public class CommonCallBack<T> extends BaseCallBack<T> {
-
-    private AbsCallBack<T> callback;
+public abstract class CommonCallBack<T> extends BaseCallBack<T> {
 
     private CallBackInterceptor<T> mInterceptor;
 
-    /**
-     * 构造函数
-     */
-    public CommonCallBack(AbsCallBack<T> callback) {
-        this.callback = callback;
+    public CommonCallBack() {
     }
 
     /**
      * 增加拦截器构造函数
      */
-    public CommonCallBack(AbsCallBack<T> callback, CallBackInterceptor<T> interceptor) {
-        this.callback = callback;
+    public CommonCallBack(CallBackInterceptor<T> interceptor) {
         this.mInterceptor = interceptor;
     }
 
@@ -55,16 +53,16 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
         /*这个地方可以处理API公共逻辑*/
         if (response.isSuccessful()) {
 
-            callback.onResponse(call, response);
+            onBizResponse(call, response);
 
         } else if (response.code() >= 1000 && response.code() <= 1010) {
             /*账号异常，请重新登录*/
-            callback.onFailure(call, new IhrException("账号冻结"));
+            onBizFailure(call, new IhrException("账号冻结"));
             /*处理公共逻辑todo*/
         } else if (response.code() == 404) {
-            callback.onFailure(call, new IhrException("服务器未找到资源"));
+            onBizFailure(call, new IhrException("服务器未找到资源"));
         } else {
-            callback.onFailure(call, new IhrException("未知原因"));
+            onBizFailure(call, new IhrException("未知原因"));
         }
     }
 
@@ -76,7 +74,7 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
             return;
 
         /*如果callBack关心并处理了TimeOutEx，则流程结束，否则交给公共逻辑*/
-        if (t instanceof TimeoutException && callback.onTimeOutException(call, t))
+        if (t instanceof TimeoutException && onTimeOutException(call, t))
             return;
 
         if (t instanceof IOException && t.getMessage().equals("Canceled")) {
@@ -87,6 +85,21 @@ public class CommonCallBack<T> extends BaseCallBack<T> {
             return;
         }
         /*否则交给业务层处理异常*/
-        callback.onFailure(call, t);
+        onBizFailure(call, t);
+    }
+
+    public abstract void onBizResponse(@NonNull Call<T> call, @NonNull Response<T> response);
+
+    public abstract void onBizFailure(@NonNull Call<T> call, @NonNull Throwable t);
+
+    /**
+     * 提供默认实现的TimeOutException 方法，业务层如果关心该异常可以自行在子类中重写该方法
+     *
+     * @param call {@link Call}
+     * @param t    {@link TimeoutException}
+     * @return true:代表拦截TimeOutException 并已经自行处理，false：不拦截不处理
+     */
+    protected boolean onTimeOutException(@NonNull Call<T> call, @NonNull Throwable t) {
+        return false;
     }
 }

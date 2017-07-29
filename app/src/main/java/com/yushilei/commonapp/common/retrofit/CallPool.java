@@ -36,14 +36,14 @@ public final class CallPool {
 
     private static final String TAG = "CallPool";
 
-    private static final SparseArray<List<WeakReference<Call>>> pool = new SparseArray<>();
+    private static final SparseArray<List<WeakReference<Call>>> sCallPool = new SparseArray<>();
 
     public static synchronized void addCall(Call call, int taskId) {
-        int index = pool.indexOfKey(taskId);
+        int index = sCallPool.indexOfKey(taskId);
         if (index < 0) {
-            pool.put(taskId, new LinkedList<WeakReference<Call>>());
+            sCallPool.put(taskId, new LinkedList<WeakReference<Call>>());
         }
-        List<WeakReference<Call>> list = pool.get(taskId);
+        List<WeakReference<Call>> list = sCallPool.get(taskId);
         boolean contains = false;
         for (WeakReference<Call> w : list) {
             if (w != null && w.get() != null && w.get().equals(call)) {
@@ -58,9 +58,9 @@ public final class CallPool {
     }
 
     public static synchronized void removeCall(Call call) {
-        for (int i = 0; i < pool.size(); i++) {
-            int key = pool.keyAt(i);
-            List<WeakReference<Call>> list = pool.get(key);
+        for (int i = 0; i < sCallPool.size(); i++) {
+            int key = sCallPool.keyAt(i);
+            List<WeakReference<Call>> list = sCallPool.get(key);
             if (SetUtil.isEmpty(list))
                 break;
             Iterator<WeakReference<Call>> iterator = list.iterator();
@@ -80,7 +80,7 @@ public final class CallPool {
      * @param taskId 任务id
      */
     public static synchronized void cancelCall(int taskId) {
-        List<WeakReference<Call>> set = pool.get(taskId);
+        List<WeakReference<Call>> set = sCallPool.get(taskId);
         if (!SetUtil.isEmpty(set)) {
             for (WeakReference<Call> w : set) {
                 if (w != null && w.get() != null) {
@@ -89,6 +89,6 @@ public final class CallPool {
                 }
             }
         }
-        pool.delete(taskId);
+        sCallPool.delete(taskId);
     }
 }

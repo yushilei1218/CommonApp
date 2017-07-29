@@ -9,7 +9,8 @@ import retrofit2.Response;
  * CallBackInterceptor 默认实现类
  * <p>
  * 简化CallBackInterceptor，旨在解决业务层 仅关心onResponse() or onFailure();
- * 关心那部分重写那部分
+ * 关心那部分重写那部分,思想参见系统
+ * {@link android.support.design.widget.AnimationUtils.AnimationListenerAdapter}
  *
  * @author shilei.yu
  * @since on 2017/7/26.

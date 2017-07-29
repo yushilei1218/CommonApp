@@ -5,6 +5,8 @@ import android.support.annotation.RequiresApi;
 
 
 /**
+ * 自定义Exception
+ *
  * @author shilei.yu
  * @since on 2017/7/25.
  */

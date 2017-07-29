@@ -3,14 +3,13 @@ package com.yushilei.commonapp.ui.mvp.presenter;
 import android.support.annotation.NonNull;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
-import com.yushilei.commonapp.common.bean.net.Discovery;
+import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
 import com.yushilei.commonapp.common.net.ApiProxy;
 
 import com.yushilei.commonapp.common.net.N.APIProxy1;
 import com.yushilei.commonapp.common.net.NetApi;
-import com.yushilei.commonapp.common.retrofit.callback.AbsCallBack;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
@@ -68,49 +67,52 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             mView.onCancelLoadMore();
         }
 
-        /*Call<Discovery> call = mNetProxy.getDiscovery();*/
-        /*Call<Discovery> call = mDynamicProxy.getDiscovery();*/
-        Call<Discovery> call = mCompileProxy.getDiscovery();
+        /*Call<DiscoveryBean> call = mNetProxy.getDiscovery();*/
+        /*Call<DiscoveryBean> call = mDynamicProxy.getDiscovery();*/
 
-        call.enqueue(new CommonCallBack<Discovery>(new AbsCallBack<Discovery>() {
+        Call<DiscoveryBean> call = mCompileProxy.getDiscovery();
 
+        call.enqueue(new CommonCallBack<DiscoveryBean>() {
             @Override
-            public void onResponse(@NonNull Call<Discovery> call, @NonNull Response<Discovery> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<ItemWrapper> items = model.obtainItems(response.body());
-                    mView.onRefreshFinish(isRefreshByUser, true, items);
-                }
+            public void onBizResponse(@NonNull Call<DiscoveryBean> call, @NonNull Response<DiscoveryBean> response) {
+                /*P层利用Model整合数据*/
+                List<ItemWrapper> items = model.obtainItems(response.body());
+                /*P层把数据推送给V层*/
+                mView.onRefreshFinish(isRefreshByUser, true, items);
             }
 
             @Override
-            public void onFailure(@NonNull Call<Discovery> call, @NonNull Throwable t) {
+            public void onBizFailure(@NonNull Call<DiscoveryBean> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 if (mView != null)
                     mView.onRefreshFinish(isRefreshByUser, false, null);
             }
-        }));
+
+            @Override
+            protected boolean onTimeOutException(@NonNull Call<DiscoveryBean> call, @NonNull Throwable t) {
+                return true;
+            }
+        });
     }
 
     @Override
     public void beginLoadMore() {
         isLoadingMore = true;
         mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
-
-        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>(new AbsCallBack<Recommend>() {
+        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>() {
             @Override
-            public void onResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
+            public void onBizResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
                 List<ItemWrapper> data = model.obtainAlbums(response.body());
                 mView.onLoadMoreFinish(true, data);
                 isLoadingMore = false;
             }
 
             @Override
-            public void onFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
-                t.printStackTrace();
+            public void onBizFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
                 if (mView != null)
                     mView.onLoadMoreFinish(false, null);
                 isLoadingMore = false;
             }
-        }));
+        });
     }
 }

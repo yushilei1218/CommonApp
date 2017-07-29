@@ -7,7 +7,7 @@ import java.util.List;
  * @since on 2017/7/21.
  */
 
-public class Discovery {
+public class DiscoveryBean {
     private String code;
     private String msg;
     private int ret;

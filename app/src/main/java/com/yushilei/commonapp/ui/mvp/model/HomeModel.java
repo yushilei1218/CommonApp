@@ -2,7 +2,7 @@ package com.yushilei.commonapp.ui.mvp.model;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.Data;
-import com.yushilei.commonapp.common.bean.net.Discovery;
+import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.bean.net.Type;
 import com.yushilei.commonapp.common.item.Album2Wrapper;
@@ -24,7 +24,7 @@ public class HomeModel implements HomeContract.IModel {
     private int mCurPageId;
 
     @Override
-    public List<ItemWrapper> obtainItems(Discovery recommend) {
+    public List<ItemWrapper> obtainItems(DiscoveryBean recommend) {
         mCurPageId = 0;
         if (recommend == null || SetUtil.isEmpty(recommend.getList()))
             return null;

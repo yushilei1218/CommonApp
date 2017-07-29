@@ -3,7 +3,7 @@ package com.yushilei.commonapp.ui.mvp.contract;
 import android.support.annotation.Nullable;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
-import com.yushilei.commonapp.common.bean.net.Discovery;
+import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.Recommend;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
@@ -66,7 +66,7 @@ public class HomeContract {
          * @param discovery 网络数据
          * @return home 刷新 items or null
          */
-        List<ItemWrapper> obtainItems(Discovery discovery);
+        List<ItemWrapper> obtainItems(DiscoveryBean discovery);
 
         /**
          * 首页 加载更多数据整合
