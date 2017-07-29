@@ -10,6 +10,7 @@ import com.yushilei.commonapp.common.net.ApiProxy;
 
 import com.yushilei.commonapp.common.net.N.APIProxy1;
 import com.yushilei.commonapp.common.net.NetApi;
+import com.yushilei.commonapp.common.retrofit.Interceptor.CallBackInterceptorAdapter;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
@@ -51,7 +52,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
      */
     private NetApi.API mDynamicProxy = ApiProxy.get(mTaskId);
 
-
     @Override
     public void beginRefreshData(final boolean isRefreshByUser) {
         if (isRefreshByUser) {
@@ -69,7 +69,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
         /*Call<DiscoveryBean> call = mNetProxy.getDiscovery();*/
         /*Call<DiscoveryBean> call = mDynamicProxy.getDiscovery();*/
-
         Call<DiscoveryBean> call = mCompileProxy.getDiscovery();
 
         call.enqueue(new CommonCallBack<DiscoveryBean>() {
@@ -87,11 +86,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
                 if (mView != null)
                     mView.onRefreshFinish(isRefreshByUser, false, null);
             }
-
-            @Override
-            protected boolean onTimeOutException(@NonNull Call<DiscoveryBean> call, @NonNull Throwable t) {
-                return true;
-            }
         });
     }
 
@@ -99,6 +93,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
     public void beginLoadMore() {
         isLoadingMore = true;
         mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
+
         mLoadMoreCall.enqueue(new CommonCallBack<Recommend>() {
             @Override
             public void onBizResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {

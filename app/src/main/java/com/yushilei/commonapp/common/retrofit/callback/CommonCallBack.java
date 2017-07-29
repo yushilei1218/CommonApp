@@ -39,10 +39,6 @@ public abstract class CommonCallBack<T> extends BaseCallBack<T> {
         this.mInterceptor = interceptor;
     }
 
-    public void setInterceptor(CallBackInterceptor<T> interceptor) {
-        this.mInterceptor = interceptor;
-    }
-
     @Override
     public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
         super.onResponse(call, response);
@@ -99,6 +95,7 @@ public abstract class CommonCallBack<T> extends BaseCallBack<T> {
      * @param t    {@link TimeoutException}
      * @return true:代表拦截TimeOutException 并已经自行处理，false：不拦截不处理
      */
+    @SuppressWarnings("WeakerAccess")
     protected boolean onTimeOutException(@NonNull Call<T> call, @NonNull Throwable t) {
         return false;
     }
