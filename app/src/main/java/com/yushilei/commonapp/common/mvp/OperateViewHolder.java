@@ -76,6 +76,7 @@ public class OperateViewHolder implements IOperateView {
             mLoadingDialog = new AlertDialog.Builder(activityContext,R.style.request_loading)
                     .setView(R.layout.item_dialog_loading)
                     .create();
+
             mLoadingDialog.setCancelable(false);
             mLoadingDialog.setCanceledOnTouchOutside(false);
         }

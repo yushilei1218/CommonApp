@@ -16,6 +16,7 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.map.MapActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item6 = new HomeItem(new HomeBean(Constant.AMAP));
         HomeItem item7 = new HomeItem(new HomeBean(Constant.XMLY));
         HomeItem item8 = new HomeItem(new HomeBean(Constant.DrawLayout));
+        HomeItem item9 = new HomeItem(new HomeBean(Constant.PagerFragment));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -54,6 +56,7 @@ public class MainActivity extends BaseActivity {
         data.add(item6);
         data.add(item7);
         data.add(item8);
+        data.add(item9);
         adapter.addAll(data);
     }
 
@@ -63,8 +66,8 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    public class HomeItem extends ItemWrapper<HomeBean> implements View.OnClickListener {
-        public HomeItem(HomeBean bean) {
+    private class HomeItem extends ItemWrapper<HomeBean> implements View.OnClickListener {
+        HomeItem(HomeBean bean) {
             super(bean);
         }
 
@@ -107,6 +110,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.DrawLayout:
                     intent = new Intent(MainActivity.this, SwipeLayoutActivity.class);
+                    break;
+                case Constant.PagerFragment:
+                    intent = new Intent(MainActivity.this, PagerFragmentActivity.class);
                     break;
             }
             if (intent != null)

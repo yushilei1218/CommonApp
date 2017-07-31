@@ -71,7 +71,7 @@ public class TestActivity extends BaseActivity {
                     public void run() {
                         hideDialog.performClick();
                     }
-                }, 1000);
+                }, 5000);
                 break;
             case R.id.hide_dialog:
                 hideLoadingDialog();

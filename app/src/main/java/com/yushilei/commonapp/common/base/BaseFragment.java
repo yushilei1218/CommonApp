@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +30,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     private OperateViewHolder mHolder;
 
-    protected void restoreDataBySavedBundle(Bundle savedInstanceState) {
-    }
+    private boolean isViewCreated = false;
+    private boolean isVisibleToUser = false;
+    private boolean isLoaded = false;
 
     protected void parseDataByArguments(Bundle arguments) {
     }
@@ -38,27 +40,56 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @LayoutRes
     protected abstract int getLayoutId();
 
+    protected void lazyLoad() {
+        Log.i(getTAG(), "lazyLoad" + " " + this);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            restoreDataBySavedBundle(savedInstanceState);
-        } else {
-            parseDataByArguments(getArguments());
-        }
+        Log.i(getTAG(), "onCreate" + " " + this);
+        parseDataByArguments(getArguments());
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(getTAG(), "onCreateView" + " " + this);
         return inflater.inflate(getLayoutId(), container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.i(getTAG(), "onViewCreated" + " " + this);
+        isViewCreated = true;
         initOperateView();
         initView();
         initData();
+        checkToLazyLoad();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        Log.i(getTAG(), "setUserVisibleHint " + isVisibleToUser + " " + this);
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        checkToLazyLoad();
+    }
+
+    private void checkToLazyLoad() {
+        if (isLoaded)
+            return;
+        if (isViewCreated && isVisibleToUser) {
+            isLoaded = true;
+            lazyLoad();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        isViewCreated = false;
+        isLoaded = false;
+        super.onDestroyView();
     }
 
     @Override
