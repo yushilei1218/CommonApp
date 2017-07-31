@@ -53,6 +53,8 @@ public class BannerView extends ViewPager implements Runnable {
 
     private Adapter adapter;
 
+    private OnIndicatorCountChangeListener mCountChangeListener;
+
     public BannerView(Context context) {
         this(context, null);
     }
@@ -81,6 +83,7 @@ public class BannerView extends ViewPager implements Runnable {
     protected void onDetachedFromWindow() {
         stopLoop();
         isAttachedToWindow = false;
+        mCountChangeListener = null;
         super.onDetachedFromWindow();
     }
 
@@ -93,6 +96,8 @@ public class BannerView extends ViewPager implements Runnable {
         if (isLooping) {
             stopLoop();
         }
+        if (mCountChangeListener != null)
+            mCountChangeListener.onIndicatorChange(adapter.getRealCount());
         isLooping = true;
         postDelayed(this, SLEEP_TIME);
     }
@@ -137,6 +142,10 @@ public class BannerView extends ViewPager implements Runnable {
         int currentItem = getCurrentItem();
         setCurrentItem(currentItem + 1, true);
         postDelayed(this, SLEEP_TIME);
+    }
+
+    public void setCountChangeListener(OnIndicatorCountChangeListener countChangeListener) {
+        mCountChangeListener = countChangeListener;
     }
 
     public class Adapter extends PagerAdapter {
@@ -190,6 +199,12 @@ public class BannerView extends ViewPager implements Runnable {
                 return 1;
             return Integer.MAX_VALUE >> 2;
 
+        }
+
+        public int getRealCount() {
+            if (SetUtil.isEmpty(data))
+                return 0;
+            return data.size();
         }
 
         @Override
@@ -262,5 +277,9 @@ public class BannerView extends ViewPager implements Runnable {
         int getLayoutRes();
 
         void bindView(ViewGroup container, BannerHolder holder, int pos);
+    }
+
+    public interface OnIndicatorCountChangeListener {
+        void onIndicatorChange(int count);
     }
 }

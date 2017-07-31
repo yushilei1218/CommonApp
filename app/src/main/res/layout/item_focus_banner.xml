@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,4 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.yushilei.commonapp.common.widget.BannerIndicatorView
+        android:id="@+id/item_focus_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        app:indicatorColorNormal="#CCC"
+        app:indicatorColorSelected="#ffffff"
+        app:indicatorOffset="20"
+        app:indicatorRadius="8" />
 </RelativeLayout>

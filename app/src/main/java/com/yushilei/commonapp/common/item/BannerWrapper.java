@@ -13,6 +13,7 @@ import com.yushilei.commonapp.common.bean.base.IFocus;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.Type;
 import com.yushilei.commonapp.common.util.SetUtil;
+import com.yushilei.commonapp.common.widget.BannerIndicatorView;
 import com.yushilei.commonapp.common.widget.BannerView;
 
 import java.util.LinkedList;
@@ -36,6 +37,11 @@ public class BannerWrapper extends ItemWrapper<Type> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int pos) {
         BannerView banner = holder.findView(R.id.item_focus_banner);
+
+        BannerIndicatorView indicatorView = holder.findView(R.id.item_focus_indicator);
+        banner.addOnPageChangeListener(indicatorView);
+        banner.setCountChangeListener(indicatorView);
+
         BannerView.Adapter adapter = banner.getAdapter();
 
         List<Data> data = bean.getList();
