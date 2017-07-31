@@ -34,33 +34,52 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     private boolean isVisibleToUser = false;
     private boolean isLoaded = false;
 
-    protected void parseDataByArguments(Bundle arguments) {
-    }
-
     @LayoutRes
     protected abstract int getLayoutId();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+
+            parseDataByArguments(getArguments());
+        } else {
+            restoreDataBySavedBundle(savedInstanceState);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
     protected void lazyLoad() {
-        Log.i(getTAG(), "lazyLoad" + " " + this);
+    }
+
+    protected void parseDataByArguments(Bundle arguments) {
+    }
+
+    protected void restoreDataBySavedBundle(Bundle savedInstanceState) {
+
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i(getTAG(), "onCreate" + " " + this);
-        parseDataByArguments(getArguments());
-        super.onCreate(savedInstanceState);
+    public void onSaveInstanceState(Bundle outState) {
+        if (outState == null) {
+            outState = new Bundle();
+        }
+        saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    protected void saveInstanceState(Bundle outState) {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(getTAG(), "onCreateView" + " " + this);
+
         return inflater.inflate(getLayoutId(), container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.i(getTAG(), "onViewCreated" + " " + this);
         isViewCreated = true;
         initOperateView();
         initView();
@@ -70,7 +89,6 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.i(getTAG(), "setUserVisibleHint " + isVisibleToUser + " " + this);
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         checkToLazyLoad();

@@ -34,6 +34,16 @@ public class PagerFragment extends BaseFragment {
     }
 
     @Override
+    protected void restoreDataBySavedBundle(Bundle savedInstanceState) {
+        mTitle = savedInstanceState.getString(EXTRA_);
+    }
+
+    @Override
+    protected void saveInstanceState(Bundle outState) {
+        outState.putString(EXTRA_, mTitle);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_pager;
     }
