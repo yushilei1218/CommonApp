@@ -1,6 +1,6 @@
 package com.yushilei.commonapp.common.mvp;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
@@ -9,15 +9,15 @@ import android.view.View;
  * @since on 2017/7/21.
  */
 
-public interface IBaseView extends IErrorView, View.OnClickListener {
+public interface IBaseView extends IOperateView, View.OnClickListener {
 
-    Context getActivityContext();
-
-    void showToast(String msg);
+    Activity getActivityContext();
 
     void initView();
 
     void initData();
+
+    void showToast(String msg);
 
     void showDialog(AlertDialog dialog);
 

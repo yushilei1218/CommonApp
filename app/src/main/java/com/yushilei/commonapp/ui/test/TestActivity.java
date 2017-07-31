@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RotateDrawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class TestActivity extends BaseActivity {
     private MultiRecyclerAdapter adapter;
     private ListView mLv;
     private MultiBaseAdapter adapter1;
+    private View hideDialog;
 
     @Override
     public void initView() {
@@ -45,7 +47,9 @@ public class TestActivity extends BaseActivity {
         adapter1 = new MultiBaseAdapter(3);
         mLv.setAdapter(adapter1);
         adapter1.addAll(getWrapper());
+        hideDialog = findView(R.id.hide_dialog);
         setOnClick(R.id.show_recy, R.id.show_list);
+        setOnClick(R.id.show_dialog, R.id.hide_dialog);
 
     }
 
@@ -59,6 +63,18 @@ public class TestActivity extends BaseActivity {
             case R.id.show_list:
                 mRecycler.setVisibility(View.GONE);
                 mLv.setVisibility(View.VISIBLE);
+                break;
+            case R.id.show_dialog:
+                showLoadingDialog();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideDialog.performClick();
+                    }
+                }, 1000);
+                break;
+            case R.id.hide_dialog:
+                hideLoadingDialog();
                 break;
         }
     }
