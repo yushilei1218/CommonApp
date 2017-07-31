@@ -14,6 +14,12 @@ import android.view.View;
 import com.yushilei.commonapp.R;
 
 /**
+ * 广告轮播指示器 配合 {@link BannerView}
+ * <p>
+ * 使用方式：
+ * {@link BannerView#setCountChangeListener(BannerView.OnIndicatorCountChangeListener)}
+ * {@link BannerView#addOnPageChangeListener(ViewPager.OnPageChangeListener)}
+ *
  * @author shilei.yu
  * @since on 2017/7/31.
  */

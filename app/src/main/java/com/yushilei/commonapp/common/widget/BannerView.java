@@ -52,7 +52,9 @@ public class BannerView extends ViewPager implements Runnable {
     private boolean isLooping = false;
 
     private Adapter adapter;
-
+    /**
+     * Banner真实数量回调
+     */
     private OnIndicatorCountChangeListener mCountChangeListener;
 
     public BannerView(Context context) {
@@ -96,8 +98,6 @@ public class BannerView extends ViewPager implements Runnable {
         if (isLooping) {
             stopLoop();
         }
-        if (mCountChangeListener != null)
-            mCountChangeListener.onIndicatorChange(adapter.getRealCount());
         isLooping = true;
         postDelayed(this, SLEEP_TIME);
     }
@@ -161,13 +161,14 @@ public class BannerView extends ViewPager implements Runnable {
          */
         public void addDataAndLoop(List<BannerWrapper> data) {
             stopLoop();
-
-            if (SetUtil.isEmpty(data)) {
-                this.data.clear();
-            } else {
+            this.data.clear();
+            if (!SetUtil.isEmpty(data)) {
                 this.data.addAll(data);
             }
             notifyDataSetChanged();
+
+            if (mCountChangeListener != null)
+                mCountChangeListener.onIndicatorChange(adapter.getRealCount());
 
             if (isCanLoop()) {
                 startLoop();
@@ -201,7 +202,7 @@ public class BannerView extends ViewPager implements Runnable {
 
         }
 
-        public int getRealCount() {
+        int getRealCount() {
             if (SetUtil.isEmpty(data))
                 return 0;
             return data.size();
