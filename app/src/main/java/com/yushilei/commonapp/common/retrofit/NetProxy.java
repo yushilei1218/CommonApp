@@ -1,7 +1,7 @@
 package com.yushilei.commonapp.common.retrofit;
 
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
-import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.callback.SimpleCallBack;
@@ -36,8 +36,8 @@ public class NetProxy implements NetApi.API {
     }
 
     @Override
-    public Call<Recommend> getRecommend(int pageId, int pageSize) {
-        Call<Recommend> call = NetApi.api.getRecommend(pageId, pageSize);
+    public Call<RecommendBean> getRecommend(int pageId, int pageSize) {
+        Call<RecommendBean> call = NetApi.api.getRecommend(pageId, pageSize);
         addCall(call);
         return call;
     }

@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
-import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
 
@@ -71,10 +71,10 @@ public class HomeContract {
         /**
          * 首页 加载更多数据整合
          *
-         * @param recommend 网络请求回调的数据
+         * @param recommendBean 网络请求回调的数据
          * @return home 加载更多items or null
          */
-        List<ItemWrapper> obtainAlbums(Recommend recommend);
+        List<ItemWrapper> obtainAlbums(RecommendBean recommendBean);
 
         /**
          * 获取加载更多的pageID

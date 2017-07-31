@@ -3,7 +3,7 @@ package com.yushilei.commonapp.ui.mvp.model;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
-import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.bean.net.Type;
 import com.yushilei.commonapp.common.item.Album2Wrapper;
 import com.yushilei.commonapp.common.item.BannerWrapper;
@@ -51,12 +51,12 @@ public class HomeModel implements HomeContract.IModel {
     }
 
     @Override
-    public List<ItemWrapper> obtainAlbums(Recommend recommend) {
+    public List<ItemWrapper> obtainAlbums(RecommendBean recommendBean) {
         mCurPageId++;
-        if (recommend == null || SetUtil.isEmpty(recommend.getList()))
+        if (recommendBean == null || SetUtil.isEmpty(recommendBean.getList()))
             return null;
         List<ItemWrapper> data = new LinkedList<>();
-        for (Data d : recommend.getList()) {
+        for (Data d : recommendBean.getList()) {
             data.add(new Album2Wrapper(d));
         }
         return data;

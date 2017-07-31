@@ -4,13 +4,12 @@ import android.support.annotation.NonNull;
 
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
-import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
 import com.yushilei.commonapp.common.net.ApiProxy;
 
 import com.yushilei.commonapp.common.net.N.APIProxy1;
 import com.yushilei.commonapp.common.net.NetApi;
-import com.yushilei.commonapp.common.retrofit.Interceptor.CallBackInterceptorAdapter;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.NetProxy;
 import com.yushilei.commonapp.ui.mvp.contract.HomeContract;
@@ -27,7 +26,7 @@ import retrofit2.Response;
 
 public class HomePresenter extends BasePresenter<HomeContract.IView> implements HomeContract.Presenter {
 
-    private Call<Recommend> mLoadMoreCall;
+    private Call<RecommendBean> mLoadMoreCall;
     /**
      * 是否正处于加载更多状态
      */
@@ -94,16 +93,16 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
         isLoadingMore = true;
         mLoadMoreCall = mNetProxy.getRecommend(model.getPageId(), model.getPageSize());
 
-        mLoadMoreCall.enqueue(new CommonCallBack<Recommend>() {
+        mLoadMoreCall.enqueue(new CommonCallBack<RecommendBean>() {
             @Override
-            public void onBizResponse(@NonNull Call<Recommend> call, @NonNull Response<Recommend> response) {
+            public void onBizResponse(@NonNull Call<RecommendBean> call, @NonNull Response<RecommendBean> response) {
                 List<ItemWrapper> data = model.obtainAlbums(response.body());
                 mView.onLoadMoreFinish(true, data);
                 isLoadingMore = false;
             }
 
             @Override
-            public void onBizFailure(@NonNull Call<Recommend> call, @NonNull Throwable t) {
+            public void onBizFailure(@NonNull Call<RecommendBean> call, @NonNull Throwable t) {
                 if (mView != null)
                     mView.onLoadMoreFinish(false, null);
                 isLoadingMore = false;

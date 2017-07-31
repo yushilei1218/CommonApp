@@ -2,7 +2,7 @@ package com.yushilei.commonapp.common.net;
 
 import com.shileiyu.RetrofitProxy;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
-import com.yushilei.commonapp.common.bean.net.Recommend;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.net.encrypt.EncryptAnnotation;
 import com.yushilei.commonapp.common.net.encrypt.EncryptConverterFactory;
 
@@ -49,6 +49,6 @@ public class NetApi {
         Call<DiscoveryBean> getDiscovery();
 
         @GET("/mobile/discovery/v1/recommend/albums")
-        Call<Recommend> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
+        Call<RecommendBean> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
     }
 }

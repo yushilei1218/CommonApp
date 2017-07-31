@@ -11,7 +11,7 @@ import java.util.List;
  * totalCount: 100,
  */
 
-public class Recommend {
+public class RecommendBean {
     private int ret;
     private int maxPageId;
     private List<Data> list;
