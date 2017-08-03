@@ -56,7 +56,8 @@
         <activity android:name=".ui.map.MapActivity" />
         <activity android:name=".ui.mvp.view.HomeActivity" />
         <activity android:name=".ui.swipelayout.SwipeLayoutActivity" />
-        <activity android:name=".ui.fragment.PagerFragmentActivity"></activity>
+        <activity android:name=".ui.fragment.PagerFragmentActivity" />
+        <activity android:name=".ui.rxjava.RxJavaActivity"></activity>
     </application>
 
 </manifest>

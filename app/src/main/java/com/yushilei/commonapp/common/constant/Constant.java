@@ -15,4 +15,5 @@ public interface Constant {
     String XMLY = "喜马拉雅";
     String DrawLayout = "DrawLayout";
     String PagerFragment = "PagerFragment";
+    String RxJava2 = "RxJava2";
 }
