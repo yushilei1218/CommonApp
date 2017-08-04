@@ -16,6 +16,7 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.map.MapActivity;
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item9 = new HomeItem(new HomeBean(Constant.PagerFragment));
         HomeItem item10 = new HomeItem(new HomeBean(Constant.RxJava2));
         HomeItem item11 = new HomeItem(new HomeBean(Constant.Notification));
+        HomeItem item12 = new HomeItem(new HomeBean(Constant.Contact));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity {
         data.add(item9);
         data.add(item10);
         data.add(item11);
+        data.add(item12);
         adapter.addAll(data);
     }
 
@@ -125,6 +128,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.Notification:
                     intent = new Intent(MainActivity.this, NotificationActivity.class);
+                    break;
+                case Constant.Contact:
+                    intent = new Intent(MainActivity.this, ContactActivity.class);
                     break;
             }
             if (intent != null)
