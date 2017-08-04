@@ -22,6 +22,7 @@ import com.yushilei.commonapp.ui.map.MapActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.mvp.view.HomeActivity;
+import com.yushilei.commonapp.ui.notification.NotificationActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item8 = new HomeItem(new HomeBean(Constant.DrawLayout));
         HomeItem item9 = new HomeItem(new HomeBean(Constant.PagerFragment));
         HomeItem item10 = new HomeItem(new HomeBean(Constant.RxJava2));
+        HomeItem item11 = new HomeItem(new HomeBean(Constant.Notification));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity {
         data.add(item8);
         data.add(item9);
         data.add(item10);
+        data.add(item11);
         adapter.addAll(data);
     }
 
@@ -119,6 +122,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.RxJava2:
                     intent = new Intent(MainActivity.this, RxJavaActivity.class);
+                    break;
+                case Constant.Notification:
+                    intent = new Intent(MainActivity.this, NotificationActivity.class);
                     break;
             }
             if (intent != null)

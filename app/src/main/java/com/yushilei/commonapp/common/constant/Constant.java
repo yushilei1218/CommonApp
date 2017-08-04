@@ -16,4 +16,5 @@ public interface Constant {
     String DrawLayout = "DrawLayout";
     String PagerFragment = "PagerFragment";
     String RxJava2 = "RxJava2";
+    String Notification = "Notification";
 }
