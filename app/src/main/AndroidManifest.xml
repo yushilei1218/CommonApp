@@ -59,7 +59,8 @@
         <activity android:name=".ui.multirecycler.MultiRecyclerActivity"/>
         <activity android:name=".ui.multilv.MultiListViewActivity"/>
         <activity android:name=".ui.loadmorerecycler.LoadMoreRecyclerActivity"/>
-        <activity android:name=".ui.ptr.PtrZpActivity"/>
+        <activity android:name=".ui.ptr.PtrZpActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ui.test.TestActivity"/>
         <activity android:name=".ui.map.MapActivity"/>
         <activity android:name=".ui.mvp.view.HomeActivity"/>
