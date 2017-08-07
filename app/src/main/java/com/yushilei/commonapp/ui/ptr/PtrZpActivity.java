@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.common.bean.BeanB;
 import com.yushilei.commonapp.common.widget.LoadMoreRecyclerView;
 import com.yushilei.commonapp.common.widget.PtrFirstHeader;
+import com.yushilei.commonapp.common.widget.drop.DropCover;
+import com.yushilei.commonapp.common.widget.drop.DropFake;
+import com.yushilei.commonapp.common.widget.drop.DropManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -61,6 +65,7 @@ public class PtrZpActivity extends BaseActivity {
     });
     private LoadMoreRecyclerView mRecycler;
     private PtrFrameLayout mPtr;
+    private DropCover.IDropCompletedListener mDropCompletedListener;
 
     @Override
     public void initView() {
@@ -86,6 +91,29 @@ public class PtrZpActivity extends BaseActivity {
                 refreshing(REFRESHING);
             }
         });
+        mDropCompletedListener = new DropCover.IDropCompletedListener() {
+            @Override
+            public void onCompleted(Object id, boolean explosive) {
+                Log.i(getTAG(), "Object=" + id + " explosive=" + explosive);
+            }
+        };
+        DropManager.getInstance().init(this, (DropCover) findView(R.id.ptr_zp_drop_cover), mDropCompletedListener);
+        registerDropListener(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        registerDropListener(false);
+        super.onDestroy();
+    }
+
+    private void registerDropListener(boolean is) {
+        if (is) {
+            DropManager.getInstance().getDropCover().addDropCompletedListener(mDropCompletedListener);
+        } else {
+            DropManager.getInstance().getDropCover().removeDropCompletedListener(mDropCompletedListener);
+        }
+
     }
 
     int pos = 0;
@@ -142,24 +170,26 @@ public class PtrZpActivity extends BaseActivity {
         }
     }
 
-    private class BeanWrapperB extends ItemWrapper<BeanB> implements View.OnClickListener {
+    private class BeanWrapperB extends ItemWrapper<BeanB> implements View.OnClickListener, DropFake.ITouchListener {
         public BeanWrapperB(BeanB bean) {
             super(bean);
         }
 
         @Override
         public int getLayoutRes() {
-            return R.layout.item_b;
+            return R.layout.item_drop;
         }
 
         @Override
         public void onBindViewHolder(BaseViewHolder holder, int pos) {
-            TextView view = holder.findView(R.id.item_b_tv);
-            ImageView img = holder.findView(R.id.item_b_img);
+            TextView view = holder.findView(R.id.item_drop_tv);
+            DropFake img = holder.findView(R.id.item_drop_fake);
 
             String text = bean.age + " 岁";
             view.setText(text);
-            img.setImageResource(R.mipmap.ic_launcher);
+            img.setText("11+");
+            img.setClickListener(this);
+
             holder.itemView.setOnClickListener(this);
         }
 
@@ -167,6 +197,23 @@ public class PtrZpActivity extends BaseActivity {
         public void onClick(View v) {
             adapter.remove(this);
             showToast("Age=" + bean.age);
+        }
+
+        /*设置红点拖拽监听*/
+        @Override
+        public void onDown() {
+            DropFake fakeView = findView(R.id.item_drop_fake);
+            DropManager.getInstance().getDropCover().down(fakeView, fakeView.getText().toString());
+        }
+
+        @Override
+        public void onMove(float curX, float curY) {
+            DropManager.getInstance().getDropCover().move(curX, curY);
+        }
+
+        @Override
+        public void onUp() {
+            DropManager.getInstance().getDropCover().up();
         }
     }
 }
