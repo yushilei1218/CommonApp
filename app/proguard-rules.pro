@@ -58,3 +58,15 @@
 -keep class com.amap.api.maps2d.**{*;}
 -keep class com.amap.api.mapcore2d.**{*;}
 -dontwarn com.amap.api.**
+#友盟
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keep public class com.yushilei.commonapp.R$*{
+public static final int *;
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
