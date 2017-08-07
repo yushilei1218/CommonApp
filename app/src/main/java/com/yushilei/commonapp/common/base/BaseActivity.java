@@ -13,6 +13,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yushilei.commonapp.common.manager.ActivityStack;
 import com.yushilei.commonapp.common.mvp.OperateViewHolder;
 import com.yushilei.commonapp.common.mvp.IBaseView;
@@ -177,6 +178,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         isResume = true;
     }
 
@@ -184,6 +186,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onPause() {
         isResume = false;
         super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

@@ -37,6 +37,16 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    productFlavors {
+
+        huawei {}
+        local {}
+        wandoujia {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
 }
 
 dependencies {
@@ -61,4 +71,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
