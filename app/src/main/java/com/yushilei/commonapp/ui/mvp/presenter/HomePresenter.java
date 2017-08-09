@@ -1,7 +1,9 @@
 package com.yushilei.commonapp.ui.mvp.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
@@ -68,12 +70,13 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
         /*Call<DiscoveryBean> call = mNetProxy.getDiscovery();*/
         /*Call<DiscoveryBean> call = mDynamicProxy.getDiscovery();*/
-        Call<DiscoveryBean> call = mCompileProxy.getDiscovery();
+        Call<DiscoveryBean> call = mNetProxy.getDiscovery();
 
         call.enqueue(new CommonCallBack<DiscoveryBean>() {
             @Override
             public void onBizResponse(@NonNull Call<DiscoveryBean> call, @NonNull Response<DiscoveryBean> response) {
                 /*P层利用Model整合数据*/
+
                 List<ItemWrapper> items = model.obtainItems(response.body());
                 /*P层把数据推送给V层*/
                 mView.onRefreshFinish(isRefreshByUser, true, items);

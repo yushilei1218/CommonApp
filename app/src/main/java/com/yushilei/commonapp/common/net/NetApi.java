@@ -44,7 +44,7 @@ public class NetApi {
      */
     @RetrofitProxy
     public interface API {
-        @EncryptAnnotation
+
         @GET("/mobile/discovery/v3/recommend/ts-1500624532898")
         Call<DiscoveryBean> getDiscovery();
 
