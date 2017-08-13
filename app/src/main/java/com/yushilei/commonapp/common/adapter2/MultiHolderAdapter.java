@@ -27,6 +27,16 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
     private Map<Class, BaseHolder> map = new HashMap<>();
     private SparseArray<BaseHolder> map2 = new SparseArray<>();
 
+    public void addAll(List newData) {
+        if (data == null) {
+            data = new ArrayList();
+        }
+        if (!SetUtil.isEmpty(newData)) {
+            data.addAll(newData);
+            notifyItemRangeInserted(data.size(), data.size() + newData.size());
+        }
+    }
+
     public void replaceData(List newData) {
         data.clear();
         if (!SetUtil.isEmpty(newData)) {

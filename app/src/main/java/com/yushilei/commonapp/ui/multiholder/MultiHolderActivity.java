@@ -29,6 +29,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
     @Override
     public void initView() {
         RecyclerView recycler = findView(R.id.activity_multi_holder_recycler);
+        setOnClick(R.id.add);
         adapter = new MultiHolderAdapter();
         recycler.setAdapter(adapter);
         adapter.setMatch(Bean.class, new BeanHolder());
@@ -36,6 +37,11 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         adapter.replaceData(getData());
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        adapter.addAll(getData());
     }
 
     @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection", "unchecked"})
