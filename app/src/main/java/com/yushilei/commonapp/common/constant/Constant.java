@@ -18,4 +18,5 @@ public interface Constant {
     String RxJava2 = "RxJava2";
     String Notification = "Notification";
     String Contact = "Contact";
+    String MultiBaseHolder = "MultiBaseHolder";
 }
