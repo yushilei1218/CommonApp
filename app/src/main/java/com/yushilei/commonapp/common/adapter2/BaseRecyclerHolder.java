@@ -1,6 +1,7 @@
 package com.yushilei.commonapp.common.adapter2;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 
 /**
@@ -11,7 +12,9 @@ import android.view.View;
 
 public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder {
     private final BaseHolder<Bean> holder;
-    private Bean bean;
+    public Bean bean;
+
+    private SparseArray<View> mViews = new SparseArray<>();
 
     public BaseRecyclerHolder(View itemView, BaseHolder<Bean> holder) {
         super(itemView);
@@ -24,7 +27,17 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder {
 
     final void onBindData(Bean bean, int pos) {
         this.bean = bean;
-        holder.onBindData(itemView, bean, pos);
+        holder.onBindData(this, bean, pos);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends View> T findView(int rid) {
+        View view = mViews.get(rid);
+        if (view == null) {
+            view = itemView.findViewById(rid);
+            mViews.append(rid, view);
+        }
+        return (T) view;
     }
 
 }

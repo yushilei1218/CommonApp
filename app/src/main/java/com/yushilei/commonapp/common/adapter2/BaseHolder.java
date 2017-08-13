@@ -14,24 +14,14 @@ import android.view.ViewGroup;
  */
 
 public abstract class BaseHolder<BEAN> {
-    private SparseArray<View> mViews = new SparseArray<>();
 
     @LayoutRes
     public abstract int getLayoutId();
 
-    public abstract void onBindData(View itemView, BEAN bean, int pos);
+    public abstract void onBindData(BaseRecyclerHolder holder, BEAN bean, int pos);
 
     public int getViewType() {
         return getLayoutId();
     }
 
-//    @SuppressWarnings("unchecked")
-//    public <T extends View> T findView(int rid) {
-//        View view = mViews.get(rid);
-//        if (view == null) {
-//            view = itemView.findViewById(rid);
-//            mViews.append(rid, view);
-//        }
-//        return (T) view;
-//    }
 }

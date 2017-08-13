@@ -7,7 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yushilei.commonapp.R;
+import com.yushilei.commonapp.common.adapter.BaseViewHolder;
+import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter2.BaseHolder;
+import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.MultiHolderAdapter;
 import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
 
@@ -31,6 +34,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         adapter.setMatch(Bean.class, new BeanHolder());
         adapter.setMatch(Book.class, new BookHolder());
         adapter.replaceData(getData());
+
 
     }
 
@@ -61,7 +65,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
 
     @Override
     public void onRemoveBean(Bean bean) {
-        adapter.getItemCount();
+        adapter.remove(bean);
     }
 
     /**
@@ -74,9 +78,9 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         }
 
         @Override
-        public void onBindData(View itemView, final Bean bean, int pos) {
-            TextView nameTv = (TextView) itemView.findViewById(R.id.item_holder_1_tv);
-            TextView ageTv = (TextView) itemView.findViewById(R.id.item_holder_1_tv2);
+        public void onBindData(BaseRecyclerHolder holder, final Bean bean, int pos) {
+            TextView nameTv = (TextView) holder.findView(R.id.item_holder_1_tv);
+            TextView ageTv = (TextView) holder.findView(R.id.item_holder_1_tv2);
             nameTv.setText(bean.name);
             ageTv.setText(String.valueOf(bean.age));
 
@@ -89,10 +93,11 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
             nameTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.onBeanNameClick(bean);
+                    presenter.onRemoveBeanClick(bean);
                 }
             });
         }
+
     }
 
     public class BookHolder extends BaseHolder<Book> {
@@ -103,19 +108,20 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         }
 
         @Override
-        public void onBindData(View itemView, final Book book, int pos) {
-            TextView nameTv = (TextView) itemView.findViewById(R.id.item_holder_2_tv);
-            ImageView img = (ImageView) itemView.findViewById(R.id.item_holder_2_img);
+        public void onBindData(BaseRecyclerHolder holder, final Book book, int pos) {
+            TextView nameTv = (TextView) holder.findView(R.id.item_holder_2_tv);
+            ImageView img = (ImageView) holder.findView(R.id.item_holder_2_img);
             nameTv.setText(book.name);
             img.setImageResource(book.cover);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     presenter.onBookImgClick(book);
                 }
             });
         }
+
     }
 
     public class Bean {
