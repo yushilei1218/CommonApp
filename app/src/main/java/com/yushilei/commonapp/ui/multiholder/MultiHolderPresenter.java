@@ -20,17 +20,22 @@ public class MultiHolderPresenter extends BasePresenter<MultiHolderContact.IView
     }
 
     @Override
-    public void onRemoveBeanClick(MultiHolderActivity.Bean bean) {
+    public void onRemoveBeanClick(Bean bean) {
         mView.onRemoveBean(bean);
     }
 
     @Override
-    public void onBeanNameClick(MultiHolderActivity.Bean bean) {
+    public void onBeanNameClick(Bean bean) {
         mView.showToast("Bean ：" + bean.name);
     }
 
     @Override
-    public void onBookImgClick(MultiHolderActivity.Book book) {
+    public void onBeanLongClick(Bean bean) {
+        mView.onBeanLongClick(bean);
+    }
+
+    @Override
+    public void onBookImgClick(Book book) {
 
         mView.showToast("书名：" + book.name);
         mView.startActivity(new Intent(mView.getActivityContext(), PtrZpActivity.class));

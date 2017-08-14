@@ -11,14 +11,19 @@ import com.yushilei.commonapp.common.mvp.IBaseView;
 
 public class MultiHolderContact {
     public interface Presenter extends IBasePresenter {
-        void onRemoveBeanClick(MultiHolderActivity.Bean bean);
+        void onRemoveBeanClick(Bean bean);
 
-        void onBeanNameClick(MultiHolderActivity.Bean bean);
+        void onBeanNameClick(Bean bean);
 
-        void onBookImgClick(MultiHolderActivity.Book book);
+        void onBeanLongClick(Bean bean);
+
+        void onBookImgClick(Book book);
+
     }
 
     public interface IView extends IBaseView {
-        void onRemoveBean(MultiHolderActivity.Bean bean);
+        void onRemoveBean(Bean bean);
+
+        void onBeanLongClick(Bean bean);
     }
 }

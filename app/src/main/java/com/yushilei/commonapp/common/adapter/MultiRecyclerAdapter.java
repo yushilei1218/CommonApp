@@ -33,7 +33,7 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     /**
      * 清空原数据集合，将新的数据集合添加到数据源中并刷新
      */
-    public void addAll(List<ItemWrapper> data) {
+    public void addAll(List<? extends ItemWrapper> data) {
         if (!SetUtil.isEmpty(data)) {
             mData.clear();
             mData.addAll(data);
@@ -44,7 +44,7 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public void addAllLast(List<ItemWrapper> data) {
+    public void addAllLast(List<? extends ItemWrapper> data) {
         if (SetUtil.isEmpty(data))
             return;
         if (mData == null)

@@ -38,22 +38,6 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         adapter.replaceData(getData());
     }
 
-    public class AAA extends ItemWrapper<String> {
-        public AAA(String bean) {
-            super(bean);
-        }
-
-        @Override
-        public int getLayoutRes() {
-            return 0;
-        }
-
-        @Override
-        public void onBindViewHolder(BaseViewHolder holder, int pos) {
-
-        }
-    }
-
     @Override
     public void onClick(View v) {
         adapter.addAll(getData());
@@ -89,6 +73,11 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         adapter.remove(bean);
     }
 
+    @Override
+    public void onBeanLongClick(Bean bean) {
+        showToast(bean.name);
+    }
+
     /**
      * 适配器封装
      */
@@ -107,6 +96,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
             ageTv.setText(String.valueOf(bean.age));
             nameTv.setOnClickListener(holder);
             ageTv.setOnClickListener(holder);
+            holder.itemView.setOnLongClickListener(holder);
         }
 
         @Override
@@ -119,6 +109,12 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
                     presenter.onRemoveBeanClick(bean);
                     break;
             }
+        }
+
+        @Override
+        public boolean onItemLongClick(View target, BaseRecyclerHolder<Bean> holder, Bean bean) {
+            presenter.onBeanLongClick(bean);
+            return true;
         }
     }
 
@@ -144,25 +140,5 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
             });
         }
 
-    }
-
-    public class Bean {
-        String name;
-        int age;
-
-        public Bean(String name, int age) {
-            this.name = name;
-            this.age = age;
-        }
-    }
-
-    public class Book {
-        String name;
-        int cover;
-
-        public Book(String name, int cover) {
-            this.name = name;
-            this.cover = cover;
-        }
     }
 }
