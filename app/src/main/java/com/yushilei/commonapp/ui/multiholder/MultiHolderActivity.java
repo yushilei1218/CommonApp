@@ -34,9 +34,8 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         recycler.setAdapter(adapter);
         adapter.setMatch(Bean.class, new BeanHolder());
         adapter.setMatch(Book.class, new BookHolder());
+
         adapter.replaceData(getData());
-
-
     }
 
     @Override
@@ -88,22 +87,23 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
             TextView nameTv = (TextView) holder.findView(R.id.item_holder_1_tv);
             TextView ageTv = (TextView) holder.findView(R.id.item_holder_1_tv2);
             nameTv.setText(bean.name);
-            ageTv.setText(String.valueOf(bean.age));
 
-            ageTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.onRemoveBeanClick(bean);
-                }
-            });
-            nameTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.onRemoveBeanClick(bean);
-                }
-            });
+            ageTv.setText(String.valueOf(bean.age));
+            nameTv.setOnClickListener(holder);
+            ageTv.setOnClickListener(holder);
         }
 
+        @Override
+        public void onItemClick(View target, BaseRecyclerHolder<Bean> holder, Bean bean) {
+            switch (target.getId()) {
+                case R.id.item_holder_1_tv:
+                    presenter.onBeanNameClick(bean);
+                    break;
+                case R.id.item_holder_1_tv2:
+                    presenter.onRemoveBeanClick(bean);
+                    break;
+            }
+        }
     }
 
     public class BookHolder extends BaseHolder<Book> {

@@ -10,7 +10,7 @@ import android.view.View;
  * @desc
  */
 
-public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder {
+public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private final BaseHolder<Bean> holder;
     public Bean bean;
 
@@ -40,4 +40,13 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
+    @Override
+    public void onClick(View v) {
+        holder.onItemClick(v, this, bean);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return holder.onItemLongClick(v, this, bean);
+    }
 }

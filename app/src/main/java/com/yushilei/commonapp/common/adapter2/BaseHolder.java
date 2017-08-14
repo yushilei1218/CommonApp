@@ -20,8 +20,15 @@ public abstract class BaseHolder<BEAN> {
 
     public abstract void onBindData(BaseRecyclerHolder holder, BEAN bean, int pos);
 
+
     public int getViewType() {
         return getLayoutId();
     }
 
+    public void onItemClick(View target, BaseRecyclerHolder<BEAN> holder, BEAN bean) {
+    }
+
+    public boolean onItemLongClick(View target, BaseRecyclerHolder<BEAN> holder, BEAN bean) {
+        return false;
+    }
 }
