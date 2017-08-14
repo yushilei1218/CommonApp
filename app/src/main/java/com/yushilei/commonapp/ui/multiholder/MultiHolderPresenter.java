@@ -3,7 +3,6 @@ package com.yushilei.commonapp.ui.multiholder;
 import android.content.Intent;
 
 import com.yushilei.commonapp.common.mvp.BasePresenter;
-import com.yushilei.commonapp.common.mvp.IBaseView;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 
 /**
@@ -12,10 +11,10 @@ import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
  * @desc
  */
 
-public class MultiHolderPresenter extends BasePresenter<MultiHolderContact.IView> implements MultiHolderContact.Presenter {
+public class MultiHolderPresenter extends BasePresenter<MultiHolderContract.IView> implements MultiHolderContract.Presenter {
 
 
-    public MultiHolderPresenter(MultiHolderContact.IView view) {
+    public MultiHolderPresenter(MultiHolderContract.IView view) {
         super(view);
     }
 

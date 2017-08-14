@@ -19,4 +19,5 @@ public interface Constant {
     String Notification = "Notification";
     String Contact = "Contact";
     String MultiBaseHolder = "MultiBaseHolder";
+    String MultiListHolder = "MultiListHolder";
 }

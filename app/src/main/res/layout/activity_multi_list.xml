@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.multiholder.MultiListActivity">
+
+    <Button
+        android:id="@+id/multi_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"/>
+
+    <Button
+        android:id="@+id/multi_replace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REPLACE"/>
+
+    <ListView
+        android:id="@+id/multi_list_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#ccc"
+        android:dividerHeight="5dp"/>
+</LinearLayout>

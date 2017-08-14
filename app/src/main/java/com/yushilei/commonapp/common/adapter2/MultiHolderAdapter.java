@@ -36,6 +36,9 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
     }
 
     public void replaceData(List newData) {
+        if (data == null) {
+            data = new ArrayList();
+        }
         data.clear();
         if (!SetUtil.isEmpty(newData)) {
             data.addAll(newData);
@@ -49,6 +52,14 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
             return false;
         data.remove(pos);
         notifyItemRemoved(pos);
+        return true;
+    }
+
+    public boolean update(Object bean) {
+        int pos = data.indexOf(bean);
+        if (pos < 0)
+            return false;
+        notifyItemChanged(pos);
         return true;
     }
 
@@ -73,7 +84,7 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
     @Override
     public void onBindViewHolder(BaseRecyclerHolder holder, int position) {
         Object bean = data.get(position);
-        holder.onBindData(bean, position);
+        holder.onKeepBindData(bean, position);
     }
 
 

@@ -7,8 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yushilei.commonapp.R;
-import com.yushilei.commonapp.common.adapter.BaseViewHolder;
-import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.MultiHolderAdapter;
@@ -17,7 +15,7 @@ import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Presenter> implements MultiHolderContact.IView {
+public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContract.Presenter> implements MultiHolderContract.IView {
 
     private MultiHolderAdapter adapter;
 
@@ -40,7 +38,13 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
 
     @Override
     public void onClick(View v) {
-        adapter.addAll(getData());
+        switch (v.getId()) {
+            case R.id.add:
+                adapter.addAll(getData());
+                break;
+
+        }
+
     }
 
     @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection", "unchecked"})
@@ -64,7 +68,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
     }
 
     @Override
-    public MultiHolderContact.Presenter getPresenter() {
+    public MultiHolderContract.Presenter getPresenter() {
         return new MultiHolderPresenter(this);
     }
 

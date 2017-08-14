@@ -4,6 +4,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,6 +30,10 @@ public abstract class HolderDelegate<BEAN> {
     }
 
     public boolean onItemLongClick(View target, BaseRecyclerHolder<BEAN> holder, BEAN bean) {
+        return false;
+    }
+
+    public boolean onTouch(View v, MotionEvent event, BaseRecyclerHolder<BEAN> holder, BEAN bean) {
         return false;
     }
 }

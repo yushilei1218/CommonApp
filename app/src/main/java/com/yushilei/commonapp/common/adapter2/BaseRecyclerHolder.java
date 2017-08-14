@@ -2,6 +2,7 @@ package com.yushilei.commonapp.common.adapter2;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -10,7 +11,7 @@ import android.view.View;
  * @desc
  */
 
-public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, View.OnTouchListener {
     private final HolderDelegate<Bean> mDelegate;
     public Bean bean;
 
@@ -25,7 +26,7 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements
         return mDelegate.getLayoutId();
     }
 
-    final void onBindData(Bean bean, int pos) {
+    final void onKeepBindData(Bean bean, int pos) {
         this.bean = bean;
         mDelegate.onBindData(this, bean, pos);
     }
@@ -48,5 +49,10 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements
     @Override
     public boolean onLongClick(View v) {
         return mDelegate.onItemLongClick(v, this, bean);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return mDelegate.onTouch(v, event, this, bean);
     }
 }

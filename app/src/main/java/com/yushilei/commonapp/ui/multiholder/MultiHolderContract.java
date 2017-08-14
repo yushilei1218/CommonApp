@@ -9,7 +9,7 @@ import com.yushilei.commonapp.common.mvp.IBaseView;
  * @desc
  */
 
-public class MultiHolderContact {
+public class MultiHolderContract {
     public interface Presenter extends IBasePresenter {
         void onRemoveBeanClick(Bean bean);
 
