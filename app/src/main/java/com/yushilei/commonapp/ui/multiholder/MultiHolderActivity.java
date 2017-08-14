@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.adapter.BaseViewHolder;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
-import com.yushilei.commonapp.common.adapter2.BaseHolder;
+import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.MultiHolderAdapter;
 import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
@@ -32,10 +32,26 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         setOnClick(R.id.add);
         adapter = new MultiHolderAdapter();
         recycler.setAdapter(adapter);
-        adapter.setMatch(Bean.class, new BeanHolder());
-        adapter.setMatch(Book.class, new BookHolder());
+        adapter.setMatch(Bean.class, new BeanDelegate());
+        adapter.setMatch(Book.class, new BookDelegate());
 
         adapter.replaceData(getData());
+    }
+
+    public class AAA extends ItemWrapper<String> {
+        public AAA(String bean) {
+            super(bean);
+        }
+
+        @Override
+        public int getLayoutRes() {
+            return 0;
+        }
+
+        @Override
+        public void onBindViewHolder(BaseViewHolder holder, int pos) {
+
+        }
     }
 
     @Override
@@ -76,7 +92,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
     /**
      * 适配器封装
      */
-    public class BeanHolder extends BaseHolder<Bean> {
+    public class BeanDelegate extends HolderDelegate<Bean> {
         @Override
         public int getLayoutId() {
             return R.layout.item_hodler_1;
@@ -106,7 +122,7 @@ public class MultiHolderActivity extends MvpBaseActivity<MultiHolderContact.Pres
         }
     }
 
-    public class BookHolder extends BaseHolder<Book> {
+    public class BookDelegate extends HolderDelegate<Book> {
 
         @Override
         public int getLayoutId() {

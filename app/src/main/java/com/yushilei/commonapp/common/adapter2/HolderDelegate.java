@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * @desc
  */
 
-public abstract class BaseHolder<BEAN> {
+public abstract class HolderDelegate<BEAN> {
 
     @LayoutRes
     public abstract int getLayoutId();

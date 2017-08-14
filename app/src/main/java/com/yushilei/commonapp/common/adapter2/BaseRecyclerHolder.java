@@ -11,23 +11,23 @@ import android.view.View;
  */
 
 public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-    private final BaseHolder<Bean> holder;
+    private final HolderDelegate<Bean> mDelegate;
     public Bean bean;
 
     private SparseArray<View> mViews = new SparseArray<>();
 
-    public BaseRecyclerHolder(View itemView, BaseHolder<Bean> holder) {
+    public BaseRecyclerHolder(View itemView, HolderDelegate<Bean> delegate) {
         super(itemView);
-        this.holder = holder;
+        this.mDelegate = delegate;
     }
 
     public int getLayoutId() {
-        return holder.getLayoutId();
+        return mDelegate.getLayoutId();
     }
 
     final void onBindData(Bean bean, int pos) {
         this.bean = bean;
-        holder.onBindData(this, bean, pos);
+        mDelegate.onBindData(this, bean, pos);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,11 +42,11 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements
 
     @Override
     public void onClick(View v) {
-        holder.onItemClick(v, this, bean);
+        mDelegate.onItemClick(v, this, bean);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        return holder.onItemLongClick(v, this, bean);
+        return mDelegate.onItemLongClick(v, this, bean);
     }
 }

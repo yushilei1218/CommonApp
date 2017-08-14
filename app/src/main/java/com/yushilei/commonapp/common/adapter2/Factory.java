@@ -7,7 +7,7 @@ package com.yushilei.commonapp.common.adapter2;
  */
 
 public class Factory {
-    public BaseHolder createHolder() {
+    public HolderDelegate createHolder() {
         return null;
     }
 }

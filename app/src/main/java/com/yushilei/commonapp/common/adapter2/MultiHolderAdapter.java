@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.yushilei.commonapp.common.util.SetUtil;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +20,10 @@ import java.util.Map;
  */
 @SuppressWarnings("unchecked")
 public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder> {
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private List data = new ArrayList();
 
-    private Map<Class, BaseHolder> map = new HashMap<>();
-    private SparseArray<BaseHolder> map2 = new SparseArray<>();
+    private Map<Class, HolderDelegate> beanDelegateMap = new HashMap<>();
+    private SparseArray<HolderDelegate> typeDelegateMap = new SparseArray<>();
 
     public void addAll(List newData) {
         if (data == null) {
@@ -54,22 +52,22 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
         return true;
     }
 
-    public void setMatch(Class beanClass, BaseHolder holder) {
-        map.put(beanClass, holder);
-        map2.put(holder.getViewType(), holder);
+    public void setMatch(Class beanClass, HolderDelegate delegate) {
+        beanDelegateMap.put(beanClass, delegate);
+        typeDelegateMap.put(delegate.getViewType(), delegate);
     }
 
     @Override
     public int getItemViewType(int position) {
-        BaseHolder holder = map.get(data.get(position).getClass());
-        return holder.getViewType();
+        HolderDelegate delegate = beanDelegateMap.get(data.get(position).getClass());
+        return delegate.getViewType();
     }
 
     @Override
     public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        BaseHolder holder = map2.get(viewType);
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(holder.getLayoutId(), parent, false);
-        return new BaseRecyclerHolder(itemView, holder);
+        HolderDelegate delegate = typeDelegateMap.get(viewType);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(delegate.getLayoutId(), parent, false);
+        return new BaseRecyclerHolder(itemView, delegate);
     }
 
     @Override
