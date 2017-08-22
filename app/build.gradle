@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'packer'
 
 
 android {
@@ -39,16 +40,16 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    productFlavors {
-
-        huawei {}
-        local {}
-        wandoujia {}
-
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        }
-    }
+//    productFlavors {
+//
+//        huawei {}
+//        local {}
+//        wandoujia {}
+//
+//        productFlavors.all { flavor ->
+//            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//        }
+//    }
 }
 
 dependencies {
@@ -75,4 +76,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    compile 'com.mcxiaoke.packer-ng:helper:2.0.0'
+}
+packer {
+    archiveNameFormat = '${buildType}-v${versionName}-${channel}'
+    archiveOutput = new File(project.rootProject.buildDir, "apks")
+//    channelList = ['*Douban*', 'Google/', '中文/@#市场', 'Hello@World',
+//                   'GradleTest', '20070601!@#$%^&*(){}:"<>?-=[];\',./']
+    channelFile = new File(project.rootDir, "markets.txt")
+//    channelMap = [
+//            "Cat" : project.rootProject.file("channels/cat.txt"),
+//            "Dog" : project.rootProject.file("channels/dog.txt"),
+//            "Fish": project.rootProject.file("channels/channels.txt")
+//    ]
 }

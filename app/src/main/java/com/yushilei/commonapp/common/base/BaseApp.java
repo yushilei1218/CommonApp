@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.mcxiaoke.packer.helper.PackerNg;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
@@ -24,10 +26,19 @@ public class BaseApp extends Application {
         AppContext = this;
 
         Fresco.initialize(this);
-        //友盟
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
         logChannel();
+
+        String channel = PackerNg.getChannel(this);
+
+        Toast.makeText(this, "PackerNg channel=" + channel, Toast.LENGTH_SHORT).show();
+        //友盟
+
+        MobclickAgent.UMAnalyticsConfig config =
+                new MobclickAgent.UMAnalyticsConfig(this, "5987dba41061d2650d0017ba", channel);
+        MobclickAgent.startWithConfigure(config);
+
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
