@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class BaseApp extends Application {
         logChannel();
 
         String channel = PackerNg.getChannel(this);
+        if (TextUtils.isEmpty(channel))
+            channel = "Zhaopin";
 
         Toast.makeText(this, "PackerNg channel=" + channel, Toast.LENGTH_SHORT).show();
         //友盟
