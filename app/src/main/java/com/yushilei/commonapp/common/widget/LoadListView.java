@@ -1,6 +1,8 @@
 package com.yushilei.commonapp.common.widget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,7 @@ import com.yushilei.commonapp.R;
  */
 
 public class LoadListView extends ListView implements AbsListView.OnScrollListener {
-    private FootStateEnum mStateEnum;
+    private FootStateEnum mStateEnum = FootStateEnum.FINISH;
     private boolean isCanLoadMore = true;
     private OnLoadMoreListener mLoadMoreListener;
 
@@ -39,6 +41,8 @@ public class LoadListView extends ListView implements AbsListView.OnScrollListen
 
     private void init(Context context, AttributeSet attrs) {
         setOnScrollListener(this);
+        ColorDrawable colorDrawable = new ColorDrawable(Color.TRANSPARENT);
+        setSelector(colorDrawable);
     }
 
     @Override

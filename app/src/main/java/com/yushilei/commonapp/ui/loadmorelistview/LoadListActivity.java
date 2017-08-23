@@ -4,6 +4,7 @@ package com.yushilei.commonapp.ui.loadmorelistview;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class LoadListActivity extends BaseActivity {
                 case 1:
                     mPtr.refreshComplete();
                     mAdapter.replaceData((List) msg.obj);
+                    mLoadLv.loadFinish();
 
                     break;
                 case 2:
@@ -64,6 +66,7 @@ public class LoadListActivity extends BaseActivity {
         mLoadLv.setLoadMoreListener(new LoadListView.OnLoadMoreListener() {
             @Override
             public void onLoadingMore() {
+                Log.d(getTAG(), "onLoadingMore");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
