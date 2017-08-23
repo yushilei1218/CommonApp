@@ -18,6 +18,7 @@ import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
+import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
 import com.yushilei.commonapp.ui.map.MapActivity;
 import com.yushilei.commonapp.ui.multiholder.MultiHolderActivity;
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item12 = new HomeItem(new HomeBean(Constant.Contact));
         HomeItem item13 = new HomeItem(new HomeBean(Constant.MultiBaseHolder));
         HomeItem item14 = new HomeItem(new HomeBean(Constant.MultiListHolder));
+        HomeItem item15 = new HomeItem(new HomeBean(Constant.LOAD_LIST));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -72,6 +74,7 @@ public class MainActivity extends BaseActivity {
         data.add(item12);
         data.add(item13);
         data.add(item14);
+        data.add(item15);
         adapter.addAll(data);
     }
 
@@ -143,6 +146,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.MultiListHolder:
                     intent = new Intent(MainActivity.this, MultiListActivity.class);
+                    break;
+                case Constant.LOAD_LIST:
+                    intent = new Intent(MainActivity.this, LoadListActivity.class);
                     break;
             }
             if (intent != null)

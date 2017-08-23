@@ -38,12 +38,12 @@
         android:theme="@style/AppTheme">
 
         <!-- 友盟 -->
-        <!--<meta-data-->
-            <!--android:name="UMENG_APPKEY"-->
-            <!--android:value="5987dba41061d2650d0017ba"/>-->
-        <!--<meta-data-->
-            <!--android:name="UMENG_CHANNEL"-->
-            <!--android:value="${UMENG_CHANNEL_VALUE}"/>-->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_APPKEY" -->
+        <!-- android:value="5987dba41061d2650d0017ba"/> -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_CHANNEL" -->
+        <!-- android:value="${UMENG_CHANNEL_VALUE}"/> -->
         <!-- 高德Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -72,6 +72,8 @@
         <activity android:name=".ui.contact.ContactActivity"/>
         <activity android:name=".ui.multiholder.MultiHolderActivity"/>
         <activity android:name=".ui.multiholder.MultiListActivity">
+        </activity>
+        <activity android:name=".ui.loadmorelistview.LoadListActivity">
         </activity>
     </application>
 

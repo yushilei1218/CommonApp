@@ -20,4 +20,5 @@ public interface Constant {
     String Contact = "Contact";
     String MultiBaseHolder = "MultiBaseHolder";
     String MultiListHolder = "MultiListHolder";
+    String LOAD_LIST = "LOAD_LIST";
 }
