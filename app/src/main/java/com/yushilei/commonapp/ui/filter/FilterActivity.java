@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yushilei.commonapp.R;
@@ -28,6 +29,8 @@ public class FilterActivity extends MvpBaseActivity<FilterContract.IPresenter> i
     private ViewStub mFromViewStub;
     private View mFromLayout;
     private View mLocationLayout;
+    private MultiListAdapter mLv1Adapter;
+    private MultiListAdapter mLv2Adapter;
 
     @Override
     public FilterContract.IPresenter getPresenter() {
@@ -121,6 +124,12 @@ public class FilterActivity extends MvpBaseActivity<FilterContract.IPresenter> i
     private void showLocationLayout() {
         if (mLocationLayout == null) {
             mLocationLayout = mLocationViewStub.inflate();
+            ListView mlv1 = (ListView) mLocationLayout.findViewById(R.id.location_lv1);
+            ListView mlv2 = (ListView) mLocationLayout.findViewById(R.id.location_lv2);
+            mLv1Adapter = new MultiListAdapter(1);
+            mlv1.setAdapter(mLv1Adapter);
+            mLv2Adapter = new MultiListAdapter(1);
+            mlv2.setAdapter(mLv2Adapter);
         }
         showWitch(mLocationLayout);
     }

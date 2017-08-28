@@ -61,13 +61,13 @@
             <ViewStub
                 android:id="@+id/act_filter_location_view_stub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout="@layout/layout_filter_location"/>
             <!--来源筛选-->
             <ViewStub
                 android:id="@+id/act_filter_from_view_stub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:layout="@layout/layout_filter_from"/>
         </LinearLayout>
     </RelativeLayout>
