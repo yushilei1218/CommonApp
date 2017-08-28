@@ -75,6 +75,8 @@
         </activity>
         <activity android:name=".ui.loadmorelistview.LoadListActivity">
         </activity>
+        <activity android:name=".ui.filter.FilterActivity">
+        </activity>
     </application>
 
 </manifest>

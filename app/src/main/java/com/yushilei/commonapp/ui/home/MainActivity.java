@@ -17,6 +17,7 @@ import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
+import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
 import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreRecyclerActivity;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item13 = new HomeItem(new HomeBean(Constant.MultiBaseHolder));
         HomeItem item14 = new HomeItem(new HomeBean(Constant.MultiListHolder));
         HomeItem item15 = new HomeItem(new HomeBean(Constant.LOAD_LIST));
+        HomeItem item16 = new HomeItem(new HomeBean(Constant.FILTER));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -75,6 +77,7 @@ public class MainActivity extends BaseActivity {
         data.add(item13);
         data.add(item14);
         data.add(item15);
+        data.add(item16);
         adapter.addAll(data);
     }
 
@@ -149,6 +152,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.LOAD_LIST:
                     intent = new Intent(MainActivity.this, LoadListActivity.class);
+                    break;
+                case Constant.FILTER:
+                    intent = new Intent(MainActivity.this, FilterActivity.class);
                     break;
             }
             if (intent != null)

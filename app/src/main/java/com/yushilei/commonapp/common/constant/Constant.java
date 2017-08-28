@@ -21,4 +21,5 @@ public interface Constant {
     String MultiBaseHolder = "MultiBaseHolder";
     String MultiListHolder = "MultiListHolder";
     String LOAD_LIST = "LOAD_LIST";
+    String FILTER = "FILTER";
 }
