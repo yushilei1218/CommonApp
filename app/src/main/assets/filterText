@@ -1,0 +1,77 @@
+{"subs": [
+         { "id": 1, "name":"1号线","stations":[
+         { "parentId": 1,"id": 1, "name":"西单"},
+          { "parentId": 1,"id": 2, "name":"东单"},
+           { "parentId": 1,"id": 3, "name":"王府"},
+            { "parentId": 1,"id": 4, "name":"复兴门"},
+             { "parentId": 1,"id": 5, "name":"大前门"},
+              { "parentId": 1,"id": 6, "name":"天安门"},
+               { "parentId": 1,"id": 7, "name":"鼓楼"},
+         { "parentId": 1,"id": 8, "name":"柴市口"}
+         ] },
+ { "id": 2, "name":"2号线","stations":[
+         { "parentId": 2,"id": 1, "name":"太阳宫"},
+          { "parentId": 2,"id": 2, "name":"芍药居"},
+           { "parentId": 2,"id": 3, "name":"恭王府"},
+            { "parentId": 2,"id": 4, "name":"北海北"},
+             { "parentId": 2,"id": 5, "name":"车公庄"},
+              { "parentId": 2,"id": 6, "name":"北土城"},
+               { "parentId": 2,"id": 7, "name":"西土城"},
+         { "parentId": 2,"id": 8, "name":"望京"}
+         ] },
+          { "id": 3, "name":"4号线","stations":[
+                  { "parentId": 3,"id": 1, "name":"复通"},
+                   { "parentId": 3,"id": 2, "name":"望京东"},
+                    { "parentId": 3,"id": 3, "name":"崔各庄"},
+                     { "parentId": 3,"id": 4, "name":"金台路"},
+                      { "parentId": 3,"id": 5, "name":"十里堡"},
+                       { "parentId": 3,"id": 6, "name":"大望路"},
+                        { "parentId": 3,"id": 7, "name":"九龙山"},
+                  { "parentId": 3,"id": 8, "name":"北京站"}
+                  ] },
+                   { "id": 4, "name":"亦庄线","stations":[
+                           { "parentId": 4,"id": 1, "name":"九宫"},
+                            { "parentId": 4,"id": 2, "name":"小红门"},
+                             { "parentId": 4,"id": 3, "name":"亦庄桥"},
+                              { "parentId": 4,"id": 4, "name":"荣昌东街"},
+                               { "parentId": 4,"id": 5, "name":"经海路"},
+                                { "parentId": 4,"id": 6, "name":"次渠"},
+                                 { "parentId": 4,"id": 7, "name":"小春"},
+                           { "parentId": 4,"id": 8, "name":"黄村"}
+                           ] },
+                                { "id": 5, "name":"14号线","stations":[
+                                                { "parentId": 5,"id": 1, "name":"测试"},
+                                                 { "parentId": 5,"id": 2, "name":"望京东"}
+
+                                               ] }
+           ,
+            { "id": 6, "name":"房山线","stations":[
+                    { "parentId": 6,"id": 1, "name":"房山"},
+                     { "parentId": 6,"id": 2, "name":"呵呵"},
+                      { "parentId": 6,"id": 3, "name":"哟哟"},
+                       { "parentId": 6,"id": 4, "name":"特特"},
+                        { "parentId": 6,"id": 5, "name":"默默"},
+                         { "parentId": 6,"id": 6, "name":"大大"},
+                          { "parentId": 6,"id": 7, "name":"啦啦"},
+                            { "parentId": 6,"id": 8, "name":"擦擦"},
+                            { "parentId": 6,"id": 9, "name":"花花"},
+                            { "parentId": 6,"id": 10, "name":"妮妮"},
+                            { "parentId": 6,"id": 11, "name":"妞妞"}
+                    ] }
+,
+            { "id": 7, "name":"10号线","stations":[
+                    { "parentId": 7,"id": 1, "name":"嗯嗯"},
+                     { "parentId": 7,"id": 2, "name":"塔塔"},
+                      { "parentId": 7,"id": 3, "name":"喔喔"},
+                       { "parentId": 7,"id": 4, "name":"娜娜"},
+                        { "parentId": 7,"id": 5, "name":"波波"},
+                         { "parentId": 7,"id": 6, "name":"琪琪"},
+                          { "parentId": 7,"id": 7, "name":"丫丫"},
+                            { "parentId": 7,"id": 8, "name":"哥哥"},
+                            { "parentId": 7,"id": 9, "name":"皮皮"},
+                            { "parentId": 7,"id": 10, "name":"溜溜"},
+                            { "parentId": 7,"id": 11, "name":"娃娃"}
+                    ] }
+
+         ]
+}

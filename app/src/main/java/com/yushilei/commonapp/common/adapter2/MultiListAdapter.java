@@ -43,6 +43,11 @@ public class MultiListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void setRootData(List root) {
+        data = root;
+        notifyDataSetChanged();
+    }
+
     public void addAll(List newData) {
         if (data == null)
             data = new ArrayList();
