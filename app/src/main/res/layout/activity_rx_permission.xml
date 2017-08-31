@@ -7,10 +7,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.permission.PermissionActivity">
-    <Button
-        android:layout_width="wrap_content"
-        android:id="@+id/permission"
-        android:text="permission"
-        android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="permission"/>
+
+    <Button
+        android:id="@+id/dialog"
+        android:layout_width="wrap_content"
+        android:text="dialog"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -1,12 +1,16 @@
 package com.yushilei.commonapp.ui.home;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
 
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 import com.yushilei.commonapp.R;
 
 import com.yushilei.commonapp.common.adapter.BaseViewHolder;
@@ -43,6 +47,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        AndPermission.with(this).permission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+                .requestCode(1)
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                        showToast("onSucceed "+requestCode + "" + grantPermissions.get(0));
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+                        showToast("onFailed "+requestCode + "" + deniedPermissions.get(0));
+                    }
+                }).start();
         GridView mGridV = findView(R.id.main_grid);
         MultiBaseAdapter adapter = new MultiBaseAdapter(1);
         mGridV.setAdapter(adapter);
