@@ -22,4 +22,5 @@ public interface Constant {
     String MultiListHolder = "MultiListHolder";
     String LOAD_LIST = "LOAD_LIST";
     String FILTER = "FILTER";
+    String PERMISSION = "PERMISSION";
 }

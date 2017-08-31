@@ -28,6 +28,7 @@ import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.mvp.view.HomeActivity;
 import com.yushilei.commonapp.ui.notification.NotificationActivity;
+import com.yushilei.commonapp.ui.permission.PermissionActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item14 = new HomeItem(new HomeBean(Constant.MultiListHolder));
         HomeItem item15 = new HomeItem(new HomeBean(Constant.LOAD_LIST));
         HomeItem item16 = new HomeItem(new HomeBean(Constant.FILTER));
+        HomeItem item17 = new HomeItem(new HomeBean(Constant.PERMISSION));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -78,6 +80,7 @@ public class MainActivity extends BaseActivity {
         data.add(item14);
         data.add(item15);
         data.add(item16);
+        data.add(item17);
         adapter.addAll(data);
     }
 
@@ -155,6 +158,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.FILTER:
                     intent = new Intent(MainActivity.this, FilterActivity.class);
+                    break;
+                case Constant.PERMISSION:
+                    intent = new Intent(MainActivity.this, PermissionActivity.class);
                     break;
             }
             if (intent != null)
