@@ -31,6 +31,7 @@ import com.yushilei.commonapp.ui.multiholder.MultiListActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.mvp.view.HomeActivity;
+import com.yushilei.commonapp.ui.myobservable.ObservableActivity;
 import com.yushilei.commonapp.ui.notification.NotificationActivity;
 import com.yushilei.commonapp.ui.permission.PermissionActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
@@ -52,12 +53,12 @@ public class MainActivity extends BaseActivity {
                 .callback(new PermissionListener() {
                     @Override
                     public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
-                        showToast("onSucceed "+requestCode + "" + grantPermissions.get(0));
+                        showToast("onSucceed " + requestCode + "" + grantPermissions.get(0));
                     }
 
                     @Override
                     public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
-                        showToast("onFailed "+requestCode + "" + deniedPermissions.get(0));
+                        showToast("onFailed " + requestCode + "" + deniedPermissions.get(0));
                     }
                 }).start();
         GridView mGridV = findView(R.id.main_grid);
@@ -81,6 +82,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item15 = new HomeItem(new HomeBean(Constant.LOAD_LIST));
         HomeItem item16 = new HomeItem(new HomeBean(Constant.FILTER));
         HomeItem item17 = new HomeItem(new HomeBean(Constant.PERMISSION));
+        HomeItem item18 = new HomeItem(new HomeBean(Constant.Observable));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -98,6 +100,7 @@ public class MainActivity extends BaseActivity {
         data.add(item15);
         data.add(item16);
         data.add(item17);
+        data.add(item18);
         adapter.addAll(data);
     }
 
@@ -178,6 +181,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.PERMISSION:
                     intent = new Intent(MainActivity.this, PermissionActivity.class);
+                    break;
+                case Constant.Observable:
+                    intent = new Intent(MainActivity.this, ObservableActivity.class);
                     break;
             }
             if (intent != null)

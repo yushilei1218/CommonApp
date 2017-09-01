@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.yushilei.commonapp.ui.home.MainActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.yushilei.commonapp.ui.home.MainActivity">
 
     <GridView
         android:id="@+id/main_grid"
@@ -13,9 +13,9 @@
         android:layout_height="match_parent"
         android:background="#b4b4b4"
         android:horizontalSpacing="2dp"
-        android:numColumns="2"
+        android:numColumns="3"
         android:padding="2dp"
-        android:verticalSpacing="2dp" />
+        android:verticalSpacing="2dp"/>
 
 
 </LinearLayout>

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.yushilei.commonapp.ui.test.TestActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.yushilei.commonapp.ui.test.TestActivity">
+
+    <com.yushilei.commonapp.common.widget.SalarySeekBar
+        android:id="@+id/seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,26 +26,26 @@
             android:id="@+id/show_recy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="showRecycler" />
+            android:text="showRecycler"/>
 
         <Button
             android:id="@+id/show_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="showList" />
+            android:text="showList"/>
 
         <Button
             android:id="@+id/show_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="showLoadingDialog" />
+            android:text="showLoadingDialog"/>
 
         <Button
             android:id="@+id/hide_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hideLoadingDialog" />
+            android:text="hideLoadingDialog"/>
     </LinearLayout>
 
     <com.yushilei.commonapp.common.widget.LoadingTextView
@@ -47,7 +57,7 @@
         android:padding="10dp"
         android:text="约聊一下"
         android:textSize="18sp"
-        app:atextColor="#ffffff" />
+        app:atextColor="#ffffff"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            app:layoutManager="LinearLayoutManager" />
+            app:layoutManager="LinearLayoutManager"/>
 
         <ListView
             android:id="@+id/test_lv"
@@ -67,11 +77,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/colorPrimary"
-            android:dividerHeight="1px" />
+            android:dividerHeight="1px"/>
     </RelativeLayout>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:inputType="text"/>
 </LinearLayout>

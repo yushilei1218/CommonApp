@@ -27,7 +27,6 @@
     <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
@@ -80,6 +79,8 @@
         <activity android:name=".ui.filter.FilterActivity">
         </activity>
         <activity android:name=".ui.permission.PermissionActivity">
+        </activity>
+        <activity android:name=".ui.myobservable.ObservableActivity">
         </activity>
     </application>
 

@@ -23,4 +23,5 @@ public interface Constant {
     String LOAD_LIST = "LOAD_LIST";
     String FILTER = "FILTER";
     String PERMISSION = "PERMISSION";
+    String Observable = "Observable";
 }
