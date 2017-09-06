@@ -10,4 +10,11 @@ public class BeanA {
     public BeanA(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "BeanA{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

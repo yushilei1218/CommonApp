@@ -11,18 +11,23 @@ import com.yushilei.commonapp.common.adapter.BaseViewHolder;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
+import com.yushilei.commonapp.common.bean.BeanA;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class RxJavaActivity extends BaseActivity {
@@ -39,12 +44,14 @@ public class RxJavaActivity extends BaseActivity {
         grid.setAdapter(adapter);
         List<ItemWrapper> data = new LinkedList<>();
         data.add(new BeanWrapper(JUST));
+        data.add(new BeanWrapper(MAP));
         adapter.addAll(data);
 
 
     }
 
     public static final String JUST = "JUST";
+    public static final String MAP = "MAP";
 
     private void recordLog(String msg) {
 
@@ -113,7 +120,44 @@ public class RxJavaActivity extends BaseActivity {
                 case JUST:
                     just();
                     break;
+                case MAP:
+                    map();
+                    break;
             }
         }
+    }
+
+    private void map() {
+        Observable.just(100).map(new Function<Integer, String>() {
+            @Override
+            public String apply(@NonNull Integer integer) throws Exception {
+                return integer.toString();
+            }
+        }).flatMap(new Function<String, ObservableSource<BeanA>>() {
+            @Override
+            public ObservableSource<BeanA> apply(@NonNull String s) throws Exception {
+                return Observable.just(new BeanA(s));
+            }
+        }).subscribe(new Observer<BeanA>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(getTAG(), "onSubscribe");
+            }
+
+            @Override
+            public void onNext(@NonNull BeanA beanA) {
+                Log.d(getTAG(), "onNext " + beanA.toString());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(getTAG(), "onError ");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(getTAG(), "onComplete ");
+            }
+        });
     }
 }
