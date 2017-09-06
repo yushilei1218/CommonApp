@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 2017/9/1
  */
 
-public class Observable<T> implements Runnable {
+public class Observable<T> implements Runnable, IObservable<T> {
 
     private static final Handler sHandler;
 
@@ -52,10 +52,15 @@ public class Observable<T> implements Runnable {
         mTask = task;
     }
 
+    @Override
     public void subscribe(Observer<T> observer) {
         this.observer = observer;
+        /*
+         * 运行时 切换线程的地方
+         */
         ThreadPools.execute(this);
     }
+
 
     @Override
     public void run() {
@@ -66,6 +71,9 @@ public class Observable<T> implements Runnable {
             deliverySubscribeError(throwable);
             return;
         }
+        /*
+         *执行时 切换线程的地方
+         */
         deliverySubscribeComplete(data);
     }
 

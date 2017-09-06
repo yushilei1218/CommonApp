@@ -12,6 +12,9 @@ import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.net.NetApi;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class ObservableActivity extends BaseActivity {
@@ -57,5 +60,9 @@ public class ObservableActivity extends BaseActivity {
                 trx.printStackTrace();
             }
         });
+//        Scheduler computation = Schedulers.computation();
+//        Scheduler newThread = Schedulers.newThread();
+//        Scheduler io = Schedulers.io();
+//        Scheduler mainThread = AndroidSchedulers.mainThread();
     }
 }
