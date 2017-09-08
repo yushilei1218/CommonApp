@@ -13,11 +13,13 @@ public abstract class Observable<T> implements IObservable<T> {
 
     OnSubscribe mOnSubscribe;
     private T t;
+    private Observer<T> mObserver;
 
     @Override
 
     public void subscribe(Observer<T> observer) {
-
+        mObserver = observer;
+        R apply = mOnSubscribe.apply(t);
     }
 
     public Observable<T> subscribeOn(Scheduler scheduler) {
