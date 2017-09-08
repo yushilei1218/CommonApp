@@ -49,4 +49,8 @@ public class ThreadPools {
     public static void execute(Runnable runnable) {
         sExecutor.execute(runnable);
     }
+
+    public static Thread newThread(Runnable run) {
+        return sThreadFactory.newThread(run);
+    }
 }
