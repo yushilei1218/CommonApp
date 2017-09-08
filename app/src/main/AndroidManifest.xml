@@ -82,6 +82,11 @@
         </activity>
         <activity android:name=".ui.myobservable.ObservableActivity">
         </activity>
+        <activity
+            android:name=".ui.scroll.ScrollActivity"
+            android:configChanges="keyboard|keyboardHidden"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>

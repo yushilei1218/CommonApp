@@ -36,6 +36,7 @@ import com.yushilei.commonapp.ui.notification.NotificationActivity;
 import com.yushilei.commonapp.ui.permission.PermissionActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
+import com.yushilei.commonapp.ui.scroll.ScrollActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
 
@@ -83,6 +84,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item16 = new HomeItem(new HomeBean(Constant.FILTER));
         HomeItem item17 = new HomeItem(new HomeBean(Constant.PERMISSION));
         HomeItem item18 = new HomeItem(new HomeBean(Constant.Observable));
+        HomeItem item19 = new HomeItem(new HomeBean(Constant.Scroll));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -101,6 +103,7 @@ public class MainActivity extends BaseActivity {
         data.add(item16);
         data.add(item17);
         data.add(item18);
+        data.add(item19);
         adapter.addAll(data);
     }
 
@@ -184,6 +187,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.Observable:
                     intent = new Intent(MainActivity.this, ObservableActivity.class);
+                    break;
+                case Constant.Scroll:
+                    intent = new Intent(MainActivity.this, ScrollActivity.class);
                     break;
             }
             if (intent != null)

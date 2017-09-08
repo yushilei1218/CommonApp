@@ -24,4 +24,5 @@ public interface Constant {
     String FILTER = "FILTER";
     String PERMISSION = "PERMISSION";
     String Observable = "Observable";
+    String Scroll = "Scroll";
 }
