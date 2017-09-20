@@ -8,8 +8,8 @@
     android:orientation="vertical"
     tools:context="com.yushilei.commonapp.ui.tab.TabsActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/tab_pager"
+    <FrameLayout
+        android:id="@+id/act_fg_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
@@ -20,25 +20,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RadioButton
+        <com.yushilei.commonapp.common.widget.TagRadioButton
             android:id="@+id/tab1"
             style="@style/Style_tab"
             android:drawableTop="@drawable/selector_tab0"
             android:text="推荐"/>
 
-        <RadioButton
+        <com.yushilei.commonapp.common.widget.TagRadioButton
             android:id="@+id/tab2"
             style="@style/Style_tab"
             android:drawableTop="@drawable/selector_tab1"
             android:text="消息"/>
 
-        <RadioButton
+        <com.yushilei.commonapp.common.widget.TagRadioButton
             android:id="@+id/tab3"
             style="@style/Style_tab"
             android:drawableTop="@drawable/selector_tab2"
             android:text="候选人"/>
 
-        <RadioButton
+        <com.yushilei.commonapp.common.widget.TagRadioButton
             android:id="@+id/tab4"
             style="@style/Style_tab"
             android:drawableTop="@drawable/selector_tab3"
