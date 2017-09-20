@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.tab.TabsActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tab_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:id="@+id/main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tab1"
+            style="@style/Style_tab"
+            android:drawableTop="@drawable/selector_tab0"
+            android:text="推荐"/>
+
+        <RadioButton
+            android:id="@+id/tab2"
+            style="@style/Style_tab"
+            android:drawableTop="@drawable/selector_tab1"
+            android:text="消息"/>
+
+        <RadioButton
+            android:id="@+id/tab3"
+            style="@style/Style_tab"
+            android:drawableTop="@drawable/selector_tab2"
+            android:text="候选人"/>
+
+        <RadioButton
+            android:id="@+id/tab4"
+            style="@style/Style_tab"
+            android:drawableTop="@drawable/selector_tab3"
+            android:text="我的"/>
+    </RadioGroup>
+
+</LinearLayout>

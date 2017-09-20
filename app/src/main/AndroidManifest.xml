@@ -87,6 +87,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".ui.tab.TabsActivity">
+        </activity>
     </application>
 
 </manifest>

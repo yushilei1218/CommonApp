@@ -25,4 +25,5 @@ public interface Constant {
     String PERMISSION = "PERMISSION";
     String Observable = "Observable";
     String Scroll = "Scroll";
+    String TAB = "TAB";
 }
