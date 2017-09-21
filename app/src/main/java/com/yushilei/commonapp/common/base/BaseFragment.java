@@ -88,16 +88,48 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkToLazyLoad();
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         checkToLazyLoad();
+        checkViewState(isVisibleToUser);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        checkToLazyLoad();
+        checkViewState(!hidden);
+    }
+
+    private void checkViewState(boolean isVisible) {
+        if (isViewCreated) {
+            if (isVisible) {
+                onActiveView();
+            } else {
+                onSleepView();
+            }
+        }
+    }
+
+    protected void onSleepView() {
+
+    }
+
+    protected void onActiveView() {
+
     }
 
     private void checkToLazyLoad() {
         if (isLoaded)
             return;
-        if (isViewCreated && isVisibleToUser) {
+        if (isViewCreated && getUserVisibleHint()) {
             isLoaded = true;
             lazyLoad();
         }

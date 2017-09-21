@@ -4,6 +4,7 @@ package com.yushilei.commonapp.ui.tab;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,33 @@ public class TagFragment extends BaseFragment {
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        Log.d(getTAG(),mTag+" onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(getTAG(),mTag+" onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        Log.d(getTAG(),mTag+" lazyLoad");
+    }
+
+    @Override
+    protected void onActiveView() {
+        Log.d(getTAG(),mTag+" onActiveView");
+    }
+
+    @Override
+    protected void onSleepView() {
+        Log.d(getTAG(),mTag+" onSleepView");
     }
 
     @Override
