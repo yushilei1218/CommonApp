@@ -89,6 +89,8 @@
         </activity>
         <activity android:name=".ui.tab.TabsActivity">
         </activity>
+        <activity android:name=".ui.basedata.BaseDataActivity">
+        </activity>
     </application>
 
 </manifest>

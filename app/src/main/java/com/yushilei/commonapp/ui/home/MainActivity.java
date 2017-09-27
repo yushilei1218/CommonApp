@@ -20,6 +20,7 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
@@ -87,6 +88,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item18 = new HomeItem(new HomeBean(Constant.Observable));
         HomeItem item19 = new HomeItem(new HomeBean(Constant.Scroll));
         HomeItem item20 = new HomeItem(new HomeBean(Constant.TAB));
+        HomeItem item21 = new HomeItem(new HomeBean(Constant.BASEDATA));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -107,6 +109,7 @@ public class MainActivity extends BaseActivity {
         data.add(item18);
         data.add(item19);
         data.add(item20);
+        data.add(item21);
         adapter.addAll(data);
     }
 
@@ -196,6 +199,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.TAB:
                     intent = new Intent(MainActivity.this, TabsActivity.class);
+                    break;
+                case Constant.BASEDATA:
+                    intent = new Intent(MainActivity.this, BaseDataActivity.class);
                     break;
             }
             if (intent != null)

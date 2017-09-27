@@ -26,4 +26,5 @@ public interface Constant {
     String Observable = "Observable";
     String Scroll = "Scroll";
     String TAB = "TAB";
+    String BASEDATA = "BASEDATA";
 }
