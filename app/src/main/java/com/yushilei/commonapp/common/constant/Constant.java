@@ -27,4 +27,5 @@ public interface Constant {
     String Scroll = "Scroll";
     String TAB = "TAB";
     String BASEDATA = "BASEDATA";
+    String ADAPTER_NOTIFY = "ADAPTER_NOTIFY";
 }
