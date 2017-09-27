@@ -35,9 +35,7 @@ public class MultiListAdapter extends BaseAdapter {
     }
 
     public void replaceData(List newData) {
-        if (data == null)
-            data = new ArrayList();
-        data.clear();
+        data = new ArrayList();
         if (!SetUtil.isEmpty(newData))
             data.addAll(newData);
         notifyDataSetChanged();
