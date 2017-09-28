@@ -28,4 +28,5 @@ public interface Constant {
     String TAB = "TAB";
     String BASEDATA = "BASEDATA";
     String ADAPTER_NOTIFY = "ADAPTER_NOTIFY";
+    String JOB_TYPE = "JOB_TYPE";
 }

@@ -10,6 +10,33 @@ import java.util.List;
 public class BaseData {
 
     private List<List<String>> city;
+    private List<List<String>> jobType;
+    private List<List<String>> subJobType;
+    private List<List<String>> jobtypeClass;
+
+    public List<List<String>> getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(List<List<String>> jobType) {
+        this.jobType = jobType;
+    }
+
+    public List<List<String>> getSubJobType() {
+        return subJobType;
+    }
+
+    public void setSubJobType(List<List<String>> subJobType) {
+        this.subJobType = subJobType;
+    }
+
+    public List<List<String>> getJobtypeClass() {
+        return jobtypeClass;
+    }
+
+    public void setJobtypeClass(List<List<String>> jobtypeClass) {
+        this.jobtypeClass = jobtypeClass;
+    }
 
     public List<List<String>> getCity() {
         return city;

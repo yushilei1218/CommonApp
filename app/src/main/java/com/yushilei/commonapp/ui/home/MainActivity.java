@@ -22,6 +22,7 @@ import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.adaptertest.AdapterNotifyActivity;
 import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
+import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item20 = new HomeItem(new HomeBean(Constant.TAB));
         HomeItem item21 = new HomeItem(new HomeBean(Constant.BASEDATA));
         HomeItem item22 = new HomeItem(new HomeBean(Constant.ADAPTER_NOTIFY));
+        HomeItem item23 = new HomeItem(new HomeBean(Constant.JOB_TYPE));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -113,6 +115,7 @@ public class MainActivity extends BaseActivity {
         data.add(item20);
         data.add(item21);
         data.add(item22);
+        data.add(item23);
         adapter.addAll(data);
     }
 
@@ -209,6 +212,10 @@ public class MainActivity extends BaseActivity {
                 case Constant.ADAPTER_NOTIFY:
                     intent = new Intent(MainActivity.this, AdapterNotifyActivity.class);
                     break;
+                case Constant.JOB_TYPE:
+                    intent = new Intent(MainActivity.this, JobTypeActivity.class);
+                    break;
+
             }
             if (intent != null)
                 MainActivity.this.startActivity(intent);
