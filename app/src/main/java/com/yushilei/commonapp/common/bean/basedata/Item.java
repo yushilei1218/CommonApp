@@ -15,4 +15,8 @@ public interface Item {
     boolean isSelect();
 
     void setSelect(boolean is);
+
+    boolean isTag();
+
+    void setIsTag(boolean is);
 }

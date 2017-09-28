@@ -29,7 +29,20 @@ public class JobTypeActivity extends BaseActivity {
     private MultiHolderAdapter mJobClassAdapter;
     private MultiHolderAdapter mJobTypeAdapter;
     private MultiHolderAdapter mSubJobAdapter;
+    /**
+     * 指向当前被选中的行业
+     */
     private JobTypeClass mTypeClass;
+    /**
+     * 记录当前处于选中状态的2级列表数据
+     */
+    SparseArray<JobType> mParentIdJobTypeMap = new SparseArray<>();
+    SparseArray<JobType> mIdJobTypeMap = new SparseArray<>();
+    SparseArray<JobTypeClass> mIdJobClassMap = new SparseArray<>();
+    /**
+     *
+     */
+    SubJobType mSubJobType;
 
     @Override
     protected int getLayoutId() {
@@ -93,19 +106,25 @@ public class JobTypeActivity extends BaseActivity {
         });
     }
 
-    SparseArray<JobType> mJobTypeMap = new SparseArray<>();
-
     private void initJob(Job data) {
         //行业选中缓存
         List<JobTypeClass> typeClassList = data.getTypeClassList();
         mTypeClass = typeClassList.get(0);
         mTypeClass.setSelect(true);
+        for (JobTypeClass j : typeClassList) {
+            mIdJobClassMap.put(j.getId(), j);
+        }
         for (JobTypeClass jobClass : typeClassList) {
             List<JobType> jobTypeList = jobClass.getJobTypeList();
+            for (int i = 0; i < jobTypeList.size(); i++) {
+                JobType jobType = jobTypeList.get(i);
+                mIdJobTypeMap.put(jobType.getId(), jobType);
+            }
             JobType type = jobTypeList.get(0);
             type.setSelect(true);
             //一个行业对应一个大类默认呗选中
-            mJobTypeMap.put(type.getParentId(), type);
+            mParentIdJobTypeMap.put(type.getParentId(), type);
+
         }
 
     }
@@ -120,10 +139,20 @@ public class JobTypeActivity extends BaseActivity {
         @Override
         public void onBindData(BaseRecyclerHolder holder, JobTypeClass data, int pos) {
             TextView view = (TextView) holder.findView(R.id.item_name);
+            View tag = holder.findView(R.id.item_tag);
             view.setText(data.getName());
             if (data.isSelect()) {
+                holder.itemView.setSelected(true);
                 mJobTypeAdapter.replaceData(data.getJobTypeList());
+            } else {
+                holder.itemView.setSelected(false);
             }
+            if (data.isTag()) {
+                tag.setVisibility(View.VISIBLE);
+            } else {
+                tag.setVisibility(View.GONE);
+            }
+
             holder.itemView.setOnClickListener(holder);
         }
 
@@ -149,9 +178,18 @@ public class JobTypeActivity extends BaseActivity {
         @Override
         public void onBindData(BaseRecyclerHolder holder, JobType data, int pos) {
             TextView view = (TextView) holder.findView(R.id.item_name);
+            View tag = holder.findView(R.id.item_tag);
             view.setText(data.getName());
             if (data.isSelect()) {
+                holder.itemView.setSelected(true);
                 mSubJobAdapter.replaceData(data.getSubJobTypeList());
+            } else {
+                holder.itemView.setSelected(false);
+            }
+            if (data.isTag()) {
+                tag.setVisibility(View.VISIBLE);
+            } else {
+                tag.setVisibility(View.GONE);
             }
             holder.itemView.setOnClickListener(holder);
         }
@@ -160,9 +198,9 @@ public class JobTypeActivity extends BaseActivity {
         public void onItemClick(View target, BaseRecyclerHolder<JobType> holder, JobType jobType) {
             if (!jobType.isSelect()) {
                 jobType.setSelect(true);
-                JobType selectType = mJobTypeMap.get(jobType.getParentId());
+                JobType selectType = mParentIdJobTypeMap.get(jobType.getParentId());
                 selectType.setSelect(false);
-                mJobTypeMap.put(jobType.getParentId(), jobType);
+                mParentIdJobTypeMap.put(jobType.getParentId(), jobType);
                 mJobClassAdapter.notifyDataSetChanged();
             }
             showToast(jobType.getName());
@@ -179,13 +217,49 @@ public class JobTypeActivity extends BaseActivity {
         @Override
         public void onBindData(BaseRecyclerHolder holder, SubJobType data, int pos) {
             TextView view = (TextView) holder.findView(R.id.item_name);
+            View tag = holder.findView(R.id.item_tag);
             view.setText(data.getName());
             holder.itemView.setOnClickListener(holder);
+            if (data.isSelect()) {
+                tag.setVisibility(View.VISIBLE);
+                holder.itemView.setSelected(true);
+            } else {
+                tag.setVisibility(View.GONE);
+                holder.itemView.setSelected(false);
+            }
+
         }
 
         @Override
         public void onItemClick(View target, BaseRecyclerHolder<SubJobType> holder, SubJobType subJobType) {
             showToast(subJobType.getName());
+            if (subJobType.isSelect()) {
+                subJobType.setSelect(false);
+                //新增现在的
+                JobType newJobType = mIdJobTypeMap.get(subJobType.getParentId());
+                newJobType.setIsTag(false);
+                mIdJobClassMap.get(newJobType.getParentId()).setIsTag(false);
+                mSubJobType = null;
+            } else {
+                subJobType.setSelect(true);
+                if (mSubJobType != null) {
+                    mSubJobType.setSelect(false);
+                    int oldParentId = mSubJobType.getParentId();
+                    if (oldParentId != subJobType.getParentId()) {
+                        //原数据对应的TAG要消除
+                        JobType jobType = mIdJobTypeMap.get(oldParentId);
+                        jobType.setIsTag(false);
+                        mIdJobClassMap.get(jobType.getParentId()).setIsTag(false);
+                    }
+                }
+                //新增现在的
+                JobType newJobType = mIdJobTypeMap.get(subJobType.getParentId());
+                newJobType.setIsTag(true);
+                mIdJobClassMap.get(newJobType.getParentId()).setIsTag(true);
+                mSubJobType = subJobType;
+            }
+            mJobClassAdapter.notifyDataSetChanged();
         }
+
     }
 }

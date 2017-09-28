@@ -10,6 +10,7 @@ public class SubJobType implements Item {
     private int parentId;
     private String name;
     private boolean isSelect = false;
+    private boolean isTag = false;
 
     public SubJobType(int id, int parentId, String name) {
         this.id = id;
@@ -37,6 +38,16 @@ public class SubJobType implements Item {
     @Override
     public void setSelect(boolean is) {
         isSelect = is;
+    }
+
+    @Override
+    public boolean isTag() {
+        return isTag;
+    }
+
+    @Override
+    public void setIsTag(boolean is) {
+        isTag = is;
     }
 
     public void setParentId(int parentId) {

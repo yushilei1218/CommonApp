@@ -14,11 +14,22 @@ public class JobTypeClass implements Item {
     private String name;
     private final List<JobType> mJobTypeList = new ArrayList<>(59);
     private boolean isSelect = false;
+    private boolean isTag = false;
 
     public JobTypeClass(int id, int parentId, String name) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
+    }
+
+    @Override
+    public boolean isTag() {
+        return isTag;
+    }
+
+    @Override
+    public void setIsTag(boolean is) {
+        isTag = is;
     }
 
     public void addJobType(JobType jobType) {

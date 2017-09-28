@@ -12,6 +12,7 @@ public class JobType implements Item {
     private int id;
     private int parentId;
     private String name;
+    private boolean isTag = false;
 
     private final List<SubJobType> mSubJobTypeList = new ArrayList<>(1034);
     private boolean isSelect = false;
@@ -51,6 +52,16 @@ public class JobType implements Item {
     @Override
     public void setSelect(boolean is) {
         isSelect = is;
+    }
+
+    @Override
+    public boolean isTag() {
+        return isTag;
+    }
+
+    @Override
+    public void setIsTag(boolean is) {
+        isTag = is;
     }
 
     public void setParentId(int parentId) {
