@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
+                android:padding="5dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_white_gray">
 
@@ -10,9 +11,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:padding="8dp"
+        android:padding="10dp"
         android:textColor="@color/selector_item_text_color"
-        android:textSize="14sp"/>
+        android:textSize="16sp"/>
 
     <View
         android:layout_marginTop="3dp"

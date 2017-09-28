@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#d8d8d8"
     tools:context="com.yushilei.commonapp.ui.basedata.JobTypeActivity">
 
     <Button
@@ -15,6 +16,7 @@
         android:text="getJOB"/>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
