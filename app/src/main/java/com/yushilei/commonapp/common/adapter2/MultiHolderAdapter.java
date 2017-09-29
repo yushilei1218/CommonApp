@@ -63,6 +63,10 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
         return true;
     }
 
+    public int indexOf(Object item) {
+        return data.indexOf(item);
+    }
+
     public void setMatch(Class beanClass, HolderDelegate delegate) {
         beanDelegateMap.put(beanClass, delegate);
         typeDelegateMap.put(delegate.getViewType(), delegate);

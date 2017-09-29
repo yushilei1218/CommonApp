@@ -14,9 +14,22 @@
         android:layout_height="wrap_content"
         android:text="formatBaseData"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/act_base_data_recycler"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"/>
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/act_base_data_recycler"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layoutManager="LinearLayoutManager"/>
+
+        <com.yushilei.commonapp.common.widget.QuickSelectView
+            android:id="@+id/act_base_data_quick"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 </LinearLayout>

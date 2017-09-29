@@ -21,12 +21,16 @@ import com.yushilei.commonapp.common.bean.basedata.City;
 import com.yushilei.commonapp.common.bean.basedata.Country;
 import com.yushilei.commonapp.common.bean.basedata.Province;
 import com.yushilei.commonapp.common.util.BaseUtil;
+import com.yushilei.commonapp.common.widget.QuickSelectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaseDataActivity extends BaseActivity {
 
     private MultiHolderAdapter mAdapter;
+    private QuickSelectView mQuickSelectView;
+    private RecyclerView mRecycler;
 
     @Override
     protected int getLayoutId() {
@@ -37,11 +41,19 @@ public class BaseDataActivity extends BaseActivity {
     public void initView() {
         setOnClick(R.id.act_base_data_format);
 
-        RecyclerView recycler = findView(R.id.act_base_data_recycler);
+        mRecycler = findView(R.id.act_base_data_recycler);
+        mQuickSelectView = findView(R.id.act_base_data_quick);
         mAdapter = new MultiHolderAdapter();
-        recycler.setAdapter(mAdapter);
+        mRecycler.setAdapter(mAdapter);
 
         mAdapter.setMatch(Province.class, new ProvinceDelegate());
+        mQuickSelectView.setHighLightListener(new QuickSelectView.OnTagHighLightListener() {
+            @Override
+            public void onTagSelected(QuickSelectView.Tag tag) {
+                mRecycler.smoothScrollToPosition(mAdapter.indexOf(tag.getTag()));
+            }
+        });
+
     }
 
     @Override
@@ -64,6 +76,14 @@ public class BaseDataActivity extends BaseActivity {
             public void onComplete(Country data) {
                 List<Province> provinceList = data.getProvinceList();
                 mAdapter.replaceData(provinceList);
+
+                ArrayList<QuickSelectView.Tag> tags = new ArrayList<>();
+                for (Province p : provinceList) {
+                    QuickSelectView.Tag tag = new QuickSelectView.Tag(p.getName(), p);
+
+                    tags.add(tag);
+                }
+                mQuickSelectView.setTags(tags);
             }
 
             @Override
