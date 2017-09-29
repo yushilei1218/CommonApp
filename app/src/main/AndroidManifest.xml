@@ -86,6 +86,8 @@
         <activity android:name=".ui.adaptertest.AdapterNotifyActivity"/>
         <activity android:name=".ui.basedata.JobTypeActivity">
         </activity>
+        <activity android:name=".ui.search.SearchActivity">
+        </activity>
     </application>
 
 </manifest>
