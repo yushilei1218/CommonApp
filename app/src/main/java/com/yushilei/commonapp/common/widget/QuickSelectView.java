@@ -49,7 +49,7 @@ public class QuickSelectView extends View {
         for (int i = 0; i < mTags.size(); i++) {
             Tag tag = mTags.get(i);
             if (tag.isHighLight) {
-                mTextPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
+                mTextPaint.setColor(getContext().getResources().getColor(R.color.colorAccent));
             } else {
                 mTextPaint.setColor(getContext().getResources().getColor(R.color.black));
             }
@@ -90,6 +90,8 @@ public class QuickSelectView extends View {
                     mCurTag.isHighLight = false;
                     invalidate();
                 }
+                if (mHighLightListener != null)
+                    mHighLightListener.onTagFinish();
                 break;
         }
         return true;
@@ -116,6 +118,8 @@ public class QuickSelectView extends View {
 
     public interface OnTagHighLightListener {
         void onTagSelected(Tag tag);
+
+        void onTagFinish();
     }
 
     public static final class Tag {

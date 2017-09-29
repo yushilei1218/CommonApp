@@ -14,22 +14,33 @@
         android:layout_height="wrap_content"
         android:text="formatBaseData"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/act_base_data_recycler"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:layoutManager="LinearLayoutManager"/>
 
         <com.yushilei.commonapp.common.widget.QuickSelectView
             android:id="@+id/act_base_data_quick"
             android:layout_width="50dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"/>
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/act_base_data_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/act_base_data_quick"
+            app:layoutManager="LinearLayoutManager"/>
+
+        <TextView
+            android:id="@+id/act_base_data_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </LinearLayout>

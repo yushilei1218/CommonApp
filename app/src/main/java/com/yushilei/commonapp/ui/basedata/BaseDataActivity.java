@@ -31,6 +31,7 @@ public class BaseDataActivity extends BaseActivity {
     private MultiHolderAdapter mAdapter;
     private QuickSelectView mQuickSelectView;
     private RecyclerView mRecycler;
+    private TextView mTagTv;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +44,8 @@ public class BaseDataActivity extends BaseActivity {
 
         mRecycler = findView(R.id.act_base_data_recycler);
         mQuickSelectView = findView(R.id.act_base_data_quick);
+        mTagTv = findView(R.id.act_base_data_tag_tv);
+
         mAdapter = new MultiHolderAdapter();
         mRecycler.setAdapter(mAdapter);
 
@@ -50,7 +53,14 @@ public class BaseDataActivity extends BaseActivity {
         mQuickSelectView.setHighLightListener(new QuickSelectView.OnTagHighLightListener() {
             @Override
             public void onTagSelected(QuickSelectView.Tag tag) {
+                mTagTv.setText(((Province) tag.getTag()).getName());
+                mTagTv.setVisibility(View.VISIBLE);
                 mRecycler.smoothScrollToPosition(mAdapter.indexOf(tag.getTag()));
+            }
+
+            @Override
+            public void onTagFinish() {
+                mTagTv.setVisibility(View.GONE);
             }
         });
 
