@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 
 import com.yushilei.commonapp.R;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * @author shilei.yu

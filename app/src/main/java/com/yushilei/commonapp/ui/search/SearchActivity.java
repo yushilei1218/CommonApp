@@ -4,6 +4,7 @@ package com.yushilei.commonapp.ui.search;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yushilei.commonapp.R;
@@ -19,10 +20,12 @@ import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 public class SearchActivity extends BaseActivity {
 
     private PtrFrameLayout mPtr;
+    private LinearLayout mTabLayout;
 
     @Override
     protected int getLayoutId() {
@@ -32,11 +35,20 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void initView() {
         RecyclerView recyclerView = findView(R.id.act_search_recycler);
+        mTabLayout = findView(R.id.act_search_tab);
         mPtr = findView(R.id.act_search_ptr);
         PtrFirstHeader header = new PtrFirstHeader(this);
         mPtr.setHeaderView(header);
         mPtr.addPtrUIHandler(header);
         mPtr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                if (frame.getY() < mTabLayout.getHeight()) {
+                    return false;
+                }
+                return super.checkCanDoRefresh(frame, content, header);
+            }
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 new Handler().postDelayed(new Runnable() {
@@ -44,7 +56,7 @@ public class SearchActivity extends BaseActivity {
                     public void run() {
                         mPtr.refreshComplete();
                     }
-                }, 1000);
+                }, 2000);
             }
         });
         MultiHolderAdapter adapter = new MultiHolderAdapter();
