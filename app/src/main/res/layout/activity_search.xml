@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--刷新布局+列表布局-->
         <in.srain.cube.views.ptr.PtrFrameLayout
             android:id="@+id/act_search_ptr"
 
@@ -31,44 +32,87 @@
             android:layout_marginTop="60dp">
 
             <android.support.v7.widget.RecyclerView
-                android:background="#9b9b9b"
                 android:id="@+id/act_search_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#9b9b9b"
                 app:layoutManager="LinearLayoutManager"/>
         </in.srain.cube.views.ptr.PtrFrameLayout>
 
+        <!--筛选布局-->
         <LinearLayout
             android:id="@+id/act_search_tab"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#55f79090"
             android:gravity="center"
-            app:layout_behavior=".common.behavior.SearchScrollBehavior"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_behavior=".common.behavior.SearchScrollBehavior">
 
             <TextView
+                android:id="@+id/act_search_filter_job"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="推荐"/>
+                android:text="行业"/>
 
             <TextView
+                android:id="@+id/act_search_filter_salary"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="推荐"/>
+                android:text="薪资范围"/>
 
             <TextView
+                android:id="@+id/act_search_filter_location"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="推荐"/>
+                android:text="工作地点"/>
+
+            <TextView
+                android:id="@+id/act_search_filter_other"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="其他要求"/>
         </LinearLayout>
 
+        <!--底部Sheet-->
+        <RelativeLayout
+            android:id="@+id/act_search_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom"
+            android:background="#70ffcd"
+            android:clickable="true"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="200dp"
+            app:elevation="4dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Bottom"/>
+        </RelativeLayout>
+
+        <!--悬浮Btn-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/act_search_float_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:src="@mipmap/ic_clock"
+            app:backgroundTint="#FFF"
+            app:layout_anchor="@id/act_search_bottom"
+            app:layout_anchorGravity="right"/>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

@@ -2,7 +2,13 @@ package com.yushilei.commonapp.ui.search;
 
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +23,7 @@ import com.yushilei.commonapp.common.widget.PtrFirstHeader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -26,27 +33,57 @@ public class SearchActivity extends BaseActivity {
 
     private PtrFrameLayout mPtr;
     private LinearLayout mTabLayout;
+    private BottomSheetBehavior<View> mBottomSheetBehavior;
+    private CoordinatorLayout mCoordinatorLayout;
+    private View mBottomView;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
     }
 
+    private String getState(int state) {
+        String a = "";
+        switch (state) {
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                a = "STATE_COLLAPSED";
+                break;
+            case BottomSheetBehavior.STATE_DRAGGING:
+                a = "STATE_DRAGGING";
+                break;
+            case BottomSheetBehavior.STATE_EXPANDED:
+                a = "STATE_EXPANDED";
+                break;
+            case BottomSheetBehavior.STATE_HIDDEN:
+                a = "STATE_HIDDEN";
+                break;
+            case BottomSheetBehavior.STATE_SETTLING:
+                a = "STATE_SETTLING";
+                break;
+        }
+        return a;
+    }
+
     @Override
     public void initView() {
+
+
         RecyclerView recyclerView = findView(R.id.act_search_recycler);
         mTabLayout = findView(R.id.act_search_tab);
+        mTabLayout.requestFocus();
         mPtr = findView(R.id.act_search_ptr);
+        mBottomView = findView(R.id.act_search_bottom);
+        mBottomSheetBehavior = BottomSheetBehavior.from(mBottomView);
+
+        mCoordinatorLayout = findView(R.id.act_search_coordinator);
+
         PtrFirstHeader header = new PtrFirstHeader(this);
         mPtr.setHeaderView(header);
         mPtr.addPtrUIHandler(header);
         mPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                if (frame.getY() < mTabLayout.getHeight()) {
-                    return false;
-                }
-                return super.checkCanDoRefresh(frame, content, header);
+                return frame.getY() >= mTabLayout.getHeight() && super.checkCanDoRefresh(frame, content, header);
             }
 
             @Override
@@ -63,6 +100,13 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         adapter.setMatch(BeanB.class, new BeanDelegate());
         adapter.addAll(getList());
+
+        setOnClick(R.id.act_search_float_btn
+                , R.id.act_search_filter_job
+                , R.id.act_search_filter_salary
+                , R.id.act_search_filter_location
+                , R.id.act_search_filter_other
+        );
     }
 
     private List<BeanB> getList() {
@@ -71,6 +115,39 @@ public class SearchActivity extends BaseActivity {
             data.add(new BeanB(i));
         }
         return data;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id != R.id.act_search_float_btn && mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            return;
+        }
+        switch (id) {
+            case R.id.act_search_float_btn:
+                int state = mBottomSheetBehavior.getState();
+                Log.d(getTAG(), "onClick " + getState(state));
+                if (state == BottomSheetBehavior.STATE_EXPANDED || state == BottomSheetBehavior.STATE_SETTLING) {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                } else {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+                break;
+            case R.id.act_search_filter_job:
+                showToast("Job");
+                break;
+            case R.id.act_search_filter_salary:
+                showToast("Salary");
+                break;
+            case R.id.act_search_filter_location:
+                showToast("Location");
+                break;
+            case R.id.act_search_filter_other:
+                showToast("Other");
+                break;
+
+        }
     }
 
     private final class BeanDelegate extends HolderDelegate<BeanB> {
@@ -85,6 +162,16 @@ public class SearchActivity extends BaseActivity {
             TextView tv = (TextView) holder.findView(R.id.item_b_tv);
             String text = beanB.age + " 岁";
             tv.setText(text);
+            holder.itemView.setOnClickListener(holder);
+        }
+
+        @Override
+        public void onItemClick(View target, BaseRecyclerHolder<BeanB> holder, BeanB beanB) {
+            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                return;
+            }
+            showToast(beanB.age + "");
         }
     }
 }
