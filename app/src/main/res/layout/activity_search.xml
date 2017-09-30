@@ -81,38 +81,6 @@
                 android:gravity="center"
                 android:text="其他要求"/>
         </LinearLayout>
-
-        <!--底部Sheet-->
-        <RelativeLayout
-            android:id="@+id/act_search_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="bottom"
-            android:background="#70ffcd"
-            android:clickable="true"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="200dp"
-            app:elevation="4dp"
-            app:layout_behavior="@string/bottom_sheet_behavior">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Bottom"/>
-        </RelativeLayout>
-
-        <!--悬浮Btn-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/act_search_float_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
-            android:src="@mipmap/ic_clock"
-            app:backgroundTint="#FFF"
-            app:layout_anchor="@id/act_search_bottom"
-            app:layout_anchorGravity="right"/>
         <!--筛选内容-->
         <LinearLayout
             android:id="@+id/act_search_content"
@@ -131,6 +99,39 @@
 
             </RelativeLayout>
         </LinearLayout>
+        <!--底部Sheet ** 要放在最下面，滑动才有效-->
+        <RelativeLayout
+            android:id="@+id/act_search_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom"
+            android:background="#70ffcd"
+            android:clickable="true"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="200dp"
+            app:elevation="4dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <TextView
+                android:id="@+id/act_search_bottom_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Bottom"/>
+        </RelativeLayout>
+
+        <!--悬浮Btn-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/act_search_float_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:src="@mipmap/ic_clock"
+            app:backgroundTint="#FFF"
+            app:layout_anchor="@id/act_search_bottom"
+            app:layout_anchorGravity="right"/>
+
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

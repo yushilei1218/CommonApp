@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -101,16 +102,24 @@ public class SearchActivity extends BaseActivity {
                 }, 2000);
             }
         });
+
         MultiHolderAdapter adapter = new MultiHolderAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setMatch(BeanB.class, new BeanDelegate());
         adapter.addAll(getList());
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                isProcessHideBottomSheet();
+            }
+        });
 
         setOnClick(R.id.act_search_float_btn
                 , R.id.act_search_filter_job
                 , R.id.act_search_filter_salary
                 , R.id.act_search_filter_location
                 , R.id.act_search_filter_other
+                , R.id.act_search_bottom_tv
         );
     }
 
@@ -125,10 +134,6 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id != R.id.act_search_float_btn && mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-            return;
-        }
         switch (id) {
             case R.id.act_search_float_btn:
                 int state = mBottomSheetBehavior.getState();
@@ -138,15 +143,23 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
-                break;
+                return;
+            case R.id.act_search_bottom_tv:
+                showToast("Bottom被点击");
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                return;
+        }
+        if (isProcessHideBottomSheet()) {
+            return;
+        }
+        switch (id) {
             case R.id.act_search_filter_job:
-                if (mContentV.getVisibility()==View.VISIBLE){
+                if (mContentV.getVisibility() == View.VISIBLE) {
                     mContentV.setVisibility(View.GONE);
                     mFloatingActionButton.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     mContentV.setVisibility(View.VISIBLE);
                     mFloatingActionButton.setVisibility(View.GONE);
-
                 }
                 showToast("Job");
                 break;
@@ -159,8 +172,15 @@ public class SearchActivity extends BaseActivity {
             case R.id.act_search_filter_other:
                 showToast("Other");
                 break;
-
         }
+    }
+
+    private boolean isProcessHideBottomSheet() {
+        if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            return true;
+        }
+        return false;
     }
 
     private final class BeanDelegate extends HolderDelegate<BeanB> {
@@ -180,8 +200,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onItemClick(View target, BaseRecyclerHolder<BeanB> holder, BeanB beanB) {
-            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            if (isProcessHideBottomSheet()) {
                 return;
             }
             showToast(beanB.age + "");
