@@ -40,6 +40,7 @@ import com.yushilei.commonapp.ui.permission.PermissionActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
 import com.yushilei.commonapp.ui.scroll.ScrollActivity;
+import com.yushilei.commonapp.ui.search.SearchActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.tab.TabsActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
@@ -93,6 +94,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item21 = new HomeItem(new HomeBean(Constant.BASEDATA));
         HomeItem item22 = new HomeItem(new HomeBean(Constant.ADAPTER_NOTIFY));
         HomeItem item23 = new HomeItem(new HomeBean(Constant.JOB_TYPE));
+        HomeItem item24 = new HomeItem(new HomeBean(Constant.SEARCH));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -116,6 +118,7 @@ public class MainActivity extends BaseActivity {
         data.add(item21);
         data.add(item22);
         data.add(item23);
+        data.add(item24);
         adapter.addAll(data);
     }
 
@@ -214,6 +217,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.JOB_TYPE:
                     intent = new Intent(MainActivity.this, JobTypeActivity.class);
+                    break;
+                case Constant.SEARCH:
+                    intent = new Intent(MainActivity.this, SearchActivity.class);
                     break;
 
             }
