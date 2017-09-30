@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class SearchActivity extends BaseActivity {
     private BottomSheetBehavior<View> mBottomSheetBehavior;
     private CoordinatorLayout mCoordinatorLayout;
     private View mBottomView;
+    private View mContentV;
+    private FloatingActionButton mFloatingActionButton;
 
     @Override
     protected int getLayoutId() {
@@ -76,6 +79,8 @@ public class SearchActivity extends BaseActivity {
         mBottomSheetBehavior = BottomSheetBehavior.from(mBottomView);
 
         mCoordinatorLayout = findView(R.id.act_search_coordinator);
+        mContentV = findView(R.id.act_search_content);
+        mFloatingActionButton = findView(R.id.act_search_float_btn);
 
         PtrFirstHeader header = new PtrFirstHeader(this);
         mPtr.setHeaderView(header);
@@ -135,6 +140,14 @@ public class SearchActivity extends BaseActivity {
                 }
                 break;
             case R.id.act_search_filter_job:
+                if (mContentV.getVisibility()==View.VISIBLE){
+                    mContentV.setVisibility(View.GONE);
+                    mFloatingActionButton.setVisibility(View.VISIBLE);
+                }else {
+                    mContentV.setVisibility(View.VISIBLE);
+                    mFloatingActionButton.setVisibility(View.GONE);
+
+                }
                 showToast("Job");
                 break;
             case R.id.act_search_filter_salary:

@@ -113,6 +113,24 @@
             app:backgroundTint="#FFF"
             app:layout_anchor="@id/act_search_bottom"
             app:layout_anchorGravity="right"/>
+        <!--筛选内容-->
+        <LinearLayout
+            android:id="@+id/act_search_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#55000000"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_behavior=".common.behavior.DropLocationBehavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="#FFF">
+
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>
