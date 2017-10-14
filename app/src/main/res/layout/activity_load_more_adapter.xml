@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreAdapterActivity">
+
+    <Button
+        android:id="@+id/remove_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Foot"/>
+
+    <Button
+        android:id="@+id/no_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No More"/>
+
+    <Button
+        android:id="@+id/add_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add data"/>
+
+    <com.yushilei.commonapp.common.loadmore.LoadRecyclerView
+        android:id="@+id/act_load_more_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#c6c6c6"
+        app:layoutManager="LinearLayoutManager"/>
+</LinearLayout>

@@ -26,7 +26,7 @@ public class BaseRecyclerHolder<Bean> extends RecyclerView.ViewHolder implements
         return mDelegate.getLayoutId();
     }
 
-    final void onKeepBindData(Bean bean, int pos) {
+    public final void onKeepBindData(Bean bean, int pos) {
         this.bean = bean;
         mDelegate.onBindData(this, bean, pos);
     }

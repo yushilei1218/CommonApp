@@ -21,4 +21,8 @@ public class JsonUtil {
         return new Gson().fromJson(new InputStreamReader(ins), tClass);
 
     }
+
+    public static String toJson(Object obj) {
+        return new Gson().toJson(obj);
+    }
 }

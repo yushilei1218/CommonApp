@@ -30,4 +30,5 @@ public interface Constant {
     String ADAPTER_NOTIFY = "ADAPTER_NOTIFY";
     String JOB_TYPE = "JOB_TYPE";
     String SEARCH = "SEARCH";
+    String Load_Test = "Load_Test";
 }

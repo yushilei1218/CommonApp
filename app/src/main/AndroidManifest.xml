@@ -86,8 +86,11 @@
         <activity android:name=".ui.adaptertest.AdapterNotifyActivity"/>
         <activity android:name=".ui.basedata.JobTypeActivity">
         </activity>
-        <activity android:name=".ui.search.SearchActivity"
+        <activity
+            android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">
+        </activity>
+        <activity android:name=".ui.loadmorerecycler.LoadMoreAdapterActivity">
         </activity>
     </application>
 
