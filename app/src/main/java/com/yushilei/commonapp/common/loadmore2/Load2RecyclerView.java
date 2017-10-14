@@ -1,15 +1,12 @@
-package com.yushilei.commonapp.common.loadmore;
+package com.yushilei.commonapp.common.loadmore2;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
 
-import com.yushilei.commonapp.R;
-import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
-import com.yushilei.commonapp.common.adapter2.HolderDelegate;
+import com.yushilei.commonapp.common.adapter2.MultiHolderAdapter;
 
 
 /**
@@ -17,9 +14,9 @@ import com.yushilei.commonapp.common.adapter2.HolderDelegate;
  * @since on 2017/10/14.
  */
 
-public class LoadRecyclerView extends RecyclerView {
+public class Load2RecyclerView extends RecyclerView {
 
-    private MultiHolderAdapter mAdapter;
+    private FootAdapter mAdapter;
     private FootItem mFooter = new FootItem(FootSate.NORMAL);
     /**
      * 是否向下滑动
@@ -35,11 +32,11 @@ public class LoadRecyclerView extends RecyclerView {
      */
     private boolean canLoadMore = true;
 
-    public LoadRecyclerView(Context context) {
+    public Load2RecyclerView(Context context) {
         super(context);
     }
 
-    public LoadRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public Load2RecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         addOnScrollListener(new OnScrollListener() {
             @Override
@@ -83,21 +80,20 @@ public class LoadRecyclerView extends RecyclerView {
         if (lastVisibleItem == (totalItemCount - 1)) {
             //加载更多功能的代码
             mFooter.curState = FootSate.LOADING;
-            mAdapter.addFooter(mFooter);
+            mAdapter.addFoot(mFooter);
             loadMoreListener.onLoadMore();
         }
     }
 
     @Override
     public void setAdapter(Adapter adapter) {
-        mAdapter = (MultiHolderAdapter) adapter;
-        mAdapter.setMatch(FootItem.class, new FootDelegate());
-        super.setAdapter(adapter);
+        mAdapter = new FootAdapter((MultiHolderAdapter) adapter);
+        super.setAdapter(mAdapter);
     }
 
     public void loading() {
         mFooter.curState = FootSate.LOADING;
-        mAdapter.addFooter(mFooter);
+        mAdapter.addFoot(mFooter);
     }
 
     /**
@@ -108,7 +104,7 @@ public class LoadRecyclerView extends RecyclerView {
      */
     public void loadFinish() {
         mFooter.curState = FootSate.NORMAL;
-        mAdapter.removeFooter();
+        mAdapter.removeFoot();
     }
 
     /**
@@ -120,7 +116,7 @@ public class LoadRecyclerView extends RecyclerView {
      */
     public void noMore() {
         mFooter.curState = FootSate.NO_MORE;
-        mAdapter.addFooter(mFooter);
+        mAdapter.addFoot(mFooter);
     }
 
     public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
@@ -129,46 +125,5 @@ public class LoadRecyclerView extends RecyclerView {
 
     public interface LoadMoreListener {
         void onLoadMore();
-    }
-
-    public static final class FootDelegate extends HolderDelegate<FootItem> {
-        @Override
-        public int getLayoutId() {
-            return R.layout.footer_recycler;
-        }
-
-        @Override
-        public void onBindData(BaseRecyclerHolder holder, FootItem bean, int pos) {
-            View loadingLayout = holder.findView(R.id.footer_loading_layout);
-            View noMoreLayout = holder.findView(R.id.footer_no_more_layout);
-            switch (bean.curState) {
-                case LOADING:
-                    loadingLayout.setVisibility(VISIBLE);
-                    noMoreLayout.setVisibility(GONE);
-                    break;
-                case NO_MORE:
-                    loadingLayout.setVisibility(GONE);
-                    noMoreLayout.setVisibility(VISIBLE);
-                    break;
-                case NORMAL:
-                    loadingLayout.setVisibility(GONE);
-                    noMoreLayout.setVisibility(GONE);
-                    break;
-            }
-        }
-    }
-
-    public static final class FootItem {
-        public FootItem(FootSate curState) {
-            this.curState = curState;
-        }
-
-        public FootSate curState;
-    }
-
-    public enum FootSate {
-        LOADING,
-        NO_MORE,
-        NORMAL
     }
 }

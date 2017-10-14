@@ -92,6 +92,8 @@
         </activity>
         <activity android:name=".ui.loadmorerecycler.LoadMoreAdapterActivity">
         </activity>
+        <activity android:name=".ui.loadmorerecycler.Load2FootActivity">
+        </activity>
     </application>
 
 </manifest>

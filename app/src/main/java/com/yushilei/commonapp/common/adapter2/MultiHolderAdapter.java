@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.adapter2;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -24,6 +25,11 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
 
     private Map<Class, HolderDelegate> beanDelegateMap = new HashMap<>();
     private SparseArray<HolderDelegate> typeDelegateMap = new SparseArray<>();
+
+    public void setRoot(List list) {
+        data = list;
+        notifyDataSetChanged();
+    }
 
     public void addAll(List newData) {
         if (data == null) {
@@ -81,6 +87,11 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
     @Override
     public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         HolderDelegate delegate = typeDelegateMap.get(viewType);
+        return createViewBaseHolder(parent, delegate);
+    }
+
+    @NonNull
+    public final BaseRecyclerHolder createViewBaseHolder(ViewGroup parent, HolderDelegate delegate) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(delegate.getLayoutId(), parent, false);
         return new BaseRecyclerHolder(itemView, delegate);
     }

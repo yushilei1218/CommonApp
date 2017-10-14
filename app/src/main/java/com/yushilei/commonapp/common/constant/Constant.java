@@ -31,4 +31,5 @@ public interface Constant {
     String JOB_TYPE = "JOB_TYPE";
     String SEARCH = "SEARCH";
     String Load_Test = "Load_Test";
+    String Load_Foot = "Load_Foot";
 }

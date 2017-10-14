@@ -6,36 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreAdapterActivity">
+    tools:context="com.yushilei.commonapp.ui.loadmorerecycler.Load2FootActivity">
 
     <Button
-        android:id="@+id/remove_footer"
+        android:id="@+id/add_data2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove Foot"/>
+        android:text="add data"/>
 
     <Button
-        android:id="@+id/no_more"
+        android:id="@+id/remove_data2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No More"/>
+        android:text="remove data"/>
 
     <Button
-        android:id="@+id/add_data"
+        android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add data"/>
+        android:text="loading"/>
 
     <Button
-        android:id="@+id/remove_data"
+        android:id="@+id/remove_footer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove data"/>
+        android:text="remove foot"/>
 
-    <com.yushilei.commonapp.common.loadmore.LoadRecyclerView
-        android:id="@+id/act_load_more_recycler"
+    <Button
+        android:id="@+id/no_more2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="no more"/>
+
+    <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
+        android:id="@+id/act_load_2_recy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#c6c6c6"
         app:layoutManager="LinearLayoutManager"/>
+
 </LinearLayout>
