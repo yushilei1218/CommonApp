@@ -38,10 +38,16 @@
         android:layout_height="wrap_content"
         android:text="no more"/>
 
-    <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
-        android:id="@+id/act_load_2_recy"
+    <in.srain.cube.views.ptr.PtrFrameLayout
+        android:id="@+id/act_load_2_ptr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"/>
+        android:layout_height="match_parent">
+
+        <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
+            android:id="@+id/act_load_2_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"/>
+    </in.srain.cube.views.ptr.PtrFrameLayout>
 
 </LinearLayout>

@@ -20,16 +20,21 @@ import com.yushilei.commonapp.common.bean.BeanB;
 import com.yushilei.commonapp.common.loadmore2.Load2RecyclerView;
 import com.yushilei.commonapp.common.util.JsonUtil;
 import com.yushilei.commonapp.common.util.SetUtil;
+import com.yushilei.commonapp.common.widget.PtrFirstHeader;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class Load2FootActivity extends BaseActivity {
 
     private Load2RecyclerView mRecyclerView;
     private MultiHolderAdapter mAdapter;
     private Handler handler = new Handler();
+    private PtrFrameLayout mPtr;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +48,16 @@ public class Load2FootActivity extends BaseActivity {
         setOnClick(R.id.loading);
         setOnClick(R.id.remove_footer2);
         setOnClick(R.id.no_more2);
+        mPtr = findView(R.id.act_load_2_ptr);
+        PtrFirstHeader header = new PtrFirstHeader(this);
+        mPtr.addPtrUIHandler(header);
+        mPtr.setHeaderView(header);
+        mPtr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                refresh();
+            }
+        });
 
         mRecyclerView = (Load2RecyclerView) findView(R.id.act_load_2_recy);
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -59,55 +74,60 @@ public class Load2FootActivity extends BaseActivity {
         mRecyclerView.setLoadMoreListener(new Load2RecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initList();
-                    }
-                }, 1000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initList();
-                    }
-                }, 3000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!SetUtil.isEmpty(data)) {
-                            Object o = data.get(data.size() - 1);
-                            if (o instanceof BeanB) {
-                                ((BeanB) o).age = 323232;
-                            } else if (o instanceof BeanA) {
-                                ((BeanA) o).name = "测测测测测";
-                            }
-                            mAdapter.update(o);
-                        }
-                    }
-                }, 2000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRecyclerView.noMore();
-                    }
-                }, 4000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initList();
-                    }
-                }, 5000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRecyclerView.loading();
-                    }
-                }, 5000);
+                refresh();
             }
         });
 
         getData();
         mAdapter.notifyDataSetChanged();
+    }
+
+    private void refresh() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initList();
+            }
+        }, 1000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initList();
+            }
+        }, 3000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!SetUtil.isEmpty(data)) {
+                    Object o = data.get(data.size() - 1);
+                    if (o instanceof BeanB) {
+                        ((BeanB) o).age = 323232;
+                    } else if (o instanceof BeanA) {
+                        ((BeanA) o).name = "测测测测测";
+                    }
+                    mAdapter.update(o);
+                }
+            }
+        }, 2000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.noMore();
+            }
+        }, 4000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initList();
+            }
+        }, 5000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.loading();
+                mPtr.refreshComplete();
+            }
+        }, 5000);
     }
 
     private void initList() {
