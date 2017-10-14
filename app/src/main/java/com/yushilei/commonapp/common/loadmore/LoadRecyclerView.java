@@ -95,6 +95,11 @@ public class LoadRecyclerView extends RecyclerView {
         super.setAdapter(adapter);
     }
 
+    public void loading() {
+        mFooter.curState = FootSate.LOADING;
+        mAdapter.addFooter(mFooter);
+    }
+
     /**
      * 加载完毕，Footer state置成FootSate.NORMAL
      * 并移除Footer

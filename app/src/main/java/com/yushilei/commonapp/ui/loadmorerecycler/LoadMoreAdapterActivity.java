@@ -55,6 +55,18 @@ public class LoadMoreAdapterActivity extends BaseActivity {
                     public void run() {
                         getData();
                         mAdapter.notifyDataSetChanged();
+                        mRecyclerView.loadFinish();
+                        if (pos > 30) {
+                            mRecyclerView.noMore();
+                            mRecyclerView.loading();
+                            mRecyclerView.loading();
+                            mRecyclerView.loading();
+                            mRecyclerView.noMore();
+                            mRecyclerView.noMore();
+                            mRecyclerView.loadFinish();
+                            mRecyclerView.loading();
+
+                        }
                     }
                 }, 1000);
 
