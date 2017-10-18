@@ -126,8 +126,9 @@ public class PtrZpActivity extends BaseActivity {
                 SystemClock.sleep(2000);
                 mCacheList = new LinkedList<>();
                 int index = 10;
-                if (pos > 20)
+                if (pos > 20) {
                     index = 3;
+                }
                 for (int i = 0; i < index; i++) {
                     if (i % 2 == 1) {
                         mCacheList.add(new BeanWrapper(new BeanA("name= " + pos)));

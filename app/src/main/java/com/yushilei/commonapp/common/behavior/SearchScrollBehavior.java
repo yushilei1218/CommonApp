@@ -61,27 +61,32 @@ public class SearchScrollBehavior extends CoordinatorLayout.Behavior<LinearLayou
             if (curY < mHeight) {
                 consumed[1] = dy;
                 float newY = curY - dy;
-                if (newY > mHeight)
+                if (newY > mHeight) {
                     newY = mHeight;
+                }
                 mPtr.setY(newY);
             }
         }
         if (curY == 0 && dy > 0) {
-            if (isHide)
+            if (isHide) {
                 return;
+            }
             //隐藏
-            if (mShowAnimator != null && mShowAnimator.isRunning())
+            if (mShowAnimator != null && mShowAnimator.isRunning()) {
                 mShowAnimator.cancel();
-            if (mHideAnimator != null && mHideAnimator.isRunning())
+            }
+            if (mHideAnimator != null && mHideAnimator.isRunning()) {
                 return;
+            }
             hide(child);
         }
         if (curY > 10 && dy < 0) {
             if (!isHide) {
                 return;
             }
-            if (mHideAnimator != null && mHideAnimator.isRunning())
+            if (mHideAnimator != null && mHideAnimator.isRunning()) {
                 mHideAnimator.cancel();
+            }
             if (mShowAnimator != null && mShowAnimator.isRunning()) {
                 return;
             }

@@ -194,8 +194,9 @@ public class BezierView extends View implements Animation.AnimationListener {
                 break;
             case MotionEvent.ACTION_MOVE:
                 check(x, y);
-                if (requestDisallow)
+                if (requestDisallow) {
                     getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 //在拖拽的情况下 对touch点 ，及4个交点
                 if (isDrag) {
                     touchPoint.x = (int) x;

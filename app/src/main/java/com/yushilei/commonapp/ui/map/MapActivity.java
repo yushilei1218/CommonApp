@@ -250,8 +250,9 @@ public class MapActivity extends BaseActivity implements Inputtips.InputtipsList
     }
 
     private List<ItemWrapper> getItemWrappersByTips(List<Tip> list) {
-        if (SetUtil.isEmpty(list))
+        if (SetUtil.isEmpty(list)) {
             return null;
+        }
         List<ItemWrapper> data = new LinkedList<>();
         for (Tip tip : list) {
             data.add(new TipSelectWrapper(tip));
@@ -260,8 +261,9 @@ public class MapActivity extends BaseActivity implements Inputtips.InputtipsList
     }
 
     private List<ItemWrapper> getItemWrappersByPoiItems(List<PoiItem> list) {
-        if (SetUtil.isEmpty(list))
+        if (SetUtil.isEmpty(list)) {
             return null;
+        }
         List<ItemWrapper> data = new LinkedList<>();
         for (PoiItem tip : list) {
             data.add(new PoiItemWrapper(tip));

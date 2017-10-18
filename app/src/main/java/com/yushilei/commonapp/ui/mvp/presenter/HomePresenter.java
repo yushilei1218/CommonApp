@@ -85,8 +85,9 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
             @Override
             public void onBizFailure(@NonNull Call<DiscoveryBean> call, @NonNull Throwable t) {
                 t.printStackTrace();
-                if (mView != null)
+                if (mView != null) {
                     mView.onRefreshFinish(isRefreshByUser, false, null);
+                }
             }
         });
     }
@@ -106,8 +107,9 @@ public class HomePresenter extends BasePresenter<HomeContract.IView> implements 
 
             @Override
             public void onBizFailure(@NonNull Call<RecommendBean> call, @NonNull Throwable t) {
-                if (mView != null)
+                if (mView != null) {
                     mView.onLoadMoreFinish(false, null);
+                }
                 isLoadingMore = false;
             }
         });

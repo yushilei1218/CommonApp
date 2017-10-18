@@ -106,8 +106,9 @@ public class SwipeLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!isSwipeCapacity)
+        if (!isSwipeCapacity) {
             return false;
+        }
 
         float x = ev.getX();
         float y = ev.getY();
@@ -184,8 +185,9 @@ public class SwipeLayout extends ViewGroup {
         ObjectAnimator animator = ObjectAnimator.ofInt(this, "ScrollX", getScrollX(), destinationX);
         animator.setInterpolator(new AccelerateInterpolator());
         long time = (long) (MAX_ANI_TIME * (Math.abs((float) getScrollX() - destinationX) / getMaxScrollX()));
-        if (time < 50)
+        if (time < 50) {
             time = 50;
+        }
         animator.setDuration(time);
 
         animator.start();

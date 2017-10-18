@@ -27,7 +27,9 @@ public class BaseUtil {
     private static BaseData sBaseData = null;
 
     private synchronized static void init(Context context) {
-        if (sBaseData != null) return;
+        if (sBaseData != null) {
+            return;
+        }
 
         InputStream inputStream = null;
         try {
@@ -36,12 +38,13 @@ public class BaseUtil {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (inputStream != null)
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
         }
     }
 

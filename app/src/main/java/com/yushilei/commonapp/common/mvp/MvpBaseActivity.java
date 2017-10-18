@@ -23,8 +23,9 @@ public abstract class MvpBaseActivity<P extends IBasePresenter> extends BaseActi
 
     @Override
     protected void onDestroy() {
-        if (presenter != null)
+        if (presenter != null) {
             presenter.onDestroy();
+        }
         super.onDestroy();
     }
 }

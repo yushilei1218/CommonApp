@@ -235,8 +235,9 @@ public class MainActivity extends BaseActivity {
                     break;
 
             }
-            if (intent != null)
+            if (intent != null) {
                 MainActivity.this.startActivity(intent);
+            }
         }
     }
 }

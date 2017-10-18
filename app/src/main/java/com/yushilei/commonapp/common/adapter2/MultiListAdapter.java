@@ -36,8 +36,9 @@ public class MultiListAdapter extends BaseAdapter {
 
     public void replaceData(List newData) {
         data = new ArrayList();
-        if (!SetUtil.isEmpty(newData))
+        if (!SetUtil.isEmpty(newData)) {
             data.addAll(newData);
+        }
         notifyDataSetChanged();
     }
 
@@ -47,18 +48,21 @@ public class MultiListAdapter extends BaseAdapter {
     }
 
     public void addAll(List newData) {
-        if (data == null)
+        if (data == null) {
             data = new ArrayList();
+        }
 
-        if (!SetUtil.isEmpty(newData))
+        if (!SetUtil.isEmpty(newData)) {
             data.addAll(newData);
+        }
         notifyDataSetChanged();
     }
 
     public boolean remove(Object bean) {
         int pos = data.indexOf(bean);
-        if (pos < 0)
+        if (pos < 0) {
             return false;
+        }
         data.remove(pos);
         notifyDataSetChanged();
         return true;
@@ -66,8 +70,9 @@ public class MultiListAdapter extends BaseAdapter {
 
     public boolean update(Object bean) {
         int pos = data.indexOf(bean);
-        if (pos < 0)
+        if (pos < 0) {
             return false;
+        }
         notifyDataSetChanged();
         return true;
     }

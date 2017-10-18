@@ -26,8 +26,9 @@ public class HomeModel implements HomeContract.IModel {
     @Override
     public List<ItemWrapper> obtainItems(DiscoveryBean recommend) {
         mCurPageId = 0;
-        if (recommend == null || SetUtil.isEmpty(recommend.getList()))
+        if (recommend == null || SetUtil.isEmpty(recommend.getList())) {
             return null;
+        }
         List<Type> list = recommend.getList();
         List<ItemWrapper> data = new LinkedList<>();
         for (Type t : list) {
@@ -53,8 +54,9 @@ public class HomeModel implements HomeContract.IModel {
     @Override
     public List<ItemWrapper> obtainAlbums(RecommendBean recommendBean) {
         mCurPageId++;
-        if (recommendBean == null || SetUtil.isEmpty(recommendBean.getList()))
+        if (recommendBean == null || SetUtil.isEmpty(recommendBean.getList())) {
             return null;
+        }
         List<ItemWrapper> data = new LinkedList<>();
         for (Data d : recommendBean.getList()) {
             data.add(new Album2Wrapper(d));

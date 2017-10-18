@@ -61,8 +61,9 @@ public class SalarySeekBar extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int mode = MeasureSpec.getMode(widthMeasureSpec);
-        if (mode != MeasureSpec.EXACTLY)
+        if (mode != MeasureSpec.EXACTLY) {
             throw new RuntimeException("宽度必须固定");
+        }
         int size = MeasureSpec.getSize(widthMeasureSpec);
         int newHSpec = MeasureSpec.makeMeasureSpec((int) (size * widthHeightRate), MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, newHSpec);
@@ -106,10 +107,12 @@ public class SalarySeekBar extends View {
     private State checkTouchState(MotionEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
-        if (mLeftRect.contains(x, y))
+        if (mLeftRect.contains(x, y)) {
             return State.LEFT;
-        if (mRightRect.contains(x, y))
+        }
+        if (mRightRect.contains(x, y)) {
             return State.RIGHT;
+        }
         return State.NONE;
     }
 

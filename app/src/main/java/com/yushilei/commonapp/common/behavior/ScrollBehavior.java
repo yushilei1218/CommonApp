@@ -46,16 +46,19 @@ public class ScrollBehavior extends CoordinatorLayout.Behavior<RelativeLayout> {
             if (childCount <= 0) {
                 return;
             }
-            if (-curY == offset)
+            if (-curY == offset) {
                 return;
+            }
             consumed[1] = dy;
             int move = -curY + dy >= offset ? -offset : curY - dy;
             child.setY(move);
         } else {//下滑
-            if (curY >= 0)
+            if (curY >= 0) {
                 return;
-            if (childCount <= 0)
+            }
+            if (childCount <= 0) {
                 return;
+            }
             View child0 = layoutManager.getChildAt(0);
             int position = layoutManager.getPosition(child0);
 

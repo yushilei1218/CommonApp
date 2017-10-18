@@ -96,22 +96,26 @@ public class LoadMoreRecyclerView extends RecyclerView {
      * 判定是否要进行加载更多
      */
     private void processScrollDown() {
-        if (loadMoreListener == null)
+        if (loadMoreListener == null) {
             return;
+        }
         if (!canLoadMore) {
             return;
         }
         if (mFooter.bean.curState != FootSate.NORMAL) {
             return;
         }
-        if (mAdapter == null)
+        if (mAdapter == null) {
             return;
+        }
         boolean match = getLayoutManager() instanceof LinearLayoutManager;
-        if (!match)
+        if (!match) {
             throw new IllegalArgumentException("LoadMoreRecyclerView 仅支持LinearLayoutManager，如需支持其他，请自行修改源码！");
+        }
         LinearLayoutManager manager = (LinearLayoutManager) getLayoutManager();
-        if (manager == null)
+        if (manager == null) {
             return;
+        }
         int count = manager.getChildCount();
         if (count <= 0) {
             return;

@@ -66,8 +66,9 @@ public class EncryptConverterFactory extends Converter.Factory {
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         boolean isNeedConverter = isNeedConverter(methodAnnotations);
-        if (showLog)
+        if (showLog) {
             Log.i(TAG, "requestBodyConverter isNeedConverter =" + isNeedConverter);
+        }
         if (!isNeedConverter) {
             return null;
         }
@@ -79,8 +80,9 @@ public class EncryptConverterFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         boolean needConverter = isNeedConverter(annotations);
-        if (showLog)
+        if (showLog) {
             Log.i(TAG, "responseBodyConverter needConverter=" + needConverter);
+        }
         if (!needConverter) {
             return null;
         }
@@ -104,8 +106,9 @@ public class EncryptConverterFactory extends Converter.Factory {
         @Override
         public RequestBody convert(@NonNull T value) throws IOException {
             String contentJson = gson.toJson(value);
-            if (showLog)
+            if (showLog) {
                 Log.i(TAG, "RequestBody convert : " + new GsonBuilder().setPrettyPrinting().create().toJson(value));
+            }
             /*加密过程......contentJson作为要加密的内容*/
             return RequestBody.create(MEDIA_TYPE, contentJson.getBytes(Charset.forName("UTF-8")));
         }
@@ -128,8 +131,9 @@ public class EncryptConverterFactory extends Converter.Factory {
         public T convert(@NonNull ResponseBody value) throws IOException {
             String encryptContent = value.string();
             /*解密过程:encryptContent 是需要被解密的数据,解密完成后应该是Json数据*/
-            if (showLog)
+            if (showLog) {
                 Log.i(TAG, "T convert : " + encryptContent);
+            }
 
             return adapter.fromJson(encryptContent);
         }

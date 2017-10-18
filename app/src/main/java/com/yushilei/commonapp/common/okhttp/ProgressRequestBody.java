@@ -93,8 +93,9 @@ public class ProgressRequestBody extends RequestBody {
             @Override
             public void write(@NonNull Buffer source, long byteCount) throws IOException {
                 super.write(source, byteCount);
-                if (progressListener == null)
+                if (progressListener == null) {
                     return;
+                }
                 if (contentLength == 0) {
                     //获得contentLength的值，后续不再调用
                     contentLength = contentLength();

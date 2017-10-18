@@ -94,7 +94,7 @@ public class TagFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTabClickEvent(TabClickEvent event) {
-        if (isAdded() && isResumed())
+        if (isAdded() && isResumed()) {
             switch (mTag) {
                 case "TAB1":
                     if (event.pos == 0) {
@@ -118,6 +118,7 @@ public class TagFragment extends BaseFragment {
                     }
                     break;
             }
+        }
     }
 
     @Override

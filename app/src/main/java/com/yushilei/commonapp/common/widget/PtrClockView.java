@@ -106,12 +106,15 @@ public class PtrClockView extends View {
     }
 
     private void cancelAni() {
-        if (mLoadAni != null)
+        if (mLoadAni != null) {
             mLoadAni.cancel();
-        if (mDragDownAni != null)
+        }
+        if (mDragDownAni != null) {
             mDragDownAni.cancel();
-        if (mDragUpAni != null)
+        }
+        if (mDragUpAni != null) {
             mDragUpAni.cancel();
+        }
     }
 
     public void reset() {

@@ -22,8 +22,9 @@ public abstract class MvpBaseFragment<P extends IBasePresenter> extends BaseFrag
 
     @Override
     public void onDestroy() {
-        if (mPresenter != null)
+        if (mPresenter != null) {
             mPresenter.onDestroy();
+        }
         super.onDestroy();
     }
 

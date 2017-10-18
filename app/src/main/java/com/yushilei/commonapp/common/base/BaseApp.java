@@ -31,8 +31,9 @@ public class BaseApp extends Application {
         logChannel();
 
         String channel = PackerNg.getChannel(this);
-        if (TextUtils.isEmpty(channel))
+        if (TextUtils.isEmpty(channel)) {
             channel = "Zhaopin";
+        }
 
         Toast.makeText(this, "PackerNg channel=" + channel, Toast.LENGTH_SHORT).show();
         //友盟

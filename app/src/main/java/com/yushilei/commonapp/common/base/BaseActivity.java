@@ -67,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends View> T findView(int rid) {
         View view = mViews.get(rid);
@@ -119,8 +120,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     public String getTAG() {
         String name = this.getClass().getSimpleName();
-        if (name.length() > 23)
+        if (name.length() > 23) {
             name = name.substring(0, 23);
+        }
         return name;
     }
 

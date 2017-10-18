@@ -24,8 +24,9 @@ public class ActivityStack {
     }
 
     public static BaseActivity getTopActivity() {
-        if (mStack.isEmpty())
+        if (mStack.isEmpty()) {
             return null;
+        }
         return mStack.peek();
     }
 

@@ -43,8 +43,9 @@ public abstract class CommonCallBack<T> extends BaseCallBack<T> {
     public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
         super.onResponse(call, response);
 
-        if (mInterceptor != null && mInterceptor.onResponse(call, response))
+        if (mInterceptor != null && mInterceptor.onResponse(call, response)) {
             return;
+        }
 
         /*这个地方可以处理API公共逻辑*/
         if (response.isSuccessful()) {
@@ -66,12 +67,14 @@ public abstract class CommonCallBack<T> extends BaseCallBack<T> {
     public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
         super.onFailure(call, t);
         /*如果拦截器关心并处理了该异常，则流程结束，否则交给公共逻辑*/
-        if (mInterceptor != null && mInterceptor.onFailure(call, t))
+        if (mInterceptor != null && mInterceptor.onFailure(call, t)) {
             return;
+        }
 
         /*如果callBack关心并处理了TimeOutEx，则流程结束，否则交给公共逻辑*/
-        if (t instanceof TimeoutException && onTimeOutException(call, t))
+        if (t instanceof TimeoutException && onTimeOutException(call, t)) {
             return;
+        }
 
         if (t instanceof IOException && t.getMessage().equals("Canceled")) {
             /*2种情况

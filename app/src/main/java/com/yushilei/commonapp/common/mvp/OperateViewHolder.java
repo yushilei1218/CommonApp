@@ -80,14 +80,16 @@ public class OperateViewHolder implements IOperateView {
             mLoadingDialog.setCancelable(false);
             mLoadingDialog.setCanceledOnTouchOutside(false);
         }
-        if (!mLoadingDialog.isShowing())
+        if (!mLoadingDialog.isShowing()) {
             mLoadingDialog.show();
+        }
     }
 
     @Override
     public void hideLoadingDialog() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing())
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
+        }
     }
 
     @Override
@@ -95,8 +97,9 @@ public class OperateViewHolder implements IOperateView {
         if (hasView) {
             mViewLayout.setVisibility(View.VISIBLE);
             mEmptyLayout.setVisibility(View.VISIBLE);
-            if (imageId != 0)
+            if (imageId != 0) {
                 mEmptyImg.setImageResource(imageId);
+            }
             mErrTv.setText(msg);
             mErrTv.setOnClickListener(onClickListener);
             mProcessBar.setVisibility(View.GONE);

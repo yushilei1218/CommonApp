@@ -71,8 +71,9 @@ public class RetrofitProcessor extends AbstractProcessor {
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(RetrofitProxy.class);
         int index = 0;
         for (Element e : elements) {
-            if (!e.getKind().isInterface())
+            if (!e.getKind().isInterface()) {
                 continue;
+            }
             index++;
             //MethodSpec
             List<MethodSpec> methodSpecList = new ArrayList<>();

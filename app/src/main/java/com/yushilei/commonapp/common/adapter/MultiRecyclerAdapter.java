@@ -45,10 +45,12 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addAllLast(List<? extends ItemWrapper> data) {
-        if (SetUtil.isEmpty(data))
+        if (SetUtil.isEmpty(data)) {
             return;
-        if (mData == null)
+        }
+        if (mData == null) {
             mData = new LinkedList<>();
+        }
         mData.addAll(data);
         notifyDataSetChanged();
     }
@@ -63,8 +65,9 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public int indexOf(ItemWrapper item) {
-        if (SetUtil.isEmpty(mData))
+        if (SetUtil.isEmpty(mData)) {
             return -1;
+        }
         return mData.indexOf(item);
     }
 
@@ -72,8 +75,9 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * 清空数据源并刷新RecyclerView
      */
     public void clear() {
-        if (mData != null)
+        if (mData != null) {
             mData.clear();
+        }
         notifyDataSetChanged();
     }
 

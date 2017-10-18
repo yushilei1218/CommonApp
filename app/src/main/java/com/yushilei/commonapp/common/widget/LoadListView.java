@@ -47,12 +47,15 @@ public class LoadListView extends ListView implements AbsListView.OnScrollListen
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if (mLoadMoreListener == null)
+        if (mLoadMoreListener == null) {
             return;
-        if (!isCanLoadMore)
+        }
+        if (!isCanLoadMore) {
             return;
-        if (mFootView == null)
+        }
+        if (mFootView == null) {
             initFoot();
+        }
         if (scrollState == SCROLL_STATE_IDLE) {
             if (mTotalItemCount > 0 && mStateEnum == FootStateEnum.FINISH && mLastItem == mTotalItemCount) {
                 changeFootState(FootStateEnum.LOADING);
@@ -91,8 +94,9 @@ public class LoadListView extends ListView implements AbsListView.OnScrollListen
     }
 
     private void changeFootState(FootStateEnum stateEnum) {
-        if (mFootView == null)
+        if (mFootView == null) {
             return;
+        }
         mStateEnum = stateEnum;
 
         switch (stateEnum) {

@@ -40,6 +40,7 @@ public class JobTypeClass implements Item {
         return mJobTypeList;
     }
 
+    @Override
     public int getId() {
         return id;
     }
@@ -48,6 +49,7 @@ public class JobTypeClass implements Item {
         this.id = id;
     }
 
+    @Override
     public int getParentId() {
         return parentId;
     }
@@ -66,6 +68,7 @@ public class JobTypeClass implements Item {
         this.parentId = parentId;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -127,8 +127,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     }
 
     private void checkToLazyLoad() {
-        if (isLoaded)
+        if (isLoaded) {
             return;
+        }
         if (isViewCreated && getUserVisibleHint()) {
             isLoaded = true;
             lazyLoad();
@@ -200,8 +201,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public String getTAG() {
         String name = this.getClass().getSimpleName();
-        if (name.length() > 23)
+        if (name.length() > 23) {
             name = name.substring(0, 23);
+        }
         return name;
     }
 

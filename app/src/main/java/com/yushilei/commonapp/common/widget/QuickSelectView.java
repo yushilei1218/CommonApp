@@ -42,7 +42,9 @@ public class QuickSelectView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (SetUtil.isEmpty(mTags)) return;
+        if (SetUtil.isEmpty(mTags)) {
+            return;
+        }
         float height = getHeight();
         float offset = height / mTags.size();
         int width = getWidth();
@@ -59,7 +61,9 @@ public class QuickSelectView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (SetUtil.isEmpty(mTags)) return false;
+        if (SetUtil.isEmpty(mTags)) {
+            return false;
+        }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -90,8 +94,9 @@ public class QuickSelectView extends View {
                     mCurTag.isHighLight = false;
                     invalidate();
                 }
-                if (mHighLightListener != null)
+                if (mHighLightListener != null) {
                     mHighLightListener.onTagFinish();
+                }
                 break;
         }
         return true;
@@ -102,8 +107,12 @@ public class QuickSelectView extends View {
         int height = getHeight();
         int offset = height / mTags.size();
         int pos = y / offset;
-        if (pos < 0) pos = 0;
-        if (pos > mTags.size() - 1) pos = mTags.size() - 1;
+        if (pos < 0) {
+            pos = 0;
+        }
+        if (pos > mTags.size() - 1) {
+            pos = mTags.size() - 1;
+        }
         return mTags.get(pos);
     }
 

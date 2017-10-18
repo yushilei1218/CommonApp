@@ -20,8 +20,9 @@ public final class Schedulers {
     }
 
     public static synchronized Scheduler mainThread() {
-        if (sSchedulerMain == null)
+        if (sSchedulerMain == null) {
             sSchedulerMain = new SchedulerMain();
+        }
         return sSchedulerMain;
     }
 

@@ -61,8 +61,9 @@ public final class CallPool {
         for (int i = 0; i < sCallPool.size(); i++) {
             int key = sCallPool.keyAt(i);
             List<WeakReference<Call>> list = sCallPool.get(key);
-            if (SetUtil.isEmpty(list))
+            if (SetUtil.isEmpty(list)) {
                 break;
+            }
             Iterator<WeakReference<Call>> iterator = list.iterator();
             while (iterator.hasNext()) {
                 WeakReference<Call> next = iterator.next();

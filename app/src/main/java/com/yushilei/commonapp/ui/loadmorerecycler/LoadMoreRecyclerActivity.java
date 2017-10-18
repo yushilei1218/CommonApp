@@ -156,8 +156,9 @@ public class LoadMoreRecyclerActivity extends BaseActivity {
     public List<ItemWrapper> getListWrappers() {
         SystemClock.sleep(2000);
         int index = 10;
-        if (pos > 20)
+        if (pos > 20) {
             index = 5;
+        }
         List<ItemWrapper> data = new LinkedList<>();
         for (int i = 0; i < index; i++) {
             if (i % 2 == 1) {

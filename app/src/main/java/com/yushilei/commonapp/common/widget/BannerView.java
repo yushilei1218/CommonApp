@@ -93,8 +93,9 @@ public class BannerView extends ViewPager implements Runnable {
      * 开始轮播
      */
     public void startLoop() {
-        if (!adapter.isCanLoop())
+        if (!adapter.isCanLoop()) {
             return;
+        }
         if (isLooping) {
             stopLoop();
         }
@@ -167,8 +168,9 @@ public class BannerView extends ViewPager implements Runnable {
             }
             notifyDataSetChanged();
 
-            if (mCountChangeListener != null)
+            if (mCountChangeListener != null) {
                 mCountChangeListener.onIndicatorChange(adapter.getRealCount());
+            }
 
             if (isCanLoop()) {
                 startLoop();
@@ -185,26 +187,31 @@ public class BannerView extends ViewPager implements Runnable {
             if (!isAttachedToWindow) {
                 return false;
             }
-            if (SetUtil.isEmpty(data))
+            if (SetUtil.isEmpty(data)) {
                 return false;
-            if (data.size() == 1)
+            }
+            if (data.size() == 1) {
                 return false;
+            }
             return true;
         }
 
         @Override
         public int getCount() {
-            if (SetUtil.isEmpty(data))
+            if (SetUtil.isEmpty(data)) {
                 return 0;
-            if (data.size() == 1)
+            }
+            if (data.size() == 1) {
                 return 1;
+            }
             return Integer.MAX_VALUE >> 2;
 
         }
 
         int getRealCount() {
-            if (SetUtil.isEmpty(data))
+            if (SetUtil.isEmpty(data)) {
                 return 0;
+            }
             return data.size();
         }
 

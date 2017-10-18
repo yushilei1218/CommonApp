@@ -54,8 +54,9 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
 
     public boolean remove(Object bean) {
         int pos = data.indexOf(bean);
-        if (pos < 0)
+        if (pos < 0) {
             return false;
+        }
         data.remove(pos);
         notifyItemRemoved(pos);
         return true;
@@ -63,8 +64,9 @@ public class MultiHolderAdapter extends RecyclerView.Adapter<BaseRecyclerHolder>
 
     public boolean update(Object bean) {
         int pos = data.indexOf(bean);
-        if (pos < 0)
+        if (pos < 0) {
             return false;
+        }
         notifyItemChanged(pos);
         return true;
     }
