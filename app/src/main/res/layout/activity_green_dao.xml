@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.greendao.GreenDaoActivity">
+
+    <Button
+        android:id="@+id/act_green_dao_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DB SAVE"/>
+
+    <Button
+        android:id="@+id/act_green_dao_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DB QUERY"/>
+
+</LinearLayout>

@@ -94,6 +94,8 @@
         </activity>
         <activity android:name=".ui.loadmorerecycler.Load2FootActivity">
         </activity>
+        <activity android:name=".ui.greendao.GreenDaoActivity">
+        </activity>
     </application>
 
 </manifest>

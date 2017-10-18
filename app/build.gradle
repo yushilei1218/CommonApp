@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'packer'
-
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     signingConfigs {
@@ -60,6 +61,7 @@ dependencies {
     compile project(':c_annotation')
     apt project(':c_compiler')
     //友盟
+    // add library
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -76,6 +78,7 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
     compile 'com.yanzhenjie:permission:1.1.0'
     compile 'org.greenrobot:eventbus:3.1.0-RC'
+    compile 'org.greenrobot:greendao:3.2.2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

@@ -13,13 +13,21 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mcxiaoke.packer.helper.PackerNg;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
+import com.yushilei.commonapp.common.bean.db.DaoMaster;
+import com.yushilei.commonapp.common.bean.db.DaoSession;
+
+import org.greenrobot.greendao.database.Database;
 
 /**
  * App基类
  */
 
 public class BaseApp extends Application {
-    public static Context AppContext;
+    public static BaseApp AppContext;
+
+    public static final boolean ENCRYPTED = false;
+
+    private DaoSession daoSession;
 
     @Override
     public void onCreate() {
@@ -44,11 +52,19 @@ public class BaseApp extends Application {
 
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "notes-db-encrypted" : "notes-db");
+        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
         LeakCanary.install(this);
 
+    }
+
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 
     private void logChannel() {

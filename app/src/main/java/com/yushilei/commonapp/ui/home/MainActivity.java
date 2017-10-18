@@ -26,6 +26,7 @@ import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
+import com.yushilei.commonapp.ui.greendao.GreenDaoActivity;
 import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.Load2FootActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreAdapterActivity;
@@ -99,6 +100,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item24 = new HomeItem(new HomeBean(Constant.SEARCH));
         HomeItem item25 = new HomeItem(new HomeBean(Constant.Load_Test));
         HomeItem item26 = new HomeItem(new HomeBean(Constant.Load_Foot));
+        HomeItem item27 = new HomeItem(new HomeBean(Constant.GREEN_DAO));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -125,6 +127,7 @@ public class MainActivity extends BaseActivity {
         data.add(item24);
         data.add(item25);
         data.add(item26);
+        data.add(item27);
         adapter.addAll(data);
     }
 
@@ -232,6 +235,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.Load_Foot:
                     intent = new Intent(MainActivity.this, Load2FootActivity.class);
+                    break;
+                case Constant.GREEN_DAO:
+                    intent = new Intent(MainActivity.this, GreenDaoActivity.class);
                     break;
 
             }
