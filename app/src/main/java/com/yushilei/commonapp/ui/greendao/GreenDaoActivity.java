@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseActivity;
@@ -11,6 +12,7 @@ import com.yushilei.commonapp.common.base.BaseApp;
 import com.yushilei.commonapp.common.bean.db.DaoSession;
 import com.yushilei.commonapp.common.bean.db.Note;
 import com.yushilei.commonapp.common.bean.db.NoteType;
+import com.yushilei.commonapp.common.util.JsonUtil;
 import com.yushilei.commonapp.common.util.SetUtil;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 public class GreenDaoActivity extends BaseActivity {
 
+    private TextView mMtv;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_green_dao;
@@ -31,6 +35,9 @@ public class GreenDaoActivity extends BaseActivity {
     public void initView() {
         setOnClick(R.id.act_green_dao_query);
         setOnClick(R.id.act_green_dao_save);
+        setOnClick(R.id.act_green_dao_clear);
+        setOnClick(R.id.act_green_dao_save_and_update);
+        mMtv = (TextView) findView(R.id.act_green_dao_tv);
     }
 
     @Override
@@ -42,9 +49,8 @@ public class GreenDaoActivity extends BaseActivity {
                 if (SetUtil.isEmpty(notes1)) {
                     return;
                 }
-                for (int i = 0; i < notes1.size(); i++) {
-                    Log.d(getTAG(),notes1.get(i).toString());
-                }
+                String s = JsonUtil.toJson(notes1);
+                mMtv.setText(s);
                 break;
             case R.id.act_green_dao_save:
 
@@ -54,6 +60,18 @@ public class GreenDaoActivity extends BaseActivity {
                     notes.add(e);
                 }
                 daoSession.getNoteDao().insertInTx(notes);
+                break;
+            case R.id.act_green_dao_clear:
+                daoSession.getNoteDao().deleteAll();
+                break;
+            case R.id.act_green_dao_save_and_update:
+
+                List<Note> notes2 = new ArrayList<>(10);
+                for (int i = 5; i < 15; i++) {
+                    Note e = new Note((long) i, "text+" + i, "comment+test" + i, new Date(System.currentTimeMillis()), NoteType.TEXT);
+                    notes2.add(e);
+                }
+                daoSession.getNoteDao().insertOrReplaceInTx(notes2);
                 break;
             default:
                 break;
