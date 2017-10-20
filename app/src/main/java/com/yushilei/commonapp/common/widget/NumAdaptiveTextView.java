@@ -49,7 +49,7 @@ public class NumAdaptiveTextView extends AppCompatTextView {
             int textWidth = width - paddingLeft - paddingRight;
 
             float realTextWidth = paint.measureText((String) getText());
-            while (realTextWidth + 20 > textWidth) {
+            while (realTextWidth > textWidth) {
                 float textSize = paint.getTextSize();
                 paint.setTextSize(textSize - 2f);
                 realTextWidth = paint.measureText((String) getText());
