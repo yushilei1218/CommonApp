@@ -15,7 +15,8 @@ import android.util.AttributeSet;
  */
 
 public class NumAdaptiveTextView extends AppCompatTextView {
-    private float textSize;
+    private float mInitTextSize;
+    private static final int MIN_SIZE = 50;
 
     public NumAdaptiveTextView(Context context) {
         super(context);
@@ -23,7 +24,7 @@ public class NumAdaptiveTextView extends AppCompatTextView {
 
     public NumAdaptiveTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        textSize = getTextSize();
+        mInitTextSize = getTextSize();
         setSingleLine();
     }
 
@@ -38,11 +39,11 @@ public class NumAdaptiveTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         if (TextUtils.isEmpty(getText())) {
             super.onDraw(canvas);
         } else {
             TextPaint paint = getPaint();
+            paint.setTextSize(mInitTextSize);
             int width = getWidth();
             int paddingLeft = getPaddingLeft();
             int paddingRight = getPaddingRight();
@@ -51,11 +52,18 @@ public class NumAdaptiveTextView extends AppCompatTextView {
             float realTextWidth = paint.measureText((String) getText());
             while (realTextWidth > textWidth) {
                 float textSize = paint.getTextSize();
-                paint.setTextSize(textSize - 2f);
+                if (textSize < MIN_SIZE) {
+                    break;
+                }
+                paint.setTextSize(textSize - 1f);
                 realTextWidth = paint.measureText((String) getText());
             }
-
             super.onDraw(canvas);
         }
+    }
+
+    @Override
+    public void setTextSize(float size) {
+        super.setTextSize(size);
     }
 }

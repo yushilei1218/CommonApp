@@ -31,7 +31,7 @@ import java.util.List;
 public class TestActivity extends BaseActivity {
     private long num = 1;
     private TextView mView;
-    private BigInteger mInteger=new BigInteger("1");
+    private BigInteger mInteger = new BigInteger("1");
 
     @Override
     public void initView() {
@@ -51,7 +51,9 @@ public class TestActivity extends BaseActivity {
             case R.id.num_id_1:
                 mInteger = mInteger.multiply(new BigInteger("10"));
                 num = num * 10;
-                mView.setText(mInteger.toString());
+                String s = mInteger.toString();
+
+                mView.setText(s);
                 break;
         }
     }
