@@ -47,6 +47,7 @@ import com.yushilei.commonapp.ui.search.SearchActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.tab.TabsActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
+import com.yushilei.commonapp.ui.viewmodel.ViewModelActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -101,6 +102,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item25 = new HomeItem(new HomeBean(Constant.Load_Test));
         HomeItem item26 = new HomeItem(new HomeBean(Constant.Load_Foot));
         HomeItem item27 = new HomeItem(new HomeBean(Constant.GREEN_DAO));
+        HomeItem item28 = new HomeItem(new HomeBean(Constant.VIEW_MODEL));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -128,6 +130,7 @@ public class MainActivity extends BaseActivity {
         data.add(item25);
         data.add(item26);
         data.add(item27);
+        data.add(item28);
         adapter.addAll(data);
     }
 
@@ -238,6 +241,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.GREEN_DAO:
                     intent = new Intent(MainActivity.this, GreenDaoActivity.class);
+                    break;
+                case Constant.VIEW_MODEL:
+                    intent = new Intent(MainActivity.this, ViewModelActivity.class);
                     break;
 
             }

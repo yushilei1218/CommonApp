@@ -96,6 +96,8 @@
         </activity>
         <activity android:name=".ui.greendao.GreenDaoActivity">
         </activity>
+        <activity android:name=".ui.viewmodel.ViewModelActivity">
+        </activity>
     </application>
 
 </manifest>
