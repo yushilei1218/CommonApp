@@ -6,6 +6,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Property;
 
 import java.util.Date;
 
@@ -23,8 +24,9 @@ public class Note {
 
     @NotNull
     private String text;
+
     private String comment;
-    private java.util.Date date;
+    private Date date;
 
     @Convert(converter = NoteTypeConverter.class, columnType = String.class)
     private NoteType type;
@@ -33,8 +35,8 @@ public class Note {
     public Note() {
     }
 
-    @Generated(hash = 1686394253)
-    public Note(Long id, @NotNull String text, String comment, java.util.Date date,
+    @Generated(hash = 59778150)
+    public Note(Long id, @NotNull String text, String comment, Date date,
             NoteType type) {
         this.id = id;
         this.text = text;

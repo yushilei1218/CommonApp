@@ -41,6 +41,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DB SAVE and Update"/>
+
+        <Button
+            android:id="@+id/act_green_dao_save_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DB SAVE PERSON"/>
+
+        <Button
+            android:id="@+id/act_green_dao_query_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DB QUERY PERSON"/>
+
+        <Button
+            android:id="@+id/act_green_dao_clear_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DB CLEAR PERSON"/>
     </LinearLayout>
 
 
