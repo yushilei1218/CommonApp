@@ -34,6 +34,7 @@ public class GreenDaoActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        //1.0.1 bugfix
         setOnClick(R.id.act_green_dao_query);
         setOnClick(R.id.act_green_dao_save);
         setOnClick(R.id.act_green_dao_clear);
