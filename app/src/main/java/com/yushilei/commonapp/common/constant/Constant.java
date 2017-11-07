@@ -34,4 +34,5 @@ public interface Constant {
     String Load_Foot = "Load_Foot";
     String GREEN_DAO = "GREEN_DAO";
     String VIEW_MODEL = "VIEW_MODEL";
+    String CONSTRAINT = "CONSTRAINT";
 }

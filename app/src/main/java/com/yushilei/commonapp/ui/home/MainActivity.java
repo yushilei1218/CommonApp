@@ -23,6 +23,7 @@ import com.yushilei.commonapp.common.constant.Constant;
 import com.yushilei.commonapp.ui.adaptertest.AdapterNotifyActivity;
 import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
 import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
+import com.yushilei.commonapp.ui.constraintlayout.ConstraintActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item26 = new HomeItem(new HomeBean(Constant.Load_Foot));
         HomeItem item27 = new HomeItem(new HomeBean(Constant.GREEN_DAO));
         HomeItem item28 = new HomeItem(new HomeBean(Constant.VIEW_MODEL));
+        HomeItem item29 = new HomeItem(new HomeBean(Constant.CONSTRAINT));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -131,6 +133,7 @@ public class MainActivity extends BaseActivity {
         data.add(item26);
         data.add(item27);
         data.add(item28);
+        data.add(item29);
         adapter.addAll(data);
     }
 
@@ -244,6 +247,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.VIEW_MODEL:
                     intent = new Intent(MainActivity.this, ViewModelActivity.class);
+                    break;
+                case Constant.CONSTRAINT:
+                    intent = new Intent(MainActivity.this, ConstraintActivity.class);
                     break;
 
             }

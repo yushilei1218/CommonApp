@@ -98,6 +98,8 @@
         </activity>
         <activity android:name=".ui.viewmodel.ViewModelActivity">
         </activity>
+        <activity android:name=".ui.constraintlayout.ConstraintActivity">
+        </activity>
     </application>
 
 </manifest>
