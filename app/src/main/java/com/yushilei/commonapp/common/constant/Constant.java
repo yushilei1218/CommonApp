@@ -35,4 +35,5 @@ public interface Constant {
     String GREEN_DAO = "GREEN_DAO";
     String VIEW_MODEL = "VIEW_MODEL";
     String CONSTRAINT = "CONSTRAINT";
+    String SHARED_ELEMENT = "SHARED_ELEMENT";
 }

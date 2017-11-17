@@ -45,6 +45,7 @@ import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
 import com.yushilei.commonapp.ui.scroll.ScrollActivity;
 import com.yushilei.commonapp.ui.search.SearchActivity;
+import com.yushilei.commonapp.ui.sharedelement.SharedElementActivity;
 import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.tab.TabsActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item27 = new HomeItem(new HomeBean(Constant.GREEN_DAO));
         HomeItem item28 = new HomeItem(new HomeBean(Constant.VIEW_MODEL));
         HomeItem item29 = new HomeItem(new HomeBean(Constant.CONSTRAINT));
+        HomeItem item30 = new HomeItem(new HomeBean(Constant.SHARED_ELEMENT));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -134,6 +136,7 @@ public class MainActivity extends BaseActivity {
         data.add(item27);
         data.add(item28);
         data.add(item29);
+        data.add(item30);
         adapter.addAll(data);
     }
 
@@ -250,6 +253,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.CONSTRAINT:
                     intent = new Intent(MainActivity.this, ConstraintActivity.class);
+                    break;
+                case Constant.SHARED_ELEMENT:
+                    intent = new Intent(MainActivity.this, SharedElementActivity.class);
                     break;
 
             }
