@@ -32,7 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"/>
+        app:layout_constraintVertical_bias="0.8"/>
 
     <Button
         android:id="@+id/act_constraint_set_btn4"
@@ -43,5 +43,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"/>
+
+    <Button
+        android:id="@+id/act_constraint_set_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BTN5"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/act_constraint_set_btn6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="BTN6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/act_constraint_set_btn5"/>
+
+    <Button
+        android:id="@+id/act_constraint_set_btn7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="BTN7"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/act_constraint_set_btn6"/>
 
 </android.support.constraint.ConstraintLayout>
