@@ -1,20 +1,36 @@
 package com.yushilei.commonapp.ui.constraintlayout;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import android.content.Intent;
+import android.view.View;
 
 import com.yushilei.commonapp.R;
+import com.yushilei.commonapp.common.base.BaseActivity;
 
 /**
  * 测试约束布局
  *
  * @author shilei.yu
  */
-public class ConstraintActivity extends AppCompatActivity {
+public class ConstraintActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_constraint);
+    protected int getLayoutId() {
+        return R.layout.activity_constraint;
+    }
+
+    @Override
+    public void initView() {
+        setOnClick(R.id.btn5);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn5:
+                startActivity(new Intent(this, ConstraintSetActivity.class));
+                break;
+        }
     }
 }

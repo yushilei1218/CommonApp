@@ -102,6 +102,8 @@
         </activity>
         <activity android:name=".ui.sharedelement.SharedElementActivity">
         </activity>
+        <activity android:name=".ui.constraintlayout.ConstraintSetActivity">
+        </activity>
     </application>
 
 </manifest>
