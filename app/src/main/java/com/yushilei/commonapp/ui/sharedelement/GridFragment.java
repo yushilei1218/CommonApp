@@ -63,7 +63,7 @@ public class GridFragment extends Fragment {
             ImageView img = (ImageView) holder.findView(R.id.img);
             img.setImageResource(R.mipmap.ic_clock);
             img.setOnClickListener(holder);
-            ViewCompat.setTransitionName(img,pos+"_img");
+            ViewCompat.setTransitionName(img, pos + "_img");
         }
 
         @Override
@@ -80,6 +80,17 @@ public class GridFragment extends Fragment {
                     .replace(R.id.container, fg)
                     .addToBackStack(null)
                     .commit();
+//            DialogFragment fg = new DialogFragment();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                fg.setSharedElementEnterTransition(new DetailsTransition());
+//                fg.setEnterTransition(new Fade());
+//                setExitTransition(new Fade());
+//                fg.setSharedElementReturnTransition(new DetailsTransition());
+//            }
+//            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//            transaction.addSharedElement(target, "kittenImage")
+//                    .addToBackStack(null);
+//            fg.show(transaction," aa");
         }
     }
 }
