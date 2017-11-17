@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.view.View;
+import android.widget.Button;
 
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseActivity;
@@ -45,6 +46,8 @@ public class ConstraintSetActivity extends BaseActivity {
                 break;
             case R.id.act_constraint_set_btn2:
                 showToast("BTN2 被点击");
+                Button button =  findView(R.id.act_constraint_set_btn2);
+                button.setText("BTN2 被点击");
                 break;
         }
     }
