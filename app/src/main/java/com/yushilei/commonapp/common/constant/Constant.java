@@ -36,4 +36,5 @@ public interface Constant {
     String VIEW_MODEL = "VIEW_MODEL";
     String CONSTRAINT = "CONSTRAINT";
     String SHARED_ELEMENT = "SHARED_ELEMENT";
+    String WEEX = "WEEX";
 }

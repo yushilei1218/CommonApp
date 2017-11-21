@@ -104,6 +104,8 @@
         </activity>
         <activity android:name=".ui.constraintlayout.ConstraintSetActivity">
         </activity>
+        <activity android:name=".ui.weex.WeexActivity">
+        </activity>
     </application>
 
 </manifest>

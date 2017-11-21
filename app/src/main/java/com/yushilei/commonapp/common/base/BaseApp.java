@@ -12,9 +12,12 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mcxiaoke.packer.helper.PackerNg;
 import com.squareup.leakcanary.LeakCanary;
+import com.taobao.weex.InitConfig;
+import com.taobao.weex.WXSDKEngine;
 import com.umeng.analytics.MobclickAgent;
 import com.yushilei.commonapp.common.bean.db.DaoMaster;
 import com.yushilei.commonapp.common.bean.db.DaoSession;
+import com.yushilei.commonapp.common.weex.ImageAdapter;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -33,6 +36,9 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         AppContext = this;
+
+        InitConfig config1 = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+        WXSDKEngine.initialize(this, config1);
 
         Fresco.initialize(this);
 

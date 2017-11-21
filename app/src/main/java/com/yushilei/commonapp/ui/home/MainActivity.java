@@ -50,6 +50,7 @@ import com.yushilei.commonapp.ui.swipelayout.SwipeLayoutActivity;
 import com.yushilei.commonapp.ui.tab.TabsActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
 import com.yushilei.commonapp.ui.viewmodel.ViewModelActivity;
+import com.yushilei.commonapp.ui.weex.WeexActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -107,6 +108,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item28 = new HomeItem(new HomeBean(Constant.VIEW_MODEL));
         HomeItem item29 = new HomeItem(new HomeBean(Constant.CONSTRAINT));
         HomeItem item30 = new HomeItem(new HomeBean(Constant.SHARED_ELEMENT));
+        HomeItem item31 = new HomeItem(new HomeBean(Constant.WEEX));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -137,6 +139,7 @@ public class MainActivity extends BaseActivity {
         data.add(item28);
         data.add(item29);
         data.add(item30);
+        data.add(item31);
         adapter.addAll(data);
     }
 
@@ -256,6 +259,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.SHARED_ELEMENT:
                     intent = new Intent(MainActivity.this, SharedElementActivity.class);
+                    break;
+                case Constant.WEEX:
+                    intent = new Intent(MainActivity.this, WeexActivity.class);
                     break;
 
             }
