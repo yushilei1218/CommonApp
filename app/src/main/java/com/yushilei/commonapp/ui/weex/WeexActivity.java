@@ -23,7 +23,7 @@ public class WeexActivity extends AppCompatActivity {
         mWXSDKInstance.registerRenderListener(new IWXRenderListener() {
             @Override
             public void onViewCreated(WXSDKInstance instance, View view) {
-
+                setContentView(view);
             }
 
             @Override
@@ -50,5 +50,37 @@ public class WeexActivity extends AppCompatActivity {
          * height =-1 默认全屏，可以自己定制。
          */
         mWXSDKInstance.render("WXSample", WXFileUtils.loadFileContent("hello.js", this), null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mWXSDKInstance != null) {
+            mWXSDKInstance.onActivityResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mWXSDKInstance != null) {
+            mWXSDKInstance.onActivityPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mWXSDKInstance != null) {
+            mWXSDKInstance.onActivityStop();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mWXSDKInstance != null) {
+            mWXSDKInstance.onActivityDestroy();
+        }
     }
 }

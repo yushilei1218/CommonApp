@@ -9,8 +9,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.BuildConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mcxiaoke.packer.helper.PackerNg;
+import com.orhanobut.logger.LogAdapter;
+import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
@@ -36,6 +39,18 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         AppContext = this;
+
+        Logger.addLogAdapter(new LogAdapter() {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.DEBUG;
+            }
+
+            @Override
+            public void log(int priority, String tag, String message) {
+
+            }
+        });
 
         InitConfig config1 = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
         WXSDKEngine.initialize(this, config1);

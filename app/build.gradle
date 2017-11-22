@@ -81,12 +81,16 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.1.0-RC'
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'android.arch.lifecycle:extensions:1.0.0-rc1'
-    compile 'com.alibaba:fastjson:1.1.46.android'
-    compile 'com.taobao.android:weex_sdk:0.5.1@aar'
+
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+
+    compile 'com.orhanobut:logger:2.1.1'
+
+    compile 'com.alibaba:fastjson:1.1.46.android'
+    compile 'com.taobao.android:weex_sdk:0.5.1@aar'
 }
 packer {
     archiveNameFormat = '${buildType}-v${versionName}-${channel}'
