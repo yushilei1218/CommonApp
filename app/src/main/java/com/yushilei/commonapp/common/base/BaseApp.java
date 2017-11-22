@@ -52,8 +52,8 @@ public class BaseApp extends Application {
             }
         });
 
-        InitConfig config1 = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
-        WXSDKEngine.initialize(this, config1);
+        InitConfig con = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+        WXSDKEngine.initialize(this, con);
 
         Fresco.initialize(this);
 
