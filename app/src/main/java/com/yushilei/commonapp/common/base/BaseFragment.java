@@ -22,6 +22,7 @@ import com.yushilei.commonapp.common.mvp.IBaseView;
  * <p>
  * 实现{@link IBaseView} 已完成页面基础操作的相关实现；
  * APP内fragment需要继承该Fragment 进行
+ * 测试TAG3
  */
 
 public abstract class BaseFragment extends Fragment implements IBaseView {
