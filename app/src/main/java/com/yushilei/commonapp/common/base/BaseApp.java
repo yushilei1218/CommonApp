@@ -1,8 +1,6 @@
 package com.yushilei.commonapp.common.base;
 
-import android.Manifest;
 import android.app.Application;
-import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -17,10 +15,15 @@ import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.appfram.navigator.WXNavigatorModule;
+import com.taobao.weex.common.WXException;
 import com.umeng.analytics.MobclickAgent;
 import com.yushilei.commonapp.common.bean.db.DaoMaster;
 import com.yushilei.commonapp.common.bean.db.DaoSession;
-import com.yushilei.commonapp.common.weex.ImageAdapter;
+import com.yushilei.commonapp.ui.weex.adapter.FrescoImageAdapter;
+import com.yushilei.commonapp.ui.weex.adapter.OkHttpAdapter;
+import com.yushilei.commonapp.ui.weex.adapter.UserTrackAdapter;
+import com.yushilei.commonapp.ui.weex.module.LocationModule;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -52,9 +55,21 @@ public class BaseApp extends Application {
             }
         });
 
-        InitConfig con = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+        InitConfig con = new InitConfig.Builder()
+                .setImgAdapter(new FrescoImageAdapter())
+//                .setStorageAdapter()
+//                .setURIAdapter()
+                .setUtAdapter(new UserTrackAdapter())
+                .setHttpAdapter(new OkHttpAdapter())
+                .build();
         WXSDKEngine.initialize(this, con);
 
+        try {
+            WXSDKEngine.registerModule(LocationModule.class.getSimpleName(), LocationModule.class);
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
+       
         Fresco.initialize(this);
 
         logChannel();

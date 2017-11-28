@@ -1,15 +1,13 @@
-package com.yushilei.commonapp.common.weex;
+package com.yushilei.commonapp.ui.weex.adapter;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.facebook.common.executors.CallerThreadExecutor;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.DataSource;
-import com.facebook.datasource.DataSubscriber;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.core.ImagePipeline;
@@ -17,12 +15,10 @@ import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.orhanobut.logger.Logger;
 import com.taobao.weex.WXSDKManager;
 import com.taobao.weex.adapter.IWXImgLoaderAdapter;
 import com.taobao.weex.common.WXImageStrategy;
 import com.taobao.weex.dom.WXImageQuality;
-import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseApp;
 
 /**
@@ -30,7 +26,7 @@ import com.yushilei.commonapp.common.base.BaseApp;
  * @since 2017/11/21
  */
 
-public class ImageAdapter implements IWXImgLoaderAdapter {
+public class FrescoImageAdapter implements IWXImgLoaderAdapter {
     @Override
     public void setImage(final String url, final ImageView view, WXImageQuality quality, WXImageStrategy strategy) {
         WXSDKManager.getInstance().postOnUiThread(new Runnable() {

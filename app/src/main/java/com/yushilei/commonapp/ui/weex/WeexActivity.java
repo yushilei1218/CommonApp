@@ -49,7 +49,7 @@ public class WeexActivity extends AppCompatActivity {
          * width 为-1 默认全屏，可以自己定制。
          * height =-1 默认全屏，可以自己定制。
          */
-        mWXSDKInstance.render("WXSample", WXFileUtils.loadFileContent("hello.js", this), null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
+        mWXSDKInstance.render("WXSample", WXFileUtils.loadFileOrAsset("hello.js", this), null, null, WXRenderStrategy.APPEND_ASYNC);
     }
 
     @Override
