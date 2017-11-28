@@ -60,7 +60,7 @@ public class BaseApp extends Application {
 //                .setStorageAdapter()
 //                .setURIAdapter()
                 .setUtAdapter(new UserTrackAdapter())
-                .setHttpAdapter(new OkHttpAdapter())
+//                .setHttpAdapter(new OkHttpAdapter())
                 .build();
         WXSDKEngine.initialize(this, con);
 
@@ -69,7 +69,7 @@ public class BaseApp extends Application {
         } catch (WXException e) {
             e.printStackTrace();
         }
-       
+
         Fresco.initialize(this);
 
         logChannel();

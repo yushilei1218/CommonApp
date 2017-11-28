@@ -1,6 +1,7 @@
 package com.yushilei.commonapp.ui.weex.adapter;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.taobao.weex.adapter.IWXHttpAdapter;
 import com.taobao.weex.common.WXRequest;
@@ -34,14 +35,20 @@ public class OkHttpAdapter implements IWXHttpAdapter {
 
     private Request getOkRequest(WXRequest request) {
         Request.Builder builder = new Request.Builder();
-        String method = request.method.toUpperCase();
+        String method1 = request.method;
         builder.url(request.url);
-        if ("GET".equals(method)) {
+        if (TextUtils.isEmpty(method1)) {
             builder.get();
-        } else if ("POST".equals(method)) {
-            RequestBody body = RequestBody.create(MediaType.parse("application/json"), request.body);
-            builder.post(body);
+        } else {
+            String methodStr = method1.toUpperCase();
+            if ("GET".equals(methodStr)) {
+                builder.get();
+            } else if ("POST".equals(methodStr)) {
+                RequestBody body = RequestBody.create(MediaType.parse("application/json"), request.body);
+                builder.post(body);
+            }
         }
+
         Map<String, String> map = request.paramMap;
         if (!SetUtil.isEmpty(map)) {
             for (String key : map.keySet()) {
