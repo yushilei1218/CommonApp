@@ -60,7 +60,7 @@ public class BaseApp extends Application {
 //                .setStorageAdapter()
 //                .setURIAdapter()
                 .setUtAdapter(new UserTrackAdapter())
-//                .setHttpAdapter(new OkHttpAdapter())
+                .setHttpAdapter(new OkHttpAdapter())
                 .build();
         WXSDKEngine.initialize(this, con);
 

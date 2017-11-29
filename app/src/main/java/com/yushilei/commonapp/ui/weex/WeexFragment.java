@@ -86,7 +86,7 @@ public class WeexFragment extends BaseFragment {
                 // mWXSDKInstance.render("WXSample", WXFileUtils.loadFileOrAsset("hello.js", getActivity()), null, null, WXRenderStrategy.APPEND_ASYNC);
                 mWXSDKInstance.renderByUrl("WXSample", "http://doc.zwwill.com/yanxuan/jsbundles/index.js", null, null, WXRenderStrategy.APPEND_ASYNC);
             }
-        }, 1000);
+        }, 500);
 
     }
 

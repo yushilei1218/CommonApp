@@ -35,24 +35,26 @@ public class OkHttpAdapter implements IWXHttpAdapter {
 
     private Request getOkRequest(WXRequest request) {
         Request.Builder builder = new Request.Builder();
-        String method1 = request.method;
+
         builder.url(request.url);
-        if (TextUtils.isEmpty(method1)) {
-            builder.get();
-        } else {
-            String methodStr = method1.toUpperCase();
-            if ("GET".equals(methodStr)) {
-                builder.get();
-            } else if ("POST".equals(methodStr)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/json"), request.body);
-                builder.post(body);
-            }
-        }
 
         Map<String, String> map = request.paramMap;
         if (!SetUtil.isEmpty(map)) {
             for (String key : map.keySet()) {
                 builder.addHeader(key, map.get(key));
+            }
+        }
+        String requestMethod = request.method;
+
+        if (TextUtils.isEmpty(requestMethod)) {
+            builder.get();
+        } else {
+            String methodStr = requestMethod.toUpperCase();
+            if ("GET".equals(methodStr)) {
+                builder.get();
+            } else if ("POST".equals(methodStr)) {
+                RequestBody body = RequestBody.create(MediaType.parse("application/json"), request.body);
+                builder.post(body);
             }
         }
         return builder.build();
@@ -63,15 +65,15 @@ public class OkHttpAdapter implements IWXHttpAdapter {
 
         CallBackWrapper(@NonNull OnHttpListener httpListener) {
             mHttpListener = httpListener;
+            mHttpListener.onHttpStart();
         }
 
         @Override
         public void onFailure(@NonNull Call call, @NonNull IOException e) {
             WXResponse response = new WXResponse();
-            response.data = null;
-            response.errorCode = null;
+            response.errorCode = "-1";
             response.errorMsg = e.getMessage();
-            response.statusCode = null;
+            response.statusCode = "-1";
             mHttpListener.onHttpFinish(response);
         }
 
@@ -80,9 +82,10 @@ public class OkHttpAdapter implements IWXHttpAdapter {
             mHttpListener.onHeadersReceived(response.code(), response.headers().toMultimap());
             WXResponse wxResponse = new WXResponse();
             ResponseBody body = response.body();
+
             wxResponse.statusCode = String.valueOf(response.code());
-            if (body != null) {
-                wxResponse.data = body.string();
+            if (response.isSuccessful() && body != null) {
+                //wxResponse.data = body.string(); 这里加入data会使网易严选无法正常展示页面
                 wxResponse.originalData = body.bytes();
             }
             mHttpListener.onHttpFinish(wxResponse);
