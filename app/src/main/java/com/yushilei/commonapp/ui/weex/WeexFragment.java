@@ -21,8 +21,9 @@ import com.yushilei.commonapp.common.base.BaseFragment;
  */
 public class WeexFragment extends BaseFragment {
     private static final String WEEX_URL = "WEEX_URL";
-    private static final String H5_URL = "H5_URL";
     private static final String TAG = "WeexFragment";
+
+    private String mWeexUrl;
 
     private WXSDKInstance mWXSDKInstance;
 
@@ -31,12 +32,30 @@ public class WeexFragment extends BaseFragment {
     public WeexFragment() {
     }
 
-    public static WeexFragment newInstance(String weexUrl, String h5Url) {
+    public static WeexFragment newInstance(String weexUrl) {
         WeexFragment fg = new WeexFragment();
         Bundle bundle = new Bundle();
         bundle.putString(WEEX_URL, weexUrl);
-        bundle.putString(H5_URL, h5Url);
+        fg.setArguments(bundle);
         return fg;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle target;
+        if (savedInstanceState != null) {
+            target = savedInstanceState;
+        } else {
+            target = getArguments();
+        }
+        mWeexUrl = target.getString(WEEX_URL);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(WEEX_URL, mWeexUrl);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -83,8 +102,7 @@ public class WeexFragment extends BaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // mWXSDKInstance.render("WXSample", WXFileUtils.loadFileOrAsset("hello.js", getActivity()), null, null, WXRenderStrategy.APPEND_ASYNC);
-                mWXSDKInstance.renderByUrl("WXSample", "http://doc.zwwill.com/yanxuan/jsbundles/index.js", null, null, WXRenderStrategy.APPEND_ASYNC);
+                mWXSDKInstance.renderByUrl("WXSample", mWeexUrl, null, null, WXRenderStrategy.APPEND_ASYNC);
             }
         }, 500);
 

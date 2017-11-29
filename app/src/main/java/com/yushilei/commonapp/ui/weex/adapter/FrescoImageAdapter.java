@@ -3,6 +3,7 @@ package com.yushilei.commonapp.ui.weex.adapter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
@@ -27,6 +28,8 @@ import com.yushilei.commonapp.common.base.BaseApp;
  */
 
 public class FrescoImageAdapter implements IWXImgLoaderAdapter {
+    private static final String TAG = "FrescoImageAdapter";
+
     @Override
     public void setImage(final String url, final ImageView view, WXImageQuality quality, WXImageStrategy strategy) {
         WXSDKManager.getInstance().postOnUiThread(new Runnable() {
@@ -39,18 +42,22 @@ public class FrescoImageAdapter implements IWXImgLoaderAdapter {
                     view.setImageBitmap(null);
                     return;
                 }
-                if (view.getLayoutParams().width <= 0 || view.getLayoutParams().height <= 0) {
+                int width = view.getLayoutParams().width;
+                int height = view.getLayoutParams().height;
+                if (width <= 0 || height <= 0) {
                     return;
                 }
                 ImagePipeline imagePipeline = Fresco.getImagePipeline();
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
-                        .setResizeOptions(new ResizeOptions(view.getLayoutParams().width, view.getLayoutParams().height))
+                        .setResizeOptions(new ResizeOptions(width, height))
                         .setProgressiveRenderingEnabled(true).build();
+                Log.d(TAG, "View width=" + width + " height" + height + " " + view.toString());
                 DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(request, BaseApp.AppContext);
                 dataSource.subscribe(new BaseBitmapDataSubscriber() {
                     @Override
                     protected void onNewResultImpl(Bitmap bitmap) {
                         view.setImageBitmap(bitmap);
+                        Log.d(TAG, " Bitmap width=" + bitmap.getWidth() + " height" + bitmap.getHeight() + " " + view.toString());
                     }
 
                     @Override

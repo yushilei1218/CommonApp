@@ -261,7 +261,7 @@ public class MainActivity extends BaseActivity {
                     intent = new Intent(MainActivity.this, SharedElementActivity.class);
                     break;
                 case Constant.WEEX:
-                    intent = new Intent(MainActivity.this, WeexActivity.class);
+                    intent = WeexActivity.getIntent(MainActivity.this, "http://doc.zwwill.com/yanxuan/jsbundles/index.js");
                     break;
 
             }

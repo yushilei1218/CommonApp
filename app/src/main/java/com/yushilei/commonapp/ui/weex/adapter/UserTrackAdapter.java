@@ -21,6 +21,6 @@ public class UserTrackAdapter implements IWXUserTrackAdapter {
     @Override
     public void commit(Context context, String eventId, String type, WXPerformance perf, Map<String, Serializable> params) {
         String perfStr = JsonUtil.toJson(perf);
-        Log.d(TAG, "type=" + type + " " + perfStr);
+        // Log.d(TAG, "type=" + type + " " + perfStr);
     }
 }
