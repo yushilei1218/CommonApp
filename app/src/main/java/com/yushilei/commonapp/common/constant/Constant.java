@@ -37,4 +37,5 @@ public interface Constant {
     String CONSTRAINT = "CONSTRAINT";
     String SHARED_ELEMENT = "SHARED_ELEMENT";
     String WEEX = "WEEX";
+    String C_WEEX_TEST = "C_WEEX_TEST";
 }

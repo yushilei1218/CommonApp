@@ -23,6 +23,7 @@ import com.yushilei.commonapp.common.bean.db.DaoSession;
 import com.yushilei.commonapp.ui.weex.adapter.FrescoImageAdapter;
 import com.yushilei.commonapp.ui.weex.adapter.OkHttpAdapter;
 import com.yushilei.commonapp.ui.weex.adapter.UserTrackAdapter;
+import com.yushilei.commonapp.ui.weex.module.EventModule;
 import com.yushilei.commonapp.ui.weex.module.LocationModule;
 
 import org.greenrobot.greendao.database.Database;
@@ -66,6 +67,7 @@ public class BaseApp extends Application {
 
         try {
             WXSDKEngine.registerModule(LocationModule.class.getSimpleName(), LocationModule.class);
+            WXSDKEngine.registerModule("ZPFEAPI", EventModule.class);
         } catch (WXException e) {
             e.printStackTrace();
         }

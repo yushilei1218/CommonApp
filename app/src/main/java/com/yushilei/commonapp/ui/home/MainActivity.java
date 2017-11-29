@@ -109,6 +109,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item29 = new HomeItem(new HomeBean(Constant.CONSTRAINT));
         HomeItem item30 = new HomeItem(new HomeBean(Constant.SHARED_ELEMENT));
         HomeItem item31 = new HomeItem(new HomeBean(Constant.WEEX));
+        HomeItem item32 = new HomeItem(new HomeBean(Constant.C_WEEX_TEST));
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -140,6 +141,7 @@ public class MainActivity extends BaseActivity {
         data.add(item29);
         data.add(item30);
         data.add(item31);
+        data.add(item32);
         adapter.addAll(data);
     }
 
@@ -262,6 +264,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.WEEX:
                     intent = WeexActivity.getIntent(MainActivity.this, "http://doc.zwwill.com/yanxuan/jsbundles/index.js");
+                    break;
+                case Constant.C_WEEX_TEST:
+                    intent = WeexActivity.getIntent(MainActivity.this, "https://c-m-bucket.zhaopin.cn/next/zpd/zpdDiscoverHome.weex.8441ab.js");
                     break;
 
             }

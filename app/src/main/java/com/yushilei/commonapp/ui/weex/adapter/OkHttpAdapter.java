@@ -88,6 +88,9 @@ public class OkHttpAdapter implements IWXHttpAdapter {
                 //wxResponse.data = body.string(); 这里加入data会使网易严选无法正常展示页面
                 wxResponse.originalData = body.bytes();
             }
+            if (response.code() == 304 && body != null) {
+                wxResponse.originalData = body.bytes();
+            }
             mHttpListener.onHttpFinish(wxResponse);
         }
     }
