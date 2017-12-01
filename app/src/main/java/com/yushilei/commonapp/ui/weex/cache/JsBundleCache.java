@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.ref.SoftReference;
 import java.nio.charset.Charset;
 
 import okhttp3.Request;
@@ -34,10 +35,11 @@ public class JsBundleCache {
 
     private static JsBundleCache instance;
 
-    private final LruCache<String, String> mLruCache;
+    private final LruCache<String, SoftReference<String>> mLruCache;
 
     private JsBundleCache() {
         mLruCache = new LruCache<>(1024);
+
     }
 
     public static synchronized JsBundleCache getInstance() {
@@ -59,8 +61,14 @@ public class JsBundleCache {
                 String digest = MD5.digest(weexUrl);
                 Handler handler = new Handler(Looper.getMainLooper());
                 //1.查内存缓存
-                final String template = mLruCache.get(digest);
+                SoftReference<String> srf = mLruCache.get(digest);
+                String cache = null;
+                if (srf != null) {
+                    cache = srf.get();
+                }
+                final String template = cache;
                 if (TextUtils.isEmpty(template)) {
+
                     //2.查文件缓存
                     boolean hasCache = false;
                     try {
@@ -98,7 +106,8 @@ public class JsBundleCache {
                             ResponseBody body = execute.body();
                             if (execute.isSuccessful() && body != null) {
                                 final String template2 = body.string();
-                                mLruCache.put(digest, template2);
+                                SoftReference<String> temp = new SoftReference<>(template2);
+                                mLruCache.put(digest, temp);
                                 FileOutputStream fos = null;
                                 try {
                                     File file = new File(FileUtil.getJSCacheDir(), digest);
