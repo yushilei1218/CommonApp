@@ -59,8 +59,7 @@ public class JsBundleCache {
                 String digest = MD5.digest(weexUrl);
                 Handler handler = new Handler(Looper.getMainLooper());
                 //1.查内存缓存
-                //   final String template = mLruCache.get(weexUrl);
-                final String template = null;
+                final String template = mLruCache.get(digest);
                 if (TextUtils.isEmpty(template)) {
                     //2.查文件缓存
                     boolean hasCache = false;
