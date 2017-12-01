@@ -2,7 +2,6 @@ package com.yushilei.commonapp.common.util;
 
 import android.util.Base64;
 
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,7 +20,7 @@ public class MD5 {
             md5.update(url.getBytes());
             byte[] newArr = md5.digest();
             dig = Base64.encodeToString(newArr, 0, newArr.length, Base64.NO_WRAP);
-            dig = dig.replaceAll("/", "+");
+            dig = dig.replaceAll("/", "-");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
