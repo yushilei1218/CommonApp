@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.ui.weex;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,9 @@ public class WeexActivity extends AppCompatActivity {
     public static void invoke(Context context, String weexUrl) {
         Intent intent = new Intent(context, WeexActivity.class);
         intent.putExtra(WEEX_URL, weexUrl);
+        if (context instanceof Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         context.startActivity(intent);
     }
 

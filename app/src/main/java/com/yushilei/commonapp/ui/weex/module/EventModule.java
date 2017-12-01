@@ -9,6 +9,12 @@ import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
 import com.yushilei.commonapp.common.base.BaseApp;
 import com.yushilei.commonapp.ui.weex.WeexActivity;
+import com.yushilei.commonapp.ui.weex.route.BaseRoute;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author shilei.yu
@@ -31,6 +37,5 @@ public class EventModule extends WXModule {
 //            MyApp.jsCallback = jsCallback;
         url = jsonObject.get("url") + "";
         WeexActivity.invoke(BaseApp.AppContext, url);
-
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.taobao.weex.bridge.JSCallback;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yushilei.commonapp.R;
@@ -22,8 +23,10 @@ import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 
 import com.yushilei.commonapp.common.base.BaseActivity;
+import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.common.bean.HomeBean;
 import com.yushilei.commonapp.common.constant.Constant;
+import com.yushilei.commonapp.common.util.JsonUtil;
 import com.yushilei.commonapp.ui.adaptertest.AdapterNotifyActivity;
 import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
 import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
@@ -55,6 +58,9 @@ import com.yushilei.commonapp.ui.tab.TabsActivity;
 import com.yushilei.commonapp.ui.test.TestActivity;
 import com.yushilei.commonapp.ui.viewmodel.ViewModelActivity;
 import com.yushilei.commonapp.ui.weex.WeexActivity;
+import com.yushilei.commonapp.ui.weex.route.BaseRoute;
+import com.yushilei.commonapp.ui.weex.route.JsBean;
+import com.yushilei.commonapp.ui.weex.route.RConstant;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -269,8 +275,26 @@ public class MainActivity extends BaseActivity {
                     intent = new Intent(MainActivity.this, SharedElementActivity.class);
                     break;
                 case Constant.WEEX:
-                    intent = WeexActivity.getIntent(MainActivity.this, "http://doc.zwwill.com/yanxuan/jsbundles/index.js");
-                    break;
+//                    intent = WeexActivity.getIntent(MainActivity.this, "http://doc.zwwill.com/yanxuan/jsbundles/index.js");
+                    JsBean<BeanA> test = new JsBean<>(RConstant.ROUTE_KEY1, "http://doc.zwwill.com/yanxuan/jsbundles/index.js", new BeanA("Bean 111"));
+
+                    BaseRoute route = BaseRoute.newInstance(JsonUtil.toJson(test), new JSCallback() {
+                        @Override
+                        public void invoke(Object data) {
+
+                        }
+
+                        @Override
+                        public void invokeAndKeepAlive(Object data) {
+
+                        }
+                    });
+                    if (route != null) {
+                        route.invoke();
+                    } else {
+                        showToast("BaseRoute 为空");
+                    }
+                    return;
                 case Constant.C_WEEX_TEST:
                     intent = WeexActivity.getIntent(MainActivity.this, "https://c-m-bucket.zhaopin.cn/next/zpd/zpdDiscoverHome.weex.8441ab.js");
                     break;

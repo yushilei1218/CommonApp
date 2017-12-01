@@ -7,6 +7,9 @@ package com.yushilei.commonapp.common.bean;
 public class BeanA {
    public String name;
 
+    public BeanA() {
+    }
+
     public BeanA(String name) {
         this.name = name;
     }
