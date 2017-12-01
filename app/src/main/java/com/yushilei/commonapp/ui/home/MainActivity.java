@@ -4,11 +4,15 @@ package com.yushilei.commonapp.ui.home;
 import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yushilei.commonapp.R;
@@ -61,7 +65,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        AndPermission.with(this).permission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+        AndPermission.with(this).permission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .requestCode(1)
                 .callback(new PermissionListener() {
                     @Override
@@ -79,6 +83,7 @@ public class MainActivity extends BaseActivity {
         mGridV.setAdapter(adapter);
         List<ItemWrapper> data = new LinkedList<>();
         HomeItem item1 = new HomeItem(new HomeBean(Constant.MULTI_RECYCLER));
+        HomeItem item0 = new HomeItem(new HomeBean(Constant.ZXING));
         HomeItem item2 = new HomeItem(new HomeBean(Constant.MULTI_LIST_VIEW));
         HomeItem item3 = new HomeItem(new HomeBean(Constant.LOAD_MORE_RECYCLER));
         HomeItem item4 = new HomeItem(new HomeBean(Constant.ZP_PTR));
@@ -110,6 +115,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item30 = new HomeItem(new HomeBean(Constant.SHARED_ELEMENT));
         HomeItem item31 = new HomeItem(new HomeBean(Constant.WEEX));
         HomeItem item32 = new HomeItem(new HomeBean(Constant.C_WEEX_TEST));
+        data.add(item0);
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -268,11 +274,47 @@ public class MainActivity extends BaseActivity {
                 case Constant.C_WEEX_TEST:
                     intent = WeexActivity.getIntent(MainActivity.this, "https://c-m-bucket.zhaopin.cn/next/zpd/zpdDiscoverHome.weex.8441ab.js");
                     break;
+                case Constant.ZXING:
+                    openZxing();
+                    break;
 
             }
             if (intent != null) {
                 MainActivity.this.startActivity(intent);
             }
+        }
+    }
+
+    private void openZxing() {
+        AndPermission.with(this).permission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .requestCode(1)
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                        new IntentIntegrator(MainActivity.this).initiateScan();
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+                        showToast("onFailed " + requestCode + "" + deniedPermissions.get(0));
+                    }
+                }).start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            String weexUrl = result.getContents();
+            if (weexUrl == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Scanned: " + weexUrl, Toast.LENGTH_LONG).show();
+                Log.d(getTAG(), weexUrl);
+                WeexActivity.invoke(this, weexUrl);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

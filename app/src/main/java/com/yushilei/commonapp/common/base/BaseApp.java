@@ -3,6 +3,7 @@ package com.yushilei.commonapp.common.base;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ import org.greenrobot.greendao.database.Database;
  * App基类
  */
 
-public class BaseApp extends Application {
+public class BaseApp extends MultiDexApplication {
     public static BaseApp AppContext;
 
     public static final boolean ENCRYPTED = false;
