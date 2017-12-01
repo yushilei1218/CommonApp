@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKInstance;
+import com.taobao.weex.common.WXPerformance;
 import com.taobao.weex.common.WXRenderStrategy;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseFragment;
+import com.yushilei.commonapp.common.util.TimeCompute;
+import com.yushilei.commonapp.ui.weex.cache.JsBundleCache;
 
 /**
  * Weex Fragment基类
@@ -28,6 +31,7 @@ public class WeexFragment extends BaseFragment {
     private WXSDKInstance mWXSDKInstance;
 
     private ViewGroup mContainer;
+    private TimeCompute mCompute;
 
     public WeexFragment() {
     }
@@ -66,7 +70,7 @@ public class WeexFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mCompute = new TimeCompute("Weex 加载");
         showLoading();
 
         mContainer = findView(R.id.fg_weex_container);
@@ -85,12 +89,14 @@ public class WeexFragment extends BaseFragment {
             @Override
             public void onRenderSuccess(WXSDKInstance instance, int width, int height) {
                 hideLoading();
+                mCompute.end();
                 log("onRenderSuccess");
             }
 
             @Override
             public void onRefreshSuccess(WXSDKInstance instance, int width, int height) {
                 hideLoading();
+                mCompute.end();
                 log("onRefreshSuccess");
             }
 
@@ -102,7 +108,24 @@ public class WeexFragment extends BaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mWXSDKInstance.renderByUrl("WXSample", mWeexUrl, null, null, WXRenderStrategy.APPEND_ASYNC);
+                JsBundleCache.OnJsBundleListener listener = new JsBundleCache.OnJsBundleListener() {
+                    @Override
+                    public void onUri(String uri) {
+                        mWXSDKInstance.renderByUrl("WXSample", uri, null, null, WXRenderStrategy.APPEND_ASYNC);
+                    }
+
+                    @Override
+                    public void onTemplate(String template) {
+                        mWXSDKInstance.render("WXSample", template, null, null, WXRenderStrategy.APPEND_ASYNC);
+                    }
+
+                    @Override
+                    public void onFail() {
+                        showToast("下载失败");
+                    }
+                };
+                mCompute.start();
+                JsBundleCache.getInstance().obtain(mWeexUrl, listener);
             }
         }, 500);
 
