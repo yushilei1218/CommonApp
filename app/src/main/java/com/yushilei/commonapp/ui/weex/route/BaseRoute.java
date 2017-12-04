@@ -4,10 +4,11 @@ import com.taobao.weex.bridge.JSCallback;
 import com.yushilei.commonapp.common.util.JsonUtil;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 /**
+ * 子类必须包含一个String +JSCallBack的public构造方法
+ *
  * @author shilei.yu
  * @since 2017/12/1
  */
@@ -34,11 +35,11 @@ public abstract class BaseRoute {
      */
     public abstract void invoke();
 
-    public JSCallback getJsCallBack() {
+    protected JSCallback getJsCallBack() {
         return jSCallback;
     }
 
-    public String getJson() {
+    protected String getJson() {
         return json;
     }
 

@@ -11,7 +11,6 @@ import com.yushilei.commonapp.common.base.BaseApp;
 import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.ui.weex.WeexActivity;
 
-import java.lang.ref.WeakReference;
 
 /**
  * @author shilei.yu

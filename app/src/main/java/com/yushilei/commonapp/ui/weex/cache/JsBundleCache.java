@@ -11,14 +11,9 @@ import com.yushilei.commonapp.common.file.FileUtil;
 import com.yushilei.commonapp.common.net.Client;
 import com.yushilei.commonapp.common.util.MD5;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.lang.ref.SoftReference;
 import java.nio.charset.Charset;
 
@@ -39,7 +34,6 @@ public class JsBundleCache {
 
     private JsBundleCache() {
         mLruCache = new LruCache<>(1024);
-
     }
 
     public static synchronized JsBundleCache getInstance() {
