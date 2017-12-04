@@ -1,5 +1,7 @@
 package com.yushilei.commonapp.ui.weex.route;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -8,6 +10,8 @@ import com.taobao.weex.bridge.JSCallback;
 import com.yushilei.commonapp.common.base.BaseApp;
 import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.ui.weex.WeexActivity;
+
+import java.lang.ref.WeakReference;
 
 /**
  * @author shilei.yu
@@ -21,9 +25,20 @@ public class RouteWeexAct extends BaseRoute {
 
     @Override
     public void invoke() {
-        JsBean<BeanA> obj = JSON.parseObject(json, new TypeReference<JsBean<BeanA>>() {
+        JsBean<BeanA> obj = JSON.parseObject(getJson(), new TypeReference<JsBean<BeanA>>() {
         });
-        Toast.makeText(BaseApp.AppContext, obj.toString(), Toast.LENGTH_SHORT).show();
         WeexActivity.invoke(BaseApp.AppContext, obj.url);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                JSCallback callBack = getJsCallBack();
+                if (callBack != null) {
+                    callBack.invoke("测试 回调CallBack");
+                } else {
+                    Toast.makeText(BaseApp.AppContext, " CallBack null", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, 3000);
     }
 }

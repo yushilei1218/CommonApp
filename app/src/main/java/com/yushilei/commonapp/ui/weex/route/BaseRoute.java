@@ -3,7 +3,6 @@ package com.yushilei.commonapp.ui.weex.route;
 import com.taobao.weex.bridge.JSCallback;
 import com.yushilei.commonapp.common.util.JsonUtil;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -16,9 +15,9 @@ import java.util.HashMap;
 public abstract class BaseRoute {
     private static final HashMap<String, Class<? extends BaseRoute>> MAP = new HashMap<>();
 
-    protected String json;
+    private String json;
 
-    protected WeakReference<JSCallback> wCallBack;
+    private JSCallback jSCallback;
 
     static {
         MAP.put(RConstant.ROUTE_KEY1, RouteWeexAct.class);
@@ -27,9 +26,7 @@ public abstract class BaseRoute {
     @SuppressWarnings("WeakerAccess")
     public BaseRoute(String json, JSCallback callback) {
         this.json = json;
-        if (callback != null) {
-            wCallBack = new WeakReference<>(callback);
-        }
+        jSCallback = callback;
     }
 
     /**
@@ -37,7 +34,14 @@ public abstract class BaseRoute {
      */
     public abstract void invoke();
 
-    @SuppressWarnings("TryWithIdenticalCatches")
+    public JSCallback getJsCallBack() {
+        return jSCallback;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
     public static BaseRoute newInstance(String json, JSCallback callback) {
         JsBean obj = JsonUtil.getObj(json, JsBean.class);
         BaseRoute iRoute = null;
@@ -49,17 +53,10 @@ public abstract class BaseRoute {
             try {
                 Constructor<? extends BaseRoute> constructor = target.getConstructor(String.class, JSCallback.class);
                 iRoute = constructor.newInstance(json, callback);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
         return iRoute;
     }
 }

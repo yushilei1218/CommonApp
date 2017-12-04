@@ -275,29 +275,23 @@ public class MainActivity extends BaseActivity {
                     intent = new Intent(MainActivity.this, SharedElementActivity.class);
                     break;
                 case Constant.WEEX:
-//                    intent = WeexActivity.getIntent(MainActivity.this, "http://doc.zwwill.com/yanxuan/jsbundles/index.js");
                     JsBean<BeanA> test = new JsBean<>(RConstant.ROUTE_KEY1, "http://doc.zwwill.com/yanxuan/jsbundles/index.js", new BeanA("Bean 111"));
-
-                    BaseRoute route = BaseRoute.newInstance(JsonUtil.toJson(test), new JSCallback() {
+                    useRoute(test, new JSCallback() {
                         @Override
                         public void invoke(Object data) {
-
+                            showToast("JSCallback invoke " + data.toString());
                         }
 
                         @Override
                         public void invokeAndKeepAlive(Object data) {
-
+                            showToast("JSCallback invokeAndKeepAlive " + data.toString());
                         }
                     });
-                    if (route != null) {
-                        route.invoke();
-                    } else {
-                        showToast("BaseRoute 为空");
-                    }
                     return;
                 case Constant.C_WEEX_TEST:
-                    intent = WeexActivity.getIntent(MainActivity.this, "https://c-m-bucket.zhaopin.cn/next/zpd/zpdDiscoverHome.weex.8441ab.js");
-                    break;
+                    JsBean<BeanA> test2 = new JsBean<>(RConstant.ROUTE_KEY1, "https://c-m-bucket.zhaopin.cn/next/zpd/zpdDiscoverHome.weex.8441ab.js", new BeanA("Bean 111"));
+                    useRoute(test2, null);
+                    return;
                 case Constant.ZXING:
                     openZxing();
                     break;
@@ -306,6 +300,17 @@ public class MainActivity extends BaseActivity {
             if (intent != null) {
                 MainActivity.this.startActivity(intent);
             }
+        }
+    }
+
+    private void useRoute(JsBean test, JSCallback callback) {
+
+
+        BaseRoute route = BaseRoute.newInstance(JsonUtil.toJson(test), callback);
+        if (route != null) {
+            route.invoke();
+        } else {
+            showToast("BaseRoute 为空");
         }
     }
 
