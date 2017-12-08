@@ -93,7 +93,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.46.android'
     compile 'com.taobao.android:weex_sdk:0.17.0'
 
-    compile 'android.arch.lifecycle:extensions:1.0.0'
+//    compile 'android.arch.lifecycle:extensions:1.0.0'
 
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     compile 'com.google.zxing:core:3.3.0'

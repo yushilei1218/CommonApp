@@ -29,8 +29,13 @@ import com.yushilei.commonapp.common.util.JsonUtil;
 import com.yushilei.commonapp.common.widget.LoadingTextView;
 
 import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
+import okhttp3.HttpUrl;
 
 public class TestActivity extends BaseActivity {
     private long num = 1;
@@ -233,6 +238,22 @@ public class TestActivity extends BaseActivity {
         Bean bean1 = JSON.toJavaObject(JSON.parseObject(a), Bean.class);
         String s2 = bean1.toString();
 
+
+        String url = "https://workflowy.com/s/FJKy.9G6R7GvtHw?key=111&key2=text";
+        URL tag = null;
+        try {
+            tag = new URL(url);
+            String query = tag.getQuery();
+            int port = tag.getPort();
+            String ref = tag.getRef();
+            String authority = tag.getAuthority();
+            int defaultPort = tag.getDefaultPort();
+            String host = tag.getHost();
+            String protocol = tag.getProtocol();
+            String userInfo = tag.getUserInfo();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

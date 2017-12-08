@@ -1,8 +1,7 @@
 package com.yushilei.commonapp.ui.viewmodel;
 
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+
 import android.support.annotation.Nullable;
 
 import android.util.Log;
@@ -37,18 +36,18 @@ public class ViewModelActivity extends BaseActivity {
         setOnClick(R.id.act_view_model_btn);
 
 
-        MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
-        model.getLiveData().observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(@Nullable List<String> strings) {
-                Log.d(getTAG(), "onChanged");
-                if (SetUtil.isEmpty(strings)) {
-                    return;
-                }
-                mData.addAll(strings);
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+//        MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
+//        model.getLiveData().observe(this, new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(@Nullable List<String> strings) {
+//                Log.d(getTAG(), "onChanged");
+//                if (SetUtil.isEmpty(strings)) {
+//                    return;
+//                }
+//                mData.addAll(strings);
+//                mAdapter.notifyDataSetChanged();
+//            }
+//        });
     }
 
     @Override

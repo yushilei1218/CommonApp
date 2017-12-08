@@ -1,9 +1,9 @@
 package com.yushilei.commonapp.ui.viewmodel;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+//import android.arch.lifecycle.LiveData;
+//import android.arch.lifecycle.Observer;
+//import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -43,15 +43,15 @@ public class ViewModelFragment extends BottomSheetDialogFragment {
         final ArrayList<String> data = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, data);
         lv.setAdapter(adapter);
-        LiveData<List<String>> liveData = ViewModelProviders.of(this).get(MyViewModel.class).getLiveData();
-        liveData.observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(@Nullable List<String> strings) {
-                if (strings != null) {
-                    data.addAll(strings);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+//        LiveData<List<String>> liveData = ViewModelProviders.of(this).get(MyViewModel.class).getLiveData();
+//        liveData.observe(this, new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(@Nullable List<String> strings) {
+//                if (strings != null) {
+//                    data.addAll(strings);
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
     }
 }
