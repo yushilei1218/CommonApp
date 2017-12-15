@@ -1,6 +1,7 @@
 package com.yushilei.commonapp.ui.rxjava;
 
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -66,16 +67,18 @@ public class RxJavaActivity extends BaseActivity {
         data.add("1");
         data.add("2");
         data.add("3");
-        Disposable subscribe = Flowable.fromIterable(data)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+        Flowable.fromIterable(data)
+
                 .flatMap(new Function<String, Publisher<Integer>>() {
                     @Override
                     public Publisher<Integer> apply(@NonNull String s) throws Exception {
                         log("apply " + s);
+                        SystemClock.sleep(200);
                         return Flowable.just(Integer.parseInt(s));
                     }
-                }).subscribe(new Consumer<Integer>() {
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         log("accept " + integer);
