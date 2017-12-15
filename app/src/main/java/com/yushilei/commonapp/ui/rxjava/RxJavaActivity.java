@@ -13,10 +13,14 @@ import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.BeanA;
 
+import org.reactivestreams.Publisher;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -58,6 +62,30 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void just() {
+        ArrayList<String> data = new ArrayList<>();
+        data.add("1");
+        data.add("2");
+        data.add("3");
+        Disposable subscribe = Flowable.fromIterable(data)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Function<String, Publisher<Integer>>() {
+                    @Override
+                    public Publisher<Integer> apply(@NonNull String s) throws Exception {
+                        log("apply " + s);
+                        return Flowable.just(Integer.parseInt(s));
+                    }
+                }).subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        log("accept " + integer);
+                    }
+                });
+
+
+        if (true) {
+            return;
+        }
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> e) throws Exception {
@@ -97,6 +125,15 @@ public class RxJavaActivity extends BaseActivity {
                 });
     }
 
+    private void log(String msg) {
+        Log.d(getTAG(), "Thread=" + Thread.currentThread().getName() + " " + msg);
+    }
+
+    private Integer getInteger(String s) {
+        log("2apply " + s);
+        return Integer.parseInt(s);
+    }
+
     private final class BeanWrapper extends ItemWrapper<String> implements View.OnClickListener {
         BeanWrapper(String bean) {
             super(bean);
@@ -122,6 +159,8 @@ public class RxJavaActivity extends BaseActivity {
                     break;
                 case MAP:
                     map();
+                    break;
+                default:
                     break;
             }
         }
