@@ -6,8 +6,10 @@ import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.retrofit.callback.CommonCallBack;
 import com.yushilei.commonapp.common.retrofit.callback.SimpleCallBack;
 
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.http.Query;
 
 /**
  * API 接口代理类

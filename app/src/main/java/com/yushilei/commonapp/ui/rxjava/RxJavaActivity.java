@@ -13,6 +13,8 @@ import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.BeanA;
+import com.yushilei.commonapp.common.bean.net.RecommendBean;
+import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.util.SpUtil;
 
 import org.reactivestreams.Publisher;
@@ -76,6 +78,29 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void just() {
+        NetApi.sFlowapi.getFlowRecommend(1, 20)
+                .doOnSubscribe(new Consumer<Subscription>() {
+                    @Override
+                    public void accept(Subscription subscription) throws Exception {
+                        log("doOnSubscribe");
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<RecommendBean>() {
+                    @Override
+                    public void accept(RecommendBean recommendBean) throws Exception {
+                        log("Consumer<RecommendBean> ");
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        log("Consumer<Throwable> ");
+                    }
+                });
+        if (true) {
+            return;
+        }
         mDisposable = Flowable
                 .interval(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())

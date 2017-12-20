@@ -6,8 +6,10 @@ import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.net.encrypt.EncryptAnnotation;
 import com.yushilei.commonapp.common.net.encrypt.EncryptConverterFactory;
 
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -21,6 +23,8 @@ import retrofit2.http.Query;
 
 public class NetApi {
     public static API api;
+    public static FlowApi sFlowapi;
+
     private static final String BASE_URL = "http://mobile.ximalaya.com";
 
     static {
@@ -31,9 +35,11 @@ public class NetApi {
                 .addConverterFactory(EncryptConverterFactory.create())
                 /*Json序列化、反序列化*/
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
         api = retrofit.create(API.class);
+        sFlowapi = retrofit.create(FlowApi.class);
     }
 
     /**
@@ -50,5 +56,11 @@ public class NetApi {
 
         @GET("/mobile/discovery/v1/recommend/albums")
         Call<RecommendBean> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
+
+    }
+
+    public interface FlowApi {
+        @GET("/mobile/discovery/v1/recommend/albums")
+        Flowable<RecommendBean> getFlowRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
     }
 }

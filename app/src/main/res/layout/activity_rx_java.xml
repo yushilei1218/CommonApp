@@ -11,6 +11,8 @@
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context="com.yushilei.commonapp.ui.rxjava.RxJavaActivity">
 
+    <include layout="@layout/error_layout"/>
+
     <TextView
         android:id="@+id/act_rx_tv"
         android:layout_width="wrap_content"
