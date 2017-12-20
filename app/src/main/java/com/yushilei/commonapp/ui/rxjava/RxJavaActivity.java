@@ -16,16 +16,19 @@ import com.yushilei.commonapp.common.bean.BeanA;
 import com.yushilei.commonapp.common.util.SpUtil;
 
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -40,10 +43,12 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.SafeSubscriber;
 
 public class RxJavaActivity extends BaseActivity {
 
     private TextView mtv;
+    private Disposable mDisposable;
 
     @Override
     protected int getLayoutId() {
@@ -71,6 +76,21 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void just() {
+        mDisposable = Flowable
+                .interval(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        String msg = "" + aLong;
+                        mtv.setText(msg);
+
+                    }
+                });
+        if (true) {
+            return;
+        }
+        //ZIP
         Observable<String> source1 = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
@@ -110,6 +130,7 @@ public class RxJavaActivity extends BaseActivity {
         if (true) {
             return;
         }
+        //CONCAT
         Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Integer> e) throws Exception {
@@ -152,7 +173,7 @@ public class RxJavaActivity extends BaseActivity {
                         });
                     }
                 });
-
+        //MAP FLATMAP
         ArrayList<String> data = new ArrayList<>();
         data.add("1");
         data.add("2");
