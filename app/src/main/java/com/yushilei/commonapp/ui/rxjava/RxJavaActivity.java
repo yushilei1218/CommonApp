@@ -13,6 +13,7 @@ import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.BeanA;
+import com.yushilei.commonapp.common.util.SpUtil;
 
 import org.reactivestreams.Publisher;
 
@@ -21,7 +22,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -38,6 +42,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxJavaActivity extends BaseActivity {
 
+    private TextView mtv;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_rx_java;
@@ -52,7 +58,7 @@ public class RxJavaActivity extends BaseActivity {
         data.add(new BeanWrapper(JUST));
         data.add(new BeanWrapper(MAP));
         adapter.addAll(data);
-
+        mtv = findView(R.id.act_rx_tv);
 
     }
 
@@ -64,6 +70,49 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void just() {
+        Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull FlowableEmitter<Integer> e) throws Exception {
+                final Integer key = SpUtil.get("key", Integer.class);
+                if (key != null && key == -1) {
+                    //网络请求
+                    e.onComplete();
+                } else {
+                    //显示
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String text = "缓存显示 " + key;
+                            mtv.setText(text);
+                        }
+                    });
+                }
+            }
+        }, BackpressureStrategy.LATEST)
+                .concatWith(Flowable.create(new FlowableOnSubscribe<Integer>() {
+                    @Override
+                    public void subscribe(@NonNull FlowableEmitter<Integer> e) throws Exception {
+                        SystemClock.sleep(1000);
+
+                        e.onNext(100);
+                    }
+                }, BackpressureStrategy.LATEST))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(final Integer integer) throws Exception {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String text = "网络请求显示 " + integer;
+                                SpUtil.save("key", integer);
+                                mtv.setText(text);
+                            }
+                        });
+                    }
+                });
+
         ArrayList<String> data = new ArrayList<>();
         data.add("1");
         data.add("2");
