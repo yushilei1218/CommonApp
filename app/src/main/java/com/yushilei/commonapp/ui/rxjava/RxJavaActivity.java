@@ -31,6 +31,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -68,20 +69,46 @@ public class RxJavaActivity extends BaseActivity {
         data.add("2");
         data.add("3");
         Flowable.fromIterable(data)
-
-                .flatMap(new Function<String, Publisher<Integer>>() {
-                    @Override
-                    public Publisher<Integer> apply(@NonNull String s) throws Exception {
-                        log("apply " + s);
-                        SystemClock.sleep(200);
-                        return Flowable.just(Integer.parseInt(s));
-                    }
-                }).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .map(new Function<String, Integer>() {
+                    @Override
+                    public Integer apply(@NonNull String s) throws Exception {
+                        log("map  " + s);
+                        return Integer.parseInt(s);
+                    }
+                })
+                .flatMap(new Function<Integer, Publisher<Integer>>() {
+                    @Override
+                    public Publisher<Integer> apply(@NonNull Integer s) throws Exception {
+                        int item = s + 10;
+                        log("flatMap " + item);
+                        SystemClock.sleep(200);
+                        return Flowable.just(item);
+                    }
+                })
+                .observeOn(Schedulers.newThread())
+                .doOnNext(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        log("doOnNext " + integer);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
-                        log("accept " + integer);
+                        log("subscribe " + integer);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        log("Action ");
                     }
                 });
 
