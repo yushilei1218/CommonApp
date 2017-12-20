@@ -36,6 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -70,6 +71,45 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void just() {
+        Observable<String> source1 = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
+
+                SystemClock.sleep(1000);
+                log("source1");
+                e.onNext("电话号=78310811571");
+            }
+        });
+        Observable<Integer> source2 = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> e) throws Exception {
+                SystemClock.sleep(2000);
+                log("source2");
+                e.onNext(100);
+            }
+        });
+        Observable
+                .zip(source1, source2, new BiFunction<String, Integer, String>() {
+                    @Override
+                    public String apply(@NonNull String s, @NonNull Integer integer) throws Exception {
+
+                        String msg = s + "  |  " + integer;
+                        log(msg);
+                        return msg;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        log(s);
+                        mtv.setText(s);
+                    }
+                });
+        if (true) {
+            return;
+        }
         Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Integer> e) throws Exception {
