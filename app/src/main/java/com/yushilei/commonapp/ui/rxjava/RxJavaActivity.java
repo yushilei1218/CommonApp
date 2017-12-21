@@ -65,6 +65,7 @@ public class RxJavaActivity extends BaseActivity {
         List<ItemWrapper> data = new LinkedList<>();
         data.add(new BeanWrapper(JUST));
         data.add(new BeanWrapper(MAP));
+        data.add(new BeanWrapper(TEST));
         adapter.addAll(data);
         mtv = findView(R.id.act_rx_tv);
 
@@ -72,6 +73,7 @@ public class RxJavaActivity extends BaseActivity {
 
     public static final String JUST = "JUST";
     public static final String MAP = "MAP";
+    public static final String TEST = "TEST";
 
     private void recordLog(String msg) {
 
@@ -325,10 +327,44 @@ public class RxJavaActivity extends BaseActivity {
                 case MAP:
                     map();
                     break;
+                case TEST:
+                    test();
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+    private void test() {
+        NetApi.sFlowapi.getFlowRecommend(1, 20)
+
+                .map(new Function<RecommendBean, String>() {
+                    @Override
+                    public String apply(@NonNull RecommendBean recommendBean) throws Exception {
+                        String s = "totalcount= " + recommendBean.getTotalCount() + " contentSize" + recommendBean.getList().size();
+                        log("apply");
+                        return s;
+                    }
+                })
+                /*新建Flowable 和Subscriber 在新Subscriber 回调中做线程切换-代理模式
+                订阅发生后线程立刻发生变化，不管后面有几个subscribeOn最终会回到第一个subscribeOn的线程触发订阅开始
+                */
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        log("accept");
+                        mtv.setText(s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        log("accept");
+                        mtv.setText(throwable.toString());
+                    }
+                });
     }
 
     private void map() {
