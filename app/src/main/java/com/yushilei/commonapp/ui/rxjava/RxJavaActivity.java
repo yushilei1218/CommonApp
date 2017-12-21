@@ -347,10 +347,17 @@ public class RxJavaActivity extends BaseActivity {
                         return s;
                     }
                 })
-                /*新建Flowable 和Subscriber 在新Subscriber 回调中做线程切换-代理模式
-                订阅发生后线程立刻发生变化，不管后面有几个subscribeOn最终会回到第一个subscribeOn的线程触发订阅开始
-                */
+                /**
+                 * 新建Flowable 和Subscriber 在新Subscriber 回调中做线程切换-代理模式
+                 *订阅发生后线程立刻发生变化，不管后面有几个subscribeOn最终会回到第一个subscribeOn的线程触发订阅开始
+                 *也就是说在真正触发subscribe(Subscriber)时发生线程变化
+                 */
                 .subscribeOn(Schedulers.io())
+                /**
+                 *新建新建Flowable 和Subscriber 新subscriber会携带后续传入的真实subscriber
+                 * 在新subscriber 回到方法中切换线程并调用真实subscriber的同名方法
+                 * 所以observeOn 总是能使得紧跟其后的订阅发生在observeOn指定的线程里
+                 */
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
