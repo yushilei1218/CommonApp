@@ -18,6 +18,7 @@ import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.util.SpUtil;
 
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class RxJavaActivity extends BaseActivity {
         data.add(new BeanWrapper(JUST));
         data.add(new BeanWrapper(MAP));
         data.add(new BeanWrapper(TEST));
+        data.add(new BeanWrapper(parallel));
         adapter.addAll(data);
         mtv = findView(R.id.act_rx_tv);
 
@@ -74,6 +76,7 @@ public class RxJavaActivity extends BaseActivity {
     public static final String JUST = "JUST";
     public static final String MAP = "MAP";
     public static final String TEST = "TEST";
+    public static final String parallel = "parallel";
 
     private void recordLog(String msg) {
 
@@ -330,10 +333,38 @@ public class RxJavaActivity extends BaseActivity {
                 case TEST:
                     test();
                     break;
+                case parallel:
+                    parallel();
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+    /**
+     * 并行的
+     */
+    private void parallel() {
+        Flowable
+                .range(1, 10)
+                .parallel()
+                .map(new Function<Integer, String>() {
+                    @Override
+                    public String apply(@NonNull Integer integer) throws Exception {
+                        return integer + "";
+                    }
+                })
+                .runOn(Schedulers.io())
+                .sequential()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        mtv.append(s + "\n");
+                    }
+                });
+
     }
 
     private void test() {
