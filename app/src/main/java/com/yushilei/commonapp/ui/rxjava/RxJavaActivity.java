@@ -501,6 +501,39 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void test() {
+        Flowable.just("2")
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        log("accept " + s);
+                    }
+                });
+        if (true) return;
+
+        Flowable.just("1")
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        log("onSubscribe");
+                        s.request(1);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        log("onNext " + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        log("onError " + t.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        log("onComplete ");
+                    }
+                });
+        if (true) return;
         mNetDisposable = NetApi.sFlowapi.getFlowRecommend(1, 20)
 
                 .map(new Function<RecommendBean, String>() {
