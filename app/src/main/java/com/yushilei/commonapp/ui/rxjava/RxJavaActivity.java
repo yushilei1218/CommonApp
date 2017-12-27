@@ -2,6 +2,7 @@ package com.yushilei.commonapp.ui.rxjava;
 
 
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -22,22 +23,20 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -52,6 +51,8 @@ public class RxJavaActivity extends BaseActivity {
 
     private TextView mtv;
     private Disposable mDisposable;
+    private Disposable mDisposable1;
+    private Disposable mNetDisposable;
 
     @Override
     protected int getLayoutId() {
@@ -67,7 +68,9 @@ public class RxJavaActivity extends BaseActivity {
         data.add(new BeanWrapper(JUST));
         data.add(new BeanWrapper(MAP));
         data.add(new BeanWrapper(TEST));
-        data.add(new BeanWrapper(parallel));
+        data.add(new BeanWrapper(PARALLEL));
+        data.add(new BeanWrapper(SUBSCRIPTION));
+        data.add(new BeanWrapper(CONCAT));
         adapter.addAll(data);
         mtv = findView(R.id.act_rx_tv);
 
@@ -76,7 +79,9 @@ public class RxJavaActivity extends BaseActivity {
     public static final String JUST = "JUST";
     public static final String MAP = "MAP";
     public static final String TEST = "TEST";
-    public static final String parallel = "parallel";
+    public static final String PARALLEL = "PARALLEL";
+    private static final String SUBSCRIPTION = "SUBSCRIPTION";
+    private static final String CONCAT = "CONCAT ";
 
     private void recordLog(String msg) {
 
@@ -333,8 +338,14 @@ public class RxJavaActivity extends BaseActivity {
                 case TEST:
                     test();
                     break;
-                case parallel:
+                case PARALLEL:
                     parallel();
+                    break;
+                case SUBSCRIPTION:
+                    subscription();
+                    break;
+                case CONCAT:
+                    concat();
                     break;
                 default:
                     break;
@@ -342,10 +353,132 @@ public class RxJavaActivity extends BaseActivity {
         }
     }
 
+    private void concat() {
+        Flowable<String> cacheFlowable = Flowable
+                .create(new FlowableOnSubscribe<String>() {
+                    @Override
+                    public void subscribe(@NonNull FlowableEmitter<String> e) throws Exception {
+                        String msg = SpUtil.get("key2", String.class);
+                        log("concat " + "subscribe" + msg);
+                        if (TextUtils.isEmpty(msg)) {
+                            e.onComplete();
+                        } else {
+                            e.onNext(msg);
+                        }
+                    }
+                }, BackpressureStrategy.MISSING);
+
+        Flowable<String> netFlowable = NetApi.sFlowapi
+                .getFlowRecommend(1, 20)
+                .map(new Function<RecommendBean, String>() {
+                    @Override
+                    public String apply(@NonNull RecommendBean recommendBean) throws Exception {
+                        log("concat " + "apply");
+                        if (recommendBean != null) {
+                            return recommendBean.toString();
+                        }
+                        return null;
+                    }
+                });
+        Flowable
+                .concat(cacheFlowable, netFlowable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        SpUtil.save("key2", s);
+                        log("concat " + "accept " + s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        log("concat " + "accept " + throwable.toString());
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        log("concat " + "Action ");
+                    }
+                });
+    }
+
+
+    private void subscription() {
+        Flowable.just("1").subscribe(new Subscriber<String>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        ArrayList<String> data = new ArrayList<>();
+        data.add("1");
+        data.add("2");
+        data.add("3");
+        Flowable.fromIterable(data).subscribe(new Subscriber<String>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+                mtv.append("onSubscribe" + s.toString() + "\n");
+            }
+
+            @Override
+            public void onNext(String s) {
+                mtv.append("onNext " + s + "\n");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                mtv.append("onError " + t.toString() + "\n");
+            }
+
+            @Override
+            public void onComplete() {
+                mtv.append("onComplete" + "\n");
+            }
+        });
+    }
+
     /**
      * 并行的
      */
     private void parallel() {
+        NetApi.sFlowapi.getFlowRecommend(1, 20).flatMap(new Function<RecommendBean, Publisher<String>>() {
+            @Override
+            public Publisher<String> apply(@NonNull RecommendBean recommendBean) throws Exception {
+                return Flowable.just(recommendBean.getMaxPageId() + "");
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(@NonNull String s) throws Exception {
+                return null;
+            }
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
         Flowable
                 .range(1, 10)
                 .parallel()
@@ -368,13 +501,14 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void test() {
-        NetApi.sFlowapi.getFlowRecommend(1, 20)
+        mNetDisposable = NetApi.sFlowapi.getFlowRecommend(1, 20)
 
                 .map(new Function<RecommendBean, String>() {
                     @Override
                     public String apply(@NonNull RecommendBean recommendBean) throws Exception {
                         String s = "totalcount= " + recommendBean.getTotalCount() + " contentSize" + recommendBean.getList().size();
                         log("apply");
+                        SystemClock.sleep(3000);
                         return s;
                     }
                 })
@@ -394,13 +528,16 @@ public class RxJavaActivity extends BaseActivity {
                     @Override
                     public void accept(String s) throws Exception {
                         log("accept");
+                        showToast(s);
                         mtv.setText(s);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         log("accept");
-                        mtv.setText(throwable.toString());
+                        String text = throwable.toString();
+                        showToast(text);
+                        mtv.setText(text);
                     }
                 });
     }
@@ -437,5 +574,13 @@ public class RxJavaActivity extends BaseActivity {
                 Log.d(getTAG(), "onComplete ");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mNetDisposable != null) {
+            mNetDisposable.dispose();
+        }
+        super.onDestroy();
     }
 }
