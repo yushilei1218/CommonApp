@@ -112,6 +112,9 @@
             android:enabled="true"
             android:exported="false">
         </service>
+
+        <activity android:name=".ui.floatmenu.FloatMenuActivity">
+        </activity>
     </application>
 
 </manifest>

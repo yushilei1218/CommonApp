@@ -33,6 +33,7 @@ import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.constraintlayout.ConstraintActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
+import com.yushilei.commonapp.ui.floatmenu.FloatMenuActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
 import com.yushilei.commonapp.ui.greendao.GreenDaoActivity;
 import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
@@ -121,6 +122,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item30 = new HomeItem(new HomeBean(Constant.SHARED_ELEMENT));
         HomeItem item31 = new HomeItem(new HomeBean(Constant.WEEX));
         HomeItem item32 = new HomeItem(new HomeBean(Constant.C_WEEX_TEST));
+        HomeItem item33 = new HomeItem(new HomeBean(Constant.FLOAT_MENU));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -154,6 +156,7 @@ public class MainActivity extends BaseActivity {
         data.add(item30);
         data.add(item31);
         data.add(item32);
+        data.add(item33);
         adapter.addAll(data);
     }
 
@@ -294,6 +297,11 @@ public class MainActivity extends BaseActivity {
                     return;
                 case Constant.ZXING:
                     openZxing();
+                    break;
+                case Constant.FLOAT_MENU:
+                    intent = new Intent(MainActivity.this, FloatMenuActivity.class);
+                    break;
+                default:
                     break;
 
             }
