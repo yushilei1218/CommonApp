@@ -50,6 +50,7 @@ import com.yushilei.commonapp.ui.myobservable.ObservableActivity;
 import com.yushilei.commonapp.ui.notification.NotificationActivity;
 import com.yushilei.commonapp.ui.permission.PermissionActivity;
 import com.yushilei.commonapp.ui.ptr.PtrZpActivity;
+import com.yushilei.commonapp.ui.rxjava.ProxyActivity;
 import com.yushilei.commonapp.ui.rxjava.RxJavaActivity;
 import com.yushilei.commonapp.ui.scroll.ScrollActivity;
 import com.yushilei.commonapp.ui.search.SearchActivity;
@@ -123,6 +124,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item31 = new HomeItem(new HomeBean(Constant.WEEX));
         HomeItem item32 = new HomeItem(new HomeBean(Constant.C_WEEX_TEST));
         HomeItem item33 = new HomeItem(new HomeBean(Constant.FLOAT_MENU));
+        HomeItem item34 = new HomeItem(new HomeBean(Constant.PROXY));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -157,6 +159,7 @@ public class MainActivity extends BaseActivity {
         data.add(item31);
         data.add(item32);
         data.add(item33);
+        data.add(item34);
         adapter.addAll(data);
     }
 
@@ -300,6 +303,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.FLOAT_MENU:
                     intent = new Intent(MainActivity.this, FloatMenuActivity.class);
+                    break;
+                case Constant.PROXY:
+                    intent = new Intent(MainActivity.this, ProxyActivity.class);
                     break;
                 default:
                     break;

@@ -115,6 +115,8 @@
 
         <activity android:name=".ui.floatmenu.FloatMenuActivity">
         </activity>
+        <activity android:name=".ui.rxjava.ProxyActivity">
+        </activity>
     </application>
 
 </manifest>

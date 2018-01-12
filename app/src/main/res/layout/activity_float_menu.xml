@@ -29,4 +29,17 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/float_test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/float_test"
+        android:id="@+id/float_lv"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_height="wrap_content"/>
+
 </android.support.constraint.ConstraintLayout>
