@@ -6,7 +6,9 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.yushilei.commonapp.R;
+import com.yushilei.commonapp.common.async.ThreadPools;
 import com.yushilei.commonapp.common.base.BaseActivity;
+import com.yushilei.commonapp.common.proxy.Function;
 import com.yushilei.commonapp.common.proxy.Observable;
 import com.yushilei.commonapp.common.proxy.Observer;
 
@@ -18,29 +20,42 @@ public class ProxyActivity extends BaseActivity {
         return R.layout.activity_proxy;
     }
 
-    @SuppressWarnings("AlibabaAvoidManuallyCreateThread")
     @Override
     public void initView() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        ThreadPools.newThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Observer<Integer> observer = new Observer<Integer>() {
+//                    @Override
+//                    public void onSubscribe(Integer data) {
+//                        log("onSubscribe =" + data.toString());
+//                    }
+//                };
+//                new Observable<String, Integer>("1") {
+//
+//                    @Override
+//                    public Integer apply(String data) {
+//                        log("apply =" + data);
+//                        return Integer.parseInt(data);
+//                    }
+//                }.subscribe(new ProxyObserver<>(observer));
+//            }
+//        });
 
-                Observer<Integer> observer = new Observer<Integer>() {
+        new Observable<>("11", new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) {
+                log("apply " + s);
+                return Integer.parseInt(s) + 10;
+            }
+        }).subscribeOnIO()
+                .observeOnMain()
+                .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Integer data) {
-                        log("onSubscribe =" + data.toString());
+                        log("onSubscribe " + data.toString());
                     }
-                };
-                new Observable<String, Integer>("1") {
-
-                    @Override
-                    public Integer apply(String data) {
-                        log("apply =" + data);
-                        return Integer.parseInt(data);
-                    }
-                }.subscribe(new ProxyObserver(observer));
-            }
-        }).start();
+                });
 
     }
 

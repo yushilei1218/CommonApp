@@ -1,21 +1,31 @@
 package com.yushilei.commonapp.common.proxy;
 
 /**
- * @author shilei.yu
- * @since on 2018/1/12.
+ *
  */
 
-public abstract class Observable<T, R> {
+public class Observable<T, R> {
     private T data;
+    private Function<T, R> transfer;
 
-    public Observable(T data) {
+    public Observable() {
+    }
+
+    public Observable(T data, Function<T, R> transfer) {
         this.data = data;
+        this.transfer = transfer;
     }
 
     public void subscribe(Observer<R> observer) {
-        R real = apply(data);
+        R real = transfer.apply(data);
         observer.onSubscribe(real);
     }
 
-    public abstract R apply(T data);
+    public Observable<T, R> subscribeOnIO() {
+        return new ObservableIO<>(this);
+    }
+
+    public Observable<T, R> observeOnMain() {
+        return new ObservableMain<>(this);
+    }
 }
