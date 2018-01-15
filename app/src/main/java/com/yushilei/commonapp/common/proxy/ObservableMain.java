@@ -17,13 +17,13 @@ public class ObservableMain<T, R> extends Observable<T, R> {
 
     @Override
     public void subscribe(Observer<R> observer) {
-        real.subscribe(new MainObserver<>(observer));
+        real.subscribe(new ProxyObserver<>(observer));
     }
 
-    public static final class MainObserver<R> implements Observer<R> {
+    public static final class ProxyObserver<R> implements Observer<R> {
         private final Observer<R> real;
 
-        public MainObserver(Observer<R> real) {
+        public ProxyObserver(Observer<R> real) {
             this.real = real;
         }
 
