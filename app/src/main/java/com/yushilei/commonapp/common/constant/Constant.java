@@ -41,4 +41,5 @@ public interface Constant {
     String C_WEEX_TEST = "C_WEEX_TEST";
     String FLOAT_MENU = "FLOAT_MENU";
     String PROXY = "PROXY";
+    String COORDINATOR = "COORDINATOR";
 }

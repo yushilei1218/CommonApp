@@ -32,6 +32,7 @@ import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
 import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.constraintlayout.ConstraintActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
+import com.yushilei.commonapp.ui.coordinatorLayout.CoordinatorActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.floatmenu.FloatMenuActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
@@ -125,6 +126,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item32 = new HomeItem(new HomeBean(Constant.C_WEEX_TEST));
         HomeItem item33 = new HomeItem(new HomeBean(Constant.FLOAT_MENU));
         HomeItem item34 = new HomeItem(new HomeBean(Constant.PROXY));
+        HomeItem item35 = new HomeItem(new HomeBean(Constant.COORDINATOR));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -160,6 +162,7 @@ public class MainActivity extends BaseActivity {
         data.add(item32);
         data.add(item33);
         data.add(item34);
+        data.add(item35);
         adapter.addAll(data);
     }
 
@@ -306,6 +309,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.PROXY:
                     intent = new Intent(MainActivity.this, ProxyActivity.class);
+                    break;
+                case Constant.COORDINATOR:
+                    intent = new Intent(MainActivity.this, CoordinatorActivity.class);
                     break;
                 default:
                     break;
