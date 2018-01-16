@@ -42,4 +42,5 @@ public interface Constant {
     String FLOAT_MENU = "FLOAT_MENU";
     String PROXY = "PROXY";
     String COORDINATOR = "COORDINATOR";
+    String MVP = "MVP";
 }

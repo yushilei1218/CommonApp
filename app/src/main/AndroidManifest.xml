@@ -121,6 +121,8 @@
             android:name=".ui.coordinatorLayout.CoordinatorActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity android:name=".ui.mvp.view.MvpActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -47,6 +47,7 @@ import com.yushilei.commonapp.ui.multiholder.MultiListActivity;
 import com.yushilei.commonapp.ui.multilv.MultiListViewActivity;
 import com.yushilei.commonapp.ui.multirecycler.MultiRecyclerActivity;
 import com.yushilei.commonapp.ui.mvp.view.HomeActivity;
+import com.yushilei.commonapp.ui.mvp.view.MvpActivity;
 import com.yushilei.commonapp.ui.myobservable.ObservableActivity;
 import com.yushilei.commonapp.ui.notification.NotificationActivity;
 import com.yushilei.commonapp.ui.permission.PermissionActivity;
@@ -127,6 +128,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item33 = new HomeItem(new HomeBean(Constant.FLOAT_MENU));
         HomeItem item34 = new HomeItem(new HomeBean(Constant.PROXY));
         HomeItem item35 = new HomeItem(new HomeBean(Constant.COORDINATOR));
+        HomeItem item36 = new HomeItem(new HomeBean(Constant.MVP));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -163,6 +165,7 @@ public class MainActivity extends BaseActivity {
         data.add(item33);
         data.add(item34);
         data.add(item35);
+        data.add(item36);
         adapter.addAll(data);
     }
 
@@ -312,6 +315,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.COORDINATOR:
                     intent = new Intent(MainActivity.this, CoordinatorActivity.class);
+                    break;
+                case Constant.MVP:
+                    intent = new Intent(MainActivity.this, MvpActivity.class);
                     break;
                 default:
                     break;
