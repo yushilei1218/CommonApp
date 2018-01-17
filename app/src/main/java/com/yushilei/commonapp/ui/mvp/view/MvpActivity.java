@@ -1,7 +1,6 @@
 package com.yushilei.commonapp.ui.mvp.view;
 
 
-
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -64,6 +63,8 @@ public class MvpActivity extends MvpBaseActivity<MvpContract.IPresenter> impleme
         mLv.setAdapter(mAdapter);
 
         presenter.init();
+
+        presenter.refreshRx(LoadMode.COM_LOAD);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.yushilei.commonapp.ui.mvp.contract;
 import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
+import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
 import com.yushilei.commonapp.ui.mvp.bean.LoadMode;
@@ -10,6 +11,8 @@ import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * @author shilei.yu
@@ -32,6 +35,10 @@ public class MvpContract {
         void refresh(LoadMode mode);
 
         void loadMore();
+
+        void refreshRx(LoadMode mode);
+
+        void loadMoreRx();
     }
 
     public static abstract class BaseModel {
@@ -46,6 +53,10 @@ public class MvpContract {
         public abstract void refresh(ICallBack<List<Album>> callBack);
 
         public abstract void loadMore(ICallBack<List<Album>> callBack);
+
+        public abstract Observable<YouLike> refresh();
+
+        public abstract Observable<YouLike> loadMore();
 
     }
 }

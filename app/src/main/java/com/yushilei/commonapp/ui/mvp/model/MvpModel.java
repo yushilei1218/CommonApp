@@ -13,6 +13,7 @@ import com.yushilei.commonapp.ui.mvp.contract.MvpContract;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,5 +71,16 @@ public class MvpModel extends MvpContract.BaseModel {
                 callBack.onFail("网络异常啊啊");
             }
         });
+    }
+
+    @Override
+    public Observable<YouLike> refresh() {
+        index = 1;
+        return NetApi.sApi2.getRxYouLike(index, 20);
+    }
+
+    @Override
+    public Observable<YouLike> loadMore() {
+        return NetApi.sApi2.getRxYouLike(index, 20);
     }
 }

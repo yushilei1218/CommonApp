@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.net;
 
+import com.google.gson.reflect.TypeToken;
 import com.shileiyu.RetrofitProxy;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
@@ -7,7 +8,11 @@ import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.net.encrypt.EncryptAnnotation;
 import com.yushilei.commonapp.common.net.encrypt.EncryptConverterFactory;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -43,6 +48,7 @@ public class NetApi {
                 .build();
         api = retrofit.create(API.class);
         sFlowapi = retrofit.create(FlowApi.class);
+
         Retrofit retrofit2 = new Retrofit.Builder()
                 /*设置指定的OkHttpClient*/
                 .client(Client.getClient())
@@ -77,6 +83,9 @@ public class NetApi {
     public interface API2 {
         @GET("/discovery-firstpage/guessYouLike/list/ts-1516156034599")
         Call<YouLike> getYouLike(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
+
+        @GET("/discovery-firstpage/guessYouLike/list/ts-1516156034599")
+        Observable<YouLike> getRxYouLike(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
     }
 
     public interface FlowApi {
