@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.common.mvp;
 
+import com.yushilei.commonapp.common.net.pool.NetPool;
 import com.yushilei.commonapp.common.retrofit.CallPool;
 
 /**
@@ -34,5 +35,6 @@ public abstract class BasePresenter<View extends IBaseView> implements IBasePres
     @Override
     public void removeTask() {
         CallPool.cancelCall(mTaskId);
+        NetPool.cancelAll(mTaskId);
     }
 }

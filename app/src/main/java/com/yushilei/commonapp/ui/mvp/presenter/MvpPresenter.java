@@ -1,13 +1,12 @@
 package com.yushilei.commonapp.ui.mvp.presenter;
 
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
 import com.yushilei.commonapp.common.bean.net.Album;
-import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
+import com.yushilei.commonapp.common.net.callback.BaseObserver;
 import com.yushilei.commonapp.common.util.SetUtil;
 import com.yushilei.commonapp.ui.mvp.bean.LoadMode;
 import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
@@ -16,13 +15,9 @@ import com.yushilei.commonapp.ui.mvp.model.MvpModel;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 /**
  * 1检测用户状态->  通过拉取职位 -> 成功拉取 简历
@@ -101,35 +96,21 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
     }
 
     @Override
-    public void refreshRx(LoadMode mode) {
-        final Disposable subscribe = mModel.refresh()
+    public void refreshRx(final LoadMode mode) {
+        mModel.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<YouLike>() {
+                .subscribe(new BaseObserver<YouLike>(mTaskId) {
                     @Override
-                    public void accept(YouLike youLike) throws Exception {
-                        Log.d("Mvp", "youLike");
+                    public void onSuccess(@NonNull YouLike youLike) {
+                        Log.d("refreshRx", "youLike");
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.d("Mvp", throwable.toString() + "1");
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        Log.d("Mvp", "complete");
+                    public void onFail(int code, String msg) {
+                        Log.d("refreshRx", code + " " + msg);
                     }
                 });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(20);
-                Log.d("Mvp", "dispose");
-                subscribe.dispose();
-            }
-        }).start();
-
     }
 
     @Override
