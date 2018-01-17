@@ -2,8 +2,10 @@ package com.yushilei.commonapp.ui.mvp.model;
 
 import android.support.annotation.NonNull;
 
+import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
+import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.util.SetUtil;
 import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
@@ -28,12 +30,12 @@ public class MvpModel extends MvpContract.BaseModel {
     }
 
     @Override
-    public void refresh(final ICallBack<List<Data>> callBack) {
+    public void refresh(final ICallBack<List<Album>> callBack) {
         index = 1;
-        NetApi.api.getRecommend(index, 20).enqueue(new Callback<RecommendBean>() {
+        NetApi.sApi2.getYouLike(index, 20).enqueue(new Callback<YouLike>() {
             @Override
-            public void onResponse(@NonNull Call<RecommendBean> call, @NonNull Response<RecommendBean> response) {
-                RecommendBean body = response.body();
+            public void onResponse(@NonNull Call<YouLike> call, @NonNull Response<YouLike> response) {
+                YouLike body = response.body();
                 if (body != null && !SetUtil.isEmpty(body.getList())) {
                     data.clear();
                     data.addAll(body.getList());
@@ -43,7 +45,7 @@ public class MvpModel extends MvpContract.BaseModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<RecommendBean> call, Throwable t) {
+            public void onFailure(@NonNull Call<YouLike> call, Throwable t) {
 
                 callBack.onFail("网络异常啊啊");
             }
@@ -51,12 +53,12 @@ public class MvpModel extends MvpContract.BaseModel {
     }
 
     @Override
-    public void loadMore(final ICallBack<List<Data>> callBack) {
+    public void loadMore(final ICallBack<List<Album>> callBack) {
         index++;
-        NetApi.api.getRecommend(index, 20).enqueue(new Callback<RecommendBean>() {
+        NetApi.sApi2.getYouLike(index, 20).enqueue(new Callback<YouLike>() {
             @Override
-            public void onResponse(@NonNull Call<RecommendBean> call, @NonNull Response<RecommendBean> response) {
-                RecommendBean body = response.body();
+            public void onResponse(@NonNull Call<YouLike> call, @NonNull Response<YouLike> response) {
+                YouLike body = response.body();
                 if (body != null && !SetUtil.isEmpty(body.getList())) {
                     data.addAll(body.getList());
                 }
@@ -64,7 +66,7 @@ public class MvpModel extends MvpContract.BaseModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<RecommendBean> call, Throwable t) {
+            public void onFailure(@NonNull Call<YouLike> call, Throwable t) {
                 callBack.onFail("网络异常啊啊");
             }
         });

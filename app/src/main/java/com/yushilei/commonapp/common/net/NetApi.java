@@ -3,6 +3,7 @@ package com.yushilei.commonapp.common.net;
 import com.shileiyu.RetrofitProxy;
 import com.yushilei.commonapp.common.bean.net.DiscoveryBean;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
+import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.net.encrypt.EncryptAnnotation;
 import com.yushilei.commonapp.common.net.encrypt.EncryptConverterFactory;
 
@@ -24,8 +25,10 @@ import retrofit2.http.Query;
 public class NetApi {
     public static API api;
     public static FlowApi sFlowapi;
+    public static API2 sApi2;
 
     private static final String BASE_URL = "http://mobile.ximalaya.com";
+    private static final String BASE_URL2 = "http://mobwsa.ximalaya.com";
 
     static {
         Retrofit retrofit = new Retrofit.Builder()
@@ -40,7 +43,19 @@ public class NetApi {
                 .build();
         api = retrofit.create(API.class);
         sFlowapi = retrofit.create(FlowApi.class);
+        Retrofit retrofit2 = new Retrofit.Builder()
+                /*设置指定的OkHttpClient*/
+                .client(Client.getClient())
+                /*Json数据加密 解密*/
+                .addConverterFactory(EncryptConverterFactory.create())
+                /*Json序列化、反序列化*/
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(BASE_URL2)
+                .build();
+        sApi2 = retrofit2.create(API2.class);
     }
+
 
     /**
      * 网络请求API
@@ -57,6 +72,11 @@ public class NetApi {
         @GET("/mobile/discovery/v1/recommend/albums")
         Call<RecommendBean> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
 
+    }
+
+    public interface API2 {
+        @GET("/discovery-firstpage/guessYouLike/list/ts-1516156034599")
+        Call<YouLike> getYouLike(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
     }
 
     public interface FlowApi {

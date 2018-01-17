@@ -1,12 +1,16 @@
 package com.yushilei.commonapp.ui.mvp.view;
 
 
+
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.MultiListAdapter;
-import com.yushilei.commonapp.common.bean.net.Data;
-import com.yushilei.commonapp.common.bean.net.RecommendBean;
+import com.yushilei.commonapp.common.bean.net.Album;
+
 import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
 import com.yushilei.commonapp.common.widget.LoadListView;
 import com.yushilei.commonapp.common.widget.PtrFirstHeader;
@@ -56,15 +60,15 @@ public class MvpActivity extends MvpBaseActivity<MvpContract.IPresenter> impleme
             }
         });
         mAdapter = new MultiListAdapter(1);
-
+        mAdapter.setMatch(Album.class, new AlbumDelegate());
         mLv.setAdapter(mAdapter);
 
         presenter.init();
     }
 
     @Override
-    public void bindData(List<Data> data) {
-        mAdapter.addAll(data);
+    public void bindData(List<Album> data) {
+        mAdapter.setRootData(data);
     }
 
     @Override
@@ -107,6 +111,22 @@ public class MvpActivity extends MvpBaseActivity<MvpContract.IPresenter> impleme
                 break;
             default:
                 break;
+        }
+    }
+
+    public final class AlbumDelegate extends HolderDelegate<Album> {
+
+        @Override
+        public int getLayoutId() {
+            return R.layout.item_album2;
+        }
+
+        @Override
+        public void onBindData(BaseRecyclerHolder holder, Album album, int pos) {
+            SimpleDraweeView sdv = (SimpleDraweeView) holder.findView(R.id.item_album_img2);
+            TextView tv = (TextView) holder.findView(R.id.item_album_title);
+            sdv.setImageURI(album.getCoverMiddle());
+            tv.setText(album.getTitle());
         }
     }
 }

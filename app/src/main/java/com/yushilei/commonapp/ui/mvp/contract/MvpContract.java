@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.ui.mvp.contract;
 
+import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MvpContract {
     public interface IView extends IBaseView {
 
-        void bindData(List<Data> data);
+        void bindData(List<Album> data);
 
         void notifyDataChanged(boolean hasMore);
 
@@ -40,11 +41,11 @@ public class MvpContract {
             this.taskId = taskId;
         }
 
-        public final List<Data> data = new ArrayList<>();
+        public final List<Album> data = new ArrayList<>();
 
-        public abstract void refresh(ICallBack<List<Data>> callBack);
+        public abstract void refresh(ICallBack<List<Album>> callBack);
 
-        public abstract void loadMore(ICallBack<List<Data>> callBack);
+        public abstract void loadMore(ICallBack<List<Album>> callBack);
 
     }
 }

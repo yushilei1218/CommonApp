@@ -2,6 +2,7 @@ package com.yushilei.commonapp.ui.mvp.presenter;
 
 import android.view.View;
 
+import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
 import com.yushilei.commonapp.common.util.SetUtil;
@@ -34,9 +35,9 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
     public void refresh(final LoadMode mode) {
         mView.changeLoadState(mode, true);
 
-        mModel.refresh(new ICallBack<List<Data>>() {
+        mModel.refresh(new ICallBack<List<Album>>() {
             @Override
-            public void onSuccess(List<Data> data) {
+            public void onSuccess(List<Album> data) {
                 mView.changeLoadState(mode, false);
                 //1.成功-首页有数据 2.成功-首页无数据 3失败-首页有数据 4失败-首页无数据
 
@@ -69,9 +70,9 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
 
     @Override
     public void loadMore() {
-        mModel.loadMore(new ICallBack<List<Data>>() {
+        mModel.loadMore(new ICallBack<List<Album>>() {
             @Override
-            public void onSuccess(List<Data> data) {
+            public void onSuccess(List<Album> data) {
                 //1.有更多数据 2 无更多数据
                 mView.changeLoadState(LoadMode.LOAD_MORE_FINISH, false);
                 mView.notifyDataChanged(true);
