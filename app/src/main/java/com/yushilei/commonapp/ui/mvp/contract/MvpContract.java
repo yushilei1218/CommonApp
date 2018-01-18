@@ -1,5 +1,6 @@
 package com.yushilei.commonapp.ui.mvp.contract;
 
+import com.yushilei.commonapp.common.bean.basedata.Job;
 import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.Data;
 import com.yushilei.commonapp.common.bean.net.RecommendBean;
@@ -7,6 +8,7 @@ import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
 import com.yushilei.commonapp.ui.mvp.bean.LoadMode;
+import com.yushilei.commonapp.ui.mvp.callback.BooleanCallBack;
 import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
 
 import java.util.ArrayList;
@@ -42,10 +44,11 @@ public class MvpContract {
     }
 
     public static abstract class BaseModel {
-        private final int taskId;
+        protected final int taskId;
+        public boolean isUserCheckPassed = false;
 
-        public BaseModel(int taskId) {
-            this.taskId = taskId;
+        public BaseModel() {
+            this.taskId = this.hashCode();
         }
 
         public final List<Album> data = new ArrayList<>();
@@ -57,6 +60,14 @@ public class MvpContract {
         public abstract Observable<YouLike> refresh();
 
         public abstract Observable<YouLike> loadMore();
+
+        public abstract void refreshRx(ICallBack<List<Album>> callBack);
+
+        public abstract void refreshJobs(ICallBack<List<Job>> callBack);
+
+        public abstract void loadMoreJobs(ICallBack<List<Job>> callBack);
+
+        public abstract void checkUserState(BooleanCallBack callBack);
 
     }
 }

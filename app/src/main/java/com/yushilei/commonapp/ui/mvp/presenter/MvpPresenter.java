@@ -3,12 +3,15 @@ package com.yushilei.commonapp.ui.mvp.presenter;
 import android.util.Log;
 import android.view.View;
 
+import com.yushilei.commonapp.common.bean.basedata.Job;
 import com.yushilei.commonapp.common.bean.net.Album;
 import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.mvp.BasePresenter;
+import com.yushilei.commonapp.common.net.NetApi;
 import com.yushilei.commonapp.common.net.callback.BaseObserver;
 import com.yushilei.commonapp.common.util.SetUtil;
 import com.yushilei.commonapp.ui.mvp.bean.LoadMode;
+import com.yushilei.commonapp.ui.mvp.callback.BooleanCallBack;
 import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
 import com.yushilei.commonapp.ui.mvp.contract.MvpContract;
 import com.yushilei.commonapp.ui.mvp.model.MvpModel;
@@ -31,7 +34,7 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
 
     public MvpPresenter(MvpContract.IView view) {
         super(view);
-        mModel = new MvpModel(mTaskId);
+        mModel = new MvpModel();
     }
 
     @Override
@@ -48,7 +51,6 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
             public void onSuccess(List<Album> data) {
                 mView.changeLoadState(mode, false);
                 //1.成功-首页有数据 2.成功-首页无数据 3失败-首页有数据 4失败-首页无数据
-
                 mView.notifyDataChanged(true);
 
                 if (SetUtil.isEmpty(data)) {
@@ -62,7 +64,7 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
             }
 
             @Override
-            public void onFail(String msg) {
+            public void onFail(List<Album> data, int code, String msg) {
                 if (mView != null) {
                     mView.changeLoadState(mode, false);
                     mView.onError(0, "网络异常", "重试", new View.OnClickListener() {
@@ -87,7 +89,7 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
             }
 
             @Override
-            public void onFail(String msg) {
+            public void onFail(List<Album> data, int code, String msg) {
                 //失败 关闭loadmore
                 mView.changeLoadState(LoadMode.LOAD_MORE_FINISH, false);
                 mView.showToast(msg);
@@ -98,7 +100,6 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
     @Override
     public void refreshRx(final LoadMode mode) {
         mModel.refresh()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<YouLike>(mTaskId) {
                     @Override
@@ -116,5 +117,33 @@ public class MvpPresenter extends BasePresenter<MvpContract.IView> implements Mv
     @Override
     public void loadMoreRx() {
 
+    }
+
+    @Override
+    public void onStart() {
+        if (mModel.isUserCheckPassed) {
+            mModel.checkUserState(new BooleanCallBack() {
+                @Override
+                public void callBack(boolean b) {
+                    if (b) {
+                        //认证通过
+                        mView.changeLoadState(LoadMode.COM_LOAD, true);
+                        mModel.refreshJobs(new ICallBack<List<Job>>() {
+                            @Override
+                            public void onSuccess(List<Job> data) {
+
+                            }
+
+                            @Override
+                            public void onFail(List<Job> data, int code, String msg) {
+
+                            }
+                        });
+                    } else {
+                        //未通过
+                    }
+                }
+            });
+        }
     }
 }

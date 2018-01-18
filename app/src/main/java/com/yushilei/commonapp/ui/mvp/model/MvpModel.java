@@ -2,18 +2,20 @@ package com.yushilei.commonapp.ui.mvp.model;
 
 import android.support.annotation.NonNull;
 
+import com.yushilei.commonapp.common.bean.basedata.Job;
 import com.yushilei.commonapp.common.bean.net.Album;
-import com.yushilei.commonapp.common.bean.net.Data;
-import com.yushilei.commonapp.common.bean.net.RecommendBean;
 import com.yushilei.commonapp.common.bean.net.YouLike;
 import com.yushilei.commonapp.common.net.NetApi;
+import com.yushilei.commonapp.common.net.callback.BaseObserver;
 import com.yushilei.commonapp.common.util.SetUtil;
+import com.yushilei.commonapp.ui.mvp.callback.BooleanCallBack;
 import com.yushilei.commonapp.ui.mvp.callback.ICallBack;
 import com.yushilei.commonapp.ui.mvp.contract.MvpContract;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +28,7 @@ import retrofit2.Response;
 public class MvpModel extends MvpContract.BaseModel {
     private int index = 1;
 
-    public MvpModel(int taskId) {
-        super(taskId);
+    public MvpModel() {
     }
 
     @Override
@@ -48,7 +49,7 @@ public class MvpModel extends MvpContract.BaseModel {
             @Override
             public void onFailure(@NonNull Call<YouLike> call, Throwable t) {
 
-                callBack.onFail("网络异常啊啊");
+                callBack.onFail(data, 1, "网络异常啊啊");
             }
         });
     }
@@ -68,7 +69,7 @@ public class MvpModel extends MvpContract.BaseModel {
 
             @Override
             public void onFailure(@NonNull Call<YouLike> call, Throwable t) {
-                callBack.onFail("网络异常啊啊");
+                callBack.onFail(data, 1, "网络异常啊啊");
             }
         });
     }
@@ -82,5 +83,42 @@ public class MvpModel extends MvpContract.BaseModel {
     @Override
     public Observable<YouLike> loadMore() {
         return NetApi.sApi2.getRxYouLike(index, 20);
+    }
+
+    @Override
+    public void refreshRx(final ICallBack<List<Album>> callBack) {
+        NetApi.sApi2.getRxYouLike(1, 20)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<YouLike>(taskId) {
+                    @Override
+                    public void onSuccess(@NonNull YouLike youLike) {
+                        data.clear();
+                        if (!SetUtil.isEmpty(youLike.getList())) {
+                            data.addAll(youLike.getList());
+                        }
+                        callBack.onSuccess(data);
+                    }
+
+                    @Override
+                    public void onFail(int code, String msg) {
+                        callBack.onFail(data, code, msg);
+                    }
+                });
+    }
+
+    @Override
+    public void refreshJobs(ICallBack<List<Job>> callBack) {
+
+    }
+
+    @Override
+    public void loadMoreJobs(ICallBack<List<Job>> callBack) {
+
+    }
+
+    @Override
+    public void checkUserState(BooleanCallBack callBack) {
+        isUserCheckPassed = true;
+        callBack.callBack(isUserCheckPassed);
     }
 }

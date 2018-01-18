@@ -56,7 +56,7 @@ public class NetApi {
                 .addConverterFactory(EncryptConverterFactory.create())
                 /*Json序列化、反序列化*/
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .baseUrl(BASE_URL2)
                 .build();
         sApi2 = retrofit2.create(API2.class);

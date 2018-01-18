@@ -8,5 +8,5 @@ package com.yushilei.commonapp.ui.mvp.callback;
 public interface ICallBack<T> {
     void onSuccess(T data);
 
-    void onFail(String msg);
+    void onFail(T data, int code, String msg);
 }
