@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.yushilei.commonapp.ui.coordinatorLayout.ContentFragment">
+
+    <TextView
+        android:id="@+id/act_coordinator_job"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="全部职位"
+        android:textColor="#FFF"/>
+
+    <include layout="@layout/error_layout"/>
+
+    <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
+        android:id="@+id/fg_content_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"/>
+
+</LinearLayout>
