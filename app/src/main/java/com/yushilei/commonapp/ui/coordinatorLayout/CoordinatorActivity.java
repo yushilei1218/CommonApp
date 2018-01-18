@@ -1,6 +1,7 @@
 package com.yushilei.commonapp.ui.coordinatorLayout;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.yushilei.commonapp.common.util.SetUtil;
 import com.yushilei.commonapp.common.widget.BannerIndicatorView;
 import com.yushilei.commonapp.common.widget.BannerView;
 import com.yushilei.commonapp.common.widget.PtrFirstHeader;
+import com.yushilei.commonapp.ui.mvp.view.MvpActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 
 public class CoordinatorActivity extends BaseActivity {
@@ -60,7 +63,18 @@ public class CoordinatorActivity extends BaseActivity {
         initBanner();
 
         PtrFrameLayout mPtr = findView(R.id.act_coordinator_ptr);
-        PtrFirstHeader header = new PtrFirstHeader(this);
+
+        PtrFirstHeader header = new PtrFirstHeader(this) {
+            @Override
+            public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+                float currentPercent = ptrIndicator.getCurrentPercent();
+                if (currentPercent >= 1f) {
+                    navigateView.setAlpha(0f);
+                }
+                navigateView.setAlpha(1 - currentPercent);
+                Log.d(getTAG(), "currentPercent=" + currentPercent);
+            }
+        };
         mPtr.addPtrUIHandler(header);
         mPtr.setHeaderView(header);
 
@@ -85,7 +99,7 @@ public class CoordinatorActivity extends BaseActivity {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (appBarLayout.getHeight() + verticalOffset == 0) {
                     navigateView.setVisibility(View.GONE);
-                }else {
+                } else {
                     navigateView.setVisibility(View.VISIBLE);
                 }
                 Log.d(getTAG(), "top=" + appBarLayout.getTop() + " verticalOffset=" + verticalOffset);
@@ -95,6 +109,7 @@ public class CoordinatorActivity extends BaseActivity {
         setOnClick(R.id.act_coordinator_b);
         setOnClick(R.id.act_coordinator_c);
         setOnClick(job);
+        setOnClick(navigateView);
     }
 
     private void initBanner() {
@@ -122,6 +137,9 @@ public class CoordinatorActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.act_coordinator_navigate:
+                startActivity(new Intent(this, MvpActivity.class));
+                break;
             case R.id.act_coordinator_job:
                 mAppBar.setExpanded(false, false);
                 new Handler().post(new Runnable() {

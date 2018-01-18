@@ -10,10 +10,10 @@
         android:id="@+id/act_coordinator_job"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimaryDark"
+        android:background="#fffca1"
         android:gravity="center"
         android:text="全部职位"
-        android:textColor="#FFF"/>
+        android:textColor="#000000"/>
 
     <include layout="@layout/error_layout"/>
 
