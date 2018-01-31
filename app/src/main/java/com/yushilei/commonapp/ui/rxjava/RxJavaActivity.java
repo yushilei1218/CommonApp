@@ -66,6 +66,13 @@ public class RxJavaActivity extends BaseActivity {
     public void initView() {
         LifecycleTransformer<Long> composer = mProvider.bindUntilEvent(ActivityEvent.DESTROY);
 
+        /**
+         * 核心为ObservableTakeUntil  通过ObservableTransformer 把上游Observable 连接到下游Observable
+         *
+         *实际触发订阅时 会触发2个订阅，而下游的Observable 对应的Observer(TakeUntil) 一旦接收事件则会将上游Observable
+         * 订阅时的产生的订阅关系对象 调用其 cancel() or dispose() 。也就是说 下游Observable一旦接收事件则会中断上游事件订阅。
+         */
+
         Observable.interval(2, TimeUnit.SECONDS)
                 .compose(composer).subscribe(new Observer<Long>() {
             @Override
@@ -85,7 +92,7 @@ public class RxJavaActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                log("onComplete " );
+                log("onComplete ");
             }
         });
 
