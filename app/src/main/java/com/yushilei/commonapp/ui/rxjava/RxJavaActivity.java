@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.RxLifecycle;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.adapter.BaseViewHolder;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
@@ -61,6 +64,32 @@ public class RxJavaActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        LifecycleTransformer<Long> composer = mProvider.bindUntilEvent(ActivityEvent.DESTROY);
+
+        Observable.interval(2, TimeUnit.SECONDS)
+                .compose(composer).subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                log("onSubscribe " + d);
+            }
+
+            @Override
+            public void onNext(@NonNull Long o) {
+                log("onNext " + o);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                log("onError " + e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                log("onComplete " );
+            }
+        });
+
+
         GridView grid = (GridView) findView(R.id.rxjava_grid);
         MultiBaseAdapter adapter = new MultiBaseAdapter(1);
         grid.setAdapter(adapter);

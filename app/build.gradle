@@ -112,6 +112,12 @@ dependencies {
     compile ('com.alibaba.android:vlayout:1.2.9@aar') {
         transitive = true
     }
+    // 依赖以下两个库，会自动引用基础库与Android库
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+// If you want to use Navi for providers
+    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
+
+
 }
 packer {
     archiveNameFormat = '${buildType}-v${versionName}-${channel}'

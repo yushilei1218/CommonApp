@@ -123,6 +123,8 @@
         </activity>
         <activity android:name=".ui.mvp.view.MvpActivity">
         </activity>
+        <activity android:name=".ui.vlayout.VLayoutActivity">
+        </activity>
     </application>
 
 </manifest>

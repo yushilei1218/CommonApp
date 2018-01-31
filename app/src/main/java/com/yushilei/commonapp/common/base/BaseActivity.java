@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,13 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
+import com.trello.navi2.Event;
+import com.trello.navi2.Listener;
+import com.trello.navi2.NaviComponent;
+import com.trello.navi2.component.support.NaviAppCompatActivity;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.navi.NaviLifecycle;
 import com.umeng.analytics.MobclickAgent;
 import com.yushilei.commonapp.common.manager.ActivityStack;
 import com.yushilei.commonapp.common.mvp.OperateViewHolder;
@@ -22,7 +30,7 @@ import com.yushilei.commonapp.common.mvp.IBaseView;
  * Activity基类
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
+public abstract class BaseActivity extends NaviAppCompatActivity implements IBaseView {
     /**
      * 当前Activity是否处于活动状态
      */
@@ -34,6 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     private OperateViewHolder mHolder;
 
+    protected LifecycleProvider<ActivityEvent> mProvider;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -43,9 +54,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         }
         super.onCreate(savedInstanceState);
         ActivityStack.inStack(this);
+
+        mProvider = NaviLifecycle.createActivityLifecycleProvider(this);
+
         setContentView(getLayoutId());
+
         initOperateView();
+
         initView();
+
         initData();
     }
 
