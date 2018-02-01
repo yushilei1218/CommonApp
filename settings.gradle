@@ -1,1 +1,1 @@
-include ':app', ':c_annotation', ':c_compiler'
+include ':app', ':c_annotation', ':c_compiler', ':imageloader'
