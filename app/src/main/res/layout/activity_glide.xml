@@ -5,6 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ccc"
     tools:context="com.yushilei.commonapp.ui.glide.GlideActivity">
+
+    <Button
+        android:id="@+id/act_glide_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Img"
+        android:textAllCaps="false"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/act_glide_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Gif"
+        android:textAllCaps="false"/>
+
+    <ImageView
+        android:id="@+id/act_glide_img"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

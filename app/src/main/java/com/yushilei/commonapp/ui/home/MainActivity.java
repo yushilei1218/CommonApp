@@ -36,6 +36,7 @@ import com.yushilei.commonapp.ui.coordinatorLayout.CoordinatorActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.floatmenu.FloatMenuActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
+import com.yushilei.commonapp.ui.glide.GlideActivity;
 import com.yushilei.commonapp.ui.greendao.GreenDaoActivity;
 import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.Load2FootActivity;
@@ -129,6 +130,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item34 = new HomeItem(new HomeBean(Constant.PROXY));
         HomeItem item35 = new HomeItem(new HomeBean(Constant.COORDINATOR));
         HomeItem item36 = new HomeItem(new HomeBean(Constant.MVP));
+        HomeItem item37 = new HomeItem(new HomeBean(Constant.GLIDE));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -166,6 +168,7 @@ public class MainActivity extends BaseActivity {
         data.add(item34);
         data.add(item35);
         data.add(item36);
+        data.add(item37);
         adapter.addAll(data);
     }
 
@@ -318,6 +321,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.MVP:
                     intent = new Intent(MainActivity.this, MvpActivity.class);
+                    break;
+                case Constant.GLIDE:
+                    intent = new Intent(MainActivity.this, GlideActivity.class);
                     break;
                 default:
                     break;

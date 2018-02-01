@@ -43,4 +43,5 @@ public interface Constant {
     String PROXY = "PROXY";
     String COORDINATOR = "COORDINATOR";
     String MVP = "MVP";
+    String GLIDE = "GLIDE";
 }
