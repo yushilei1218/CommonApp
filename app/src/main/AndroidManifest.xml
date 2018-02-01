@@ -125,6 +125,8 @@
         </activity>
         <activity android:name=".ui.vlayout.VLayoutActivity">
         </activity>
+        <activity android:name=".ui.glide.GlideActivity">
+        </activity>
     </application>
 
 </manifest>
