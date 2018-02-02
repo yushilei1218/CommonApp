@@ -9,20 +9,21 @@ import android.graphics.Bitmap;
  */
 
 public class MemoryCache<T extends Bitmap> implements IBitmapCache<T> {
+    private BitmapLruCache mLruCache = BitmapLruCache.instance();
 
     @Override
     public void put(String key, Bitmap content) {
-
+        mLruCache.put(key, content);
     }
 
     @Override
     public void remove(String key) {
-
+        mLruCache.remove(key);
     }
 
     @Override
     public Bitmap get(String key) {
-        return null;
+        return mLruCache.get(key);
     }
 }
 

@@ -23,6 +23,25 @@
         android:text="Load Gif"
         android:textAllCaps="false"/>
 
+    <Button
+        android:id="@+id/act_glide_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DiskLru Cache"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/act_glide_btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DiskLru Load"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/act_glide_btn3"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
     <ImageView
         android:id="@+id/act_glide_img"
         android:layout_width="300dp"

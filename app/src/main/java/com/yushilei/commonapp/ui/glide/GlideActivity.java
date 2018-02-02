@@ -1,12 +1,21 @@
 package com.yushilei.commonapp.ui.glide;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.jakewharton.disklrucache.DiskLruCache;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseActivity;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class GlideActivity extends BaseActivity {
 
@@ -15,6 +24,10 @@ public class GlideActivity extends BaseActivity {
 
     private ImageView mImg;
 
+    private DiskLruCache mOpen;
+
+    private static final String M_KEY = "19456141555";
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_glide;
@@ -22,9 +35,20 @@ public class GlideActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        File dir = new File(Environment.getExternalStorageDirectory(), "lru");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            mOpen = DiskLruCache.open(dir, 1, 1, 1024 * 1024 * 10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mImg = findView(R.id.act_glide_img);
         setOnClick(R.id.act_glide_btn);
         setOnClick(R.id.act_glide_btn2);
+        setOnClick(R.id.act_glide_btn3);
+        setOnClick(R.id.act_glide_btn4);
     }
 
     @Override
@@ -45,8 +69,37 @@ public class GlideActivity extends BaseActivity {
                         .error(R.mipmap.errorholder)
                         .into(mImg);
                 break;
+            case R.id.act_glide_btn3:
+                cacheDiskLru();
+                break;
+            case R.id.act_glide_btn4:
+                loadDiskLru();
+                break;
             default:
                 break;
+        }
+    }
+
+    private void loadDiskLru() {
+        try {
+            InputStream inputStream = mOpen.get(M_KEY).getInputStream(0);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            mImg.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cacheDiskLru() {
+        try {
+
+            DiskLruCache.Editor edit = mOpen.edit(M_KEY);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.marker);
+            OutputStream stream = edit.newOutputStream(0);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            edit.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
