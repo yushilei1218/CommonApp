@@ -111,6 +111,9 @@ dependencies {
     // If you want to use Navi for providers
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
     compile project(':imageloader')
+
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 packer {
     archiveNameFormat = '${buildType}-v${versionName}-${channel}'
