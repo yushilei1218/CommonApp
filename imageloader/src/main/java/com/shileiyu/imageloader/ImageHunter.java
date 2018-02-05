@@ -1,6 +1,8 @@
 package com.shileiyu.imageloader;
 
-import com.shileiyu.imageloader.request.Request;
+import android.content.Context;
+
+import com.shileiyu.imageloader.request.ImageRequest;
 
 /**
  * @author shilei.yu
@@ -8,7 +10,8 @@ import com.shileiyu.imageloader.request.Request;
  */
 
 public final class ImageHunter {
-    public static Request load(String url) {
-        return null;
+
+    public static ImageRequest.Builder with(Context context) {
+        return new ImageRequest.Builder(context);
     }
 }

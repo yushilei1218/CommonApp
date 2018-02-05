@@ -38,9 +38,20 @@
         android:layout_height="wrap_content"
         android:text="DiskLru Load"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/act_glide_btn3"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"/>
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/act_glide_btn3"/>
+
+
+    <Button
+        android:id="@+id/act_glide_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image Hunter"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/act_glide_btn3"
+        />
 
     <ImageView
         android:id="@+id/act_glide_img"

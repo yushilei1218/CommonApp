@@ -1,5 +1,7 @@
 package com.shileiyu.imageloader.util;
 
+import android.os.Looper;
+
 import java.io.File;
 
 /**
@@ -12,6 +14,10 @@ public class Util {
         if (file == null) {
             return false;
         }
-        return file.exists()&& file.length()>0;
+        return file.exists() && file.length() > 0;
+    }
+
+    public static boolean isMainThread() {
+        return Thread.currentThread() == Looper.getMainLooper().getThread();
     }
 }

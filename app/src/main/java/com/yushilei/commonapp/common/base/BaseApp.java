@@ -3,6 +3,7 @@ package com.yushilei.commonapp.common.base;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +29,13 @@ import com.yushilei.commonapp.ui.weex.module.EventModule;
 import com.yushilei.commonapp.ui.weex.module.LocationModule;
 
 import org.greenrobot.greendao.database.Database;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  * App基类
@@ -99,6 +107,32 @@ public class BaseApp extends MultiDexApplication {
             return;
         }
         LeakCanary.install(this);
+
+        Thread.currentThread().setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                e.printStackTrace();
+                File root = Environment.getExternalStorageDirectory();
+                File log = new File(root, "log.txt");
+                FileWriter fos = null;
+
+                try {
+                    fos = new FileWriter(log);
+                    fos.write(e.getMessage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+        });
 
     }
 

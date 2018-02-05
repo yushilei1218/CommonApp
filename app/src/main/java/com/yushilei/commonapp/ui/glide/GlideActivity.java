@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.jakewharton.disklrucache.DiskLruCache;
+import com.shileiyu.imageloader.Connecter;
+import com.shileiyu.imageloader.ImageHunter;
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.base.BaseActivity;
 
@@ -49,6 +51,7 @@ public class GlideActivity extends BaseActivity {
         setOnClick(R.id.act_glide_btn2);
         setOnClick(R.id.act_glide_btn3);
         setOnClick(R.id.act_glide_btn4);
+        setOnClick(R.id.act_glide_btn5);
     }
 
     @Override
@@ -75,9 +78,21 @@ public class GlideActivity extends BaseActivity {
             case R.id.act_glide_btn4:
                 loadDiskLru();
                 break;
+            case R.id.act_glide_btn5:
+                imageHunter();
+                break;
             default:
                 break;
         }
+    }
+
+    private void imageHunter() {
+        String url = "http://c.hiphotos.baidu.com/image/pic/item/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg";
+        ImageHunter.with(this).url(url)
+                .override(100, 100)
+                .errorHolder(R.mipmap.ic_clock)
+                .pleaceHolder(R.mipmap.ic_head)
+                .build().into(mImg);
     }
 
     private void loadDiskLru() {
