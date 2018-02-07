@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SearchModel implements SearchContract.IModel {
     private final List<ResourceBean> mResources = ResourceBean.get();
-    private final List<StatusBean> mStatus = StatusBean.get();
+    private List<StatusBean> mStatus = StatusBean.get();
 
     @Override
     public List<ResourceBean> getFilterResources() {
@@ -37,6 +37,11 @@ public class SearchModel implements SearchContract.IModel {
     @Override
     public void onResourceSelected(ResourceBean bean) {
         bean.setSelected();
+        if (bean.isDownload()) {
+            mStatus = StatusBean.getWithoutFilterPending();
+        } else {
+            mStatus = StatusBean.get();
+        }
     }
 
     @Override

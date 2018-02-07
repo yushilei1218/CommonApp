@@ -28,7 +28,7 @@ public class StatusBean {
     }
 
     public boolean isSelected() {
-        return sBean != null && sBean == this;
+        return sBean != null && sBean.equals(this);
     }
 
     public int getId() {
@@ -43,11 +43,37 @@ public class StatusBean {
         ArrayList<StatusBean> been = new ArrayList<>();
         been.add(new StatusBean(ALL, "全部来源"));
         StatusBean defaultBean = new StatusBean(FILTER_PENDING, "待筛选");
-        sBean = defaultBean;
         been.add(defaultBean);
         been.add(new StatusBean(CONTACT_PENDING, "待沟通"));
         been.add(new StatusBean(INVITED, "已邀请"));
+        if (sBean == null) {
+            sBean = defaultBean;
+        }
         return been;
+    }
+
+    public static List<StatusBean> getWithoutFilterPending() {
+        ArrayList<StatusBean> been = new ArrayList<>();
+        been.add(new StatusBean(ALL, "全部来源"));
+        StatusBean defaultBean = new StatusBean(CONTACT_PENDING, "待沟通");
+        been.add(defaultBean);
+        been.add(new StatusBean(INVITED, "已邀请"));
+        if (sBean != null) {
+            if (!been.contains(sBean)) {
+                sBean = defaultBean;
+            }
+        } else {
+            sBean = defaultBean;
+        }
+        return been;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof StatusBean) {
+            return id == ((StatusBean) obj).id;
+        }
+        return super.equals(obj);
     }
 
     public static StatusBean getBean() {

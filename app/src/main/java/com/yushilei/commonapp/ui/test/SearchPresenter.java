@@ -42,8 +42,14 @@ public class SearchPresenter extends BasePresenter<SearchContract.IView> impleme
     @Override
     public void onFilterResourceClicked(ResourceBean bean) {
         mModel.onResourceSelected(bean);
+
         ResourceBean temp = mModel.getSelectResourceBean();
         mView.showFilterResourceText(temp);
+
+        if (temp.isDownload()) {
+            StatusBean tempStatus = mModel.getSelectStatusBean();
+            mView.showFilterStatusText(tempStatus);
+        }
     }
 
     @Override

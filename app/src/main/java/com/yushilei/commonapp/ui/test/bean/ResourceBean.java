@@ -48,6 +48,10 @@ public class ResourceBean {
         return been;
     }
 
+    public boolean isDownload() {
+        return id == DOWNLOAD;
+    }
+
     public static ResourceBean getBean() {
         return sBean;
     }
