@@ -26,6 +26,8 @@ import com.yushilei.commonapp.common.manager.ActivityStack;
 import com.yushilei.commonapp.common.mvp.OperateViewHolder;
 import com.yushilei.commonapp.common.mvp.IBaseView;
 
+import butterknife.ButterKnife;
+
 /**
  * Activity基类
  */
@@ -58,6 +60,8 @@ public abstract class BaseActivity extends NaviAppCompatActivity implements IBas
         mProvider = NaviLifecycle.createActivityLifecycleProvider(this);
 
         setContentView(getLayoutId());
+
+        ButterKnife.bind(this);
 
         initOperateView();
 
