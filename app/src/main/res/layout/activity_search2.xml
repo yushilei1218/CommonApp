@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yushilei.commonapp.ui.test.SearchActivity">
+
+    <TextView
+        android:id="@+id/act_search_header"
+        style="@style/Common_text_style"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:text="Header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/act_search_resource"
+        style="@style/Common_text_style"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="1dp"
+        android:background="#ccc"
+        android:text="AAA"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/act_search_status"
+        app:layout_constraintTop_toBottomOf="@id/act_search_header"/>
+
+    <TextView
+        android:id="@+id/act_search_status"
+        style="@style/Common_text_style"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="#ccc"
+        android:text="222"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/act_search_resource"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/act_search_resource"/>
+
+
+</android.support.constraint.ConstraintLayout>

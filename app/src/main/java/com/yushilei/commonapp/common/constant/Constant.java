@@ -44,4 +44,5 @@ public interface Constant {
     String COORDINATOR = "COORDINATOR";
     String MVP = "MVP";
     String GLIDE = "GLIDE";
+    String STATIC = "STATIC";
 }

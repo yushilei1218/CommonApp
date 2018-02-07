@@ -131,6 +131,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item35 = new HomeItem(new HomeBean(Constant.COORDINATOR));
         HomeItem item36 = new HomeItem(new HomeBean(Constant.MVP));
         HomeItem item37 = new HomeItem(new HomeBean(Constant.GLIDE));
+        HomeItem item38 = new HomeItem(new HomeBean(Constant.STATIC));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -169,6 +170,7 @@ public class MainActivity extends BaseActivity {
         data.add(item35);
         data.add(item36);
         data.add(item37);
+        data.add(item38);
         adapter.addAll(data);
     }
 
@@ -324,6 +326,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.GLIDE:
                     intent = new Intent(MainActivity.this, GlideActivity.class);
+                    break;
+                case Constant.STATIC:
+                    intent = new Intent(MainActivity.this, com.yushilei.commonapp.ui.test.SearchActivity.class);
                     break;
                 default:
                     break;

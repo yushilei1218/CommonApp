@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'packer'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
-apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     signingConfigs {
@@ -112,8 +112,8 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
     compile project(':imageloader')
 
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
 }
 packer {
     archiveNameFormat = '${buildType}-v${versionName}-${channel}'

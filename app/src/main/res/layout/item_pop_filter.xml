@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:padding="10dp">
+
+    <TextView
+        android:id="@+id/pop_filter_tv"
+        style="@style/Common_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/pop_filter_tag"
+        android:layout_width="wrap_content"
+        android:src="@mipmap/btn_location"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
