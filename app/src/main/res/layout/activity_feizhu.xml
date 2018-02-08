@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yushilei.commonapp.ui.feizhu.FeizhuActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="#ffe030">
+
+    </RelativeLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/act_feizhu_header"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#ccc"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <in.srain.cube.views.ptr.PtrFrameLayout
+            android:id="@+id/act_feizhu_ptr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-80dp"
+            android:layout_marginTop="80dp"
+            app:layout_behavior=".ui.feizhu.behavior.ScrollBehavior">
+
+            <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
+                android:id="@+id/act_feizhu_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="LinearLayoutManager"/>
+        </in.srain.cube.views.ptr.PtrFrameLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

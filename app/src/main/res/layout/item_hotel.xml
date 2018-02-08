@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="1px">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_hotel_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        app:layout_constraintLeft_toRightOf="@+id/item_hotel_img"
+        android:layout_width="0dp"
+        android:id="@+id/item_hotel_title"
+        style="@style/Common_text_style"
+        android:gravity="left"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -129,6 +129,8 @@
         </activity>
         <activity android:name=".ui.test.SearchActivity">
         </activity>
+        <activity android:name=".ui.feizhu.FeizhuActivity">
+        </activity>
     </application>
 
 </manifest>

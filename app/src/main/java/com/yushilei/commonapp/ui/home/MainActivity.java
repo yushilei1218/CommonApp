@@ -33,6 +33,7 @@ import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.constraintlayout.ConstraintActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.coordinatorLayout.CoordinatorActivity;
+import com.yushilei.commonapp.ui.feizhu.FeizhuActivity;
 import com.yushilei.commonapp.ui.filter.FilterActivity;
 import com.yushilei.commonapp.ui.floatmenu.FloatMenuActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
@@ -132,6 +133,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item36 = new HomeItem(new HomeBean(Constant.MVP));
         HomeItem item37 = new HomeItem(new HomeBean(Constant.GLIDE));
         HomeItem item38 = new HomeItem(new HomeBean(Constant.STATIC));
+        HomeItem item39 = new HomeItem(new HomeBean(Constant.FEIZHU));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -171,6 +173,7 @@ public class MainActivity extends BaseActivity {
         data.add(item36);
         data.add(item37);
         data.add(item38);
+        data.add(item39);
         adapter.addAll(data);
     }
 
@@ -329,6 +332,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.STATIC:
                     intent = new Intent(MainActivity.this, com.yushilei.commonapp.ui.test.SearchActivity.class);
+                    break;
+                case Constant.FEIZHU:
+                    intent = new Intent(MainActivity.this, FeizhuActivity.class);
                     break;
                 default:
                     break;
