@@ -129,7 +129,9 @@
         </activity>
         <activity android:name=".ui.test.SearchActivity">
         </activity>
-        <activity android:name=".ui.feizhu.FeizhuActivity">
+        <activity
+            android:name=".ui.feizhu.FeizhuActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 
