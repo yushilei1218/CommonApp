@@ -1,7 +1,11 @@
 package com.yushilei.commonapp.ui.feizhu.widget;
 
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +48,12 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
     View mStarConfirmTv;
     @BindView(R.id.filter_star_seek)
     SeekBar mSeekBar;
+    @BindView(R.id.filter_seek_min)
+    EditText mMinEt;
+    @BindView(R.id.filter_seek_max)
+    EditText mMaxEt;
+    @BindView(R.id.filter_set_seek)
+    Button mSeekSetBtn;
 
     private final ViewGroup mRoot;
     private MultiListAdapter mSortAdapter;
@@ -56,7 +66,20 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
             @Override
             public void onChange(int min, int max) {
                 String msg = "Min= " + min + " Max=" + max;
-                Toast.makeText(BaseApp.AppContext,msg , Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseApp.AppContext, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+        mSeekSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String minStr = mMinEt.getText().toString();
+                String maxStr = mMaxEt.getText().toString();
+                if (TextUtils.isEmpty(minStr) || TextUtils.isEmpty(maxStr)) {
+                    return;
+                }
+                int min = Integer.parseInt(minStr);
+                int max = Integer.parseInt(maxStr);
+                mSeekBar.setMinAndMax(min, max);
             }
         });
     }

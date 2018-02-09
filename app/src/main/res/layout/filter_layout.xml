@@ -21,15 +21,41 @@
         android:orientation="vertical"
         android:padding="5dp">
 
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="horizontal"
+           android:layout_height="wrap_content">
+           <EditText
+               android:id="@+id/filter_seek_min"
+               android:hint="min"
+               android:layout_width="40dp"
+               android:layout_height="wrap_content"
+               android:inputType="number"/>
+           <EditText
+               android:id="@+id/filter_seek_max"
+               android:layout_marginLeft="10dp"
+               android:layout_width="40dp"
+               android:hint="max"
+               android:layout_height="wrap_content"
+               android:inputType="number"/>
+           <Button
+               android:layout_marginLeft="10dp"
+               android:layout_width="wrap_content"
+               android:id="@+id/filter_set_seek"
+               android:text="set Seek"
+               android:textAllCaps="false"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp">
 
             <com.yushilei.commonapp.common.widget.SeekBar
                 android:id="@+id/filter_star_seek"
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:padding="5dp"
                 app:leftindicater="@mipmap/seek_left"
                 app:phase="10"
                 app:rightindicater="@mipmap/seek_right"/>

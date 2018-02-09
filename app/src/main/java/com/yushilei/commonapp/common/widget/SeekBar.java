@@ -220,6 +220,23 @@ public class SeekBar extends View {
         return false;
     }
 
+    public void setMinAndMax(int min, int max) {
+        if (max > min) {
+            if (checkNumVaild(min) && checkNumVaild(max)) {
+                Point minP = units.get(min);
+                Point maxP = units.get(max);
+                mLeftIndicator.setUnit(minP);
+                mRightIndicator.setUnit(maxP);
+                invalidate();
+            }
+        }
+    }
+
+    private boolean checkNumVaild(int num) {
+        int realMax = units.size() - 1;
+        return num >= 0 && num <= realMax;
+    }
+
     public interface OnSeekBarChangeListener {
         void onChange(int min, int max);
     }
