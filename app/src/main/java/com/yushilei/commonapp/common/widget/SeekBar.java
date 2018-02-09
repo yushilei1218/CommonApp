@@ -265,6 +265,10 @@ public class SeekBar extends View {
             return mRect.contains(x, y);
         }
 
+        int getX() {
+            return mRect.left + mRect.width() / 2;
+        }
+
         void autoFitWithAnimation(Point end) {
             match = end;
             if (mAni == null) {
@@ -273,7 +277,7 @@ public class SeekBar extends View {
                         move(x);
                         invalidate();
                     }
-                }, "X", match.x, end.x);
+                }, "X", getX(), end.x);
                 mAni.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationCancel(Animator animation) {
@@ -291,7 +295,7 @@ public class SeekBar extends View {
                     }
                 });
             }
-            mAni.setFloatValues(match.x, end.x);
+            mAni.setFloatValues(getX(), end.x);
             mAni.setDuration(200);
             mAni.start();
         }
