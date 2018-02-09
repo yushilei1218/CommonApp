@@ -23,6 +23,20 @@
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <!--刷新布局-->
+            <in.srain.cube.views.ptr.PtrFrameLayout
+                android:id="@+id/act_feizhu_ptr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior=".ui.feizhu.behavior.ScrollBehavior">
+
+                <!--列表-->
+                <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
+                    android:id="@+id/act_feizhu_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="LinearLayoutManager"/>
+            </in.srain.cube.views.ptr.PtrFrameLayout>
             <!--筛选-->
             <com.yushilei.commonapp.ui.feizhu.widget.MoveLinearLayout
                 android:id="@+id/act_feizhu_header"
@@ -45,7 +59,7 @@
                         android:text="推荐排序"/>
 
                     <TextView
-                        android:id="@+id/act_feizhu_sort_btn2"
+                        android:id="@+id/act_feizhu_star_btn2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -53,42 +67,34 @@
                         android:text="星级价格"/>
 
                     <TextView
-                        android:id="@+id/act_feizhu_sort_btn3"
+                        android:id="@+id/act_feizhu_location_btn3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:padding="10dp"
                         android:text="酒店位置"/>
+
+                    <TextView
+                        android:id="@+id/act_feizhu_common_btn4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="综合筛选"/>
                 </LinearLayout>
 
             </com.yushilei.commonapp.ui.feizhu.widget.MoveLinearLayout>
 
-            <!--刷新布局-->
-            <in.srain.cube.views.ptr.PtrFrameLayout
-                android:id="@+id/act_feizhu_ptr"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior=".ui.feizhu.behavior.ScrollBehavior">
-
-                <!--列表-->
-                <com.yushilei.commonapp.common.loadmore2.Load2RecyclerView
-                    android:id="@+id/act_feizhu_lv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="LinearLayoutManager"/>
-            </in.srain.cube.views.ptr.PtrFrameLayout>
-
             <!--筛选内容-->
-            <LinearLayout
+            <include
                 android:id="@+id/act_feizhu_filter_layout"
+                layout="@layout/filter_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="42dp"
                 android:background="#55000000"
                 android:orientation="vertical"
-                android:visibility="gone">
-
-            </LinearLayout>
+                android:visibility="gone"/>
 
 
         </android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--排序-->
+    <ListView
+        android:id="@+id/filter_sort_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:padding="5dp"/>
+    <!--星级价格-->
+    <LinearLayout
+        android:id="@+id/filter_star_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+    </LinearLayout>
+    <!--酒店位置-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/filter_location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:background="#ff7272">
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
