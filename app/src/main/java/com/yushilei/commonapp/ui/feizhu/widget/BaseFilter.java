@@ -86,6 +86,9 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
 
     @Override
     public void showSortFilterView(List<SortBean> data) {
+        if (hideIfShowing()) {
+            return;
+        }
         mRoot.setVisibility(View.VISIBLE);
         show(mSortLv);
         if (mSortAdapter == null) {
@@ -98,6 +101,9 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
 
     @Override
     public void showStarFilterView(PriceBean bean, List<HotelType> data) {
+        if (hideIfShowing()) {
+            return;
+        }
         mRoot.setVisibility(View.VISIBLE);
         show(mStartLayout);
         if (mStarAdapter == null) {
@@ -110,8 +116,19 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
 
     @Override
     public void showLocationFilterView() {
+        if (hideIfShowing()) {
+            return;
+        }
         mRoot.setVisibility(View.VISIBLE);
         show(mLocationLayout);
+    }
+
+    public boolean hideIfShowing() {
+        boolean b = mRoot.getVisibility() == View.VISIBLE;
+        if (b) {
+            mRoot.setVisibility(View.GONE);
+        }
+        return b;
     }
 
     @Override
