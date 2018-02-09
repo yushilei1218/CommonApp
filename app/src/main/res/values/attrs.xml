@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LoadingTextView">
-        <attr name="atextColor" format="color" />
+        <attr name="atextColor" format="color"/>
     </declare-styleable>
     <declare-styleable name="SwitchButton">
-        <attr name="strokeColor" format="color" />
-        <attr name="strokeWidth" format="dimension" />
-        <attr name="tagColor" format="color" />
+        <attr name="strokeColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="tagColor" format="color"/>
     </declare-styleable>
     <declare-styleable name="BannerIndicatorView">
-        <attr name="indicatorOffset" format="integer" />
-        <attr name="indicatorColorNormal" format="color" />
-        <attr name="indicatorColorSelected" format="color" />
-        <attr name="indicatorRadius" format="integer" />
+        <attr name="indicatorOffset" format="integer"/>
+        <attr name="indicatorColorNormal" format="color"/>
+        <attr name="indicatorColorSelected" format="color"/>
+        <attr name="indicatorRadius" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="SeekBar">
+        <attr name="phase" format="integer"/>
+        <attr name="leftindicater" format="reference"/>
+        <attr name="rightindicater" format="reference"/>
     </declare-styleable>
 </resources>
