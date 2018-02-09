@@ -2,6 +2,7 @@ package com.yushilei.commonapp.ui.feizhu.widget;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.MultiListAdapter;
 import com.yushilei.commonapp.ui.feizhu.FeizhuConstract;
+import com.yushilei.commonapp.ui.feizhu.bean.HotelType;
+import com.yushilei.commonapp.ui.feizhu.bean.PriceBean;
 import com.yushilei.commonapp.ui.feizhu.bean.SortBean;
 
 import java.util.List;
@@ -30,8 +33,16 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
     @BindView(R.id.filter_location_layout)
     View mLocationLayout;
 
+    @BindView(R.id.filter_type_grid)
+    GridView mStarGrid;
+    @BindView(R.id.filter_star_clear)
+    View mStarClearTv;
+    @BindView(R.id.filter_star_confirm)
+    View mStarConfirmTv;
+
     private final ViewGroup mRoot;
     private MultiListAdapter mSortAdapter;
+    private MultiListAdapter mStarAdapter;
 
     public BaseFilter(ViewGroup filterLayout) {
         mRoot = filterLayout;
@@ -51,9 +62,15 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
     }
 
     @Override
-    public void showStarFilterView() {
+    public void showStarFilterView(PriceBean bean, List<HotelType> data) {
         mRoot.setVisibility(View.VISIBLE);
         show(mStartLayout);
+        if (mStarAdapter == null) {
+            mStarAdapter = new MultiListAdapter(1);
+            mStarAdapter.setMatch(HotelType.class, new HotelTypeDelegate());
+            mStarGrid.setAdapter(mStarAdapter);
+        }
+        mStarAdapter.replaceData(data);
     }
 
     @Override
@@ -97,6 +114,27 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
             mRoot.setVisibility(View.GONE);
             sortBean.setSelected();
             onSortClicked(sortBean);
+        }
+    }
+
+    private final class HotelTypeDelegate extends HolderDelegate<HotelType> {
+
+        @Override
+        public int getLayoutId() {
+            return R.layout.item_hotel_type;
+        }
+
+        @Override
+        public void onBindData(BaseRecyclerHolder holder, HotelType hotelType, int pos) {
+            ((TextView) holder.findView(R.id.item_hotel_type_tv)).setText(hotelType.name);
+            holder.findView(R.id.item_hotel_type_tag).setVisibility(hotelType.isSelected() ? View.VISIBLE : View.GONE);
+            holder.itemView.setOnClickListener(holder);
+        }
+
+        @Override
+        public void onItemClick(View target, BaseRecyclerHolder<HotelType> holder, HotelType hotelType) {
+            hotelType.setSelected();
+            mStarAdapter.notifyDataSetChanged();
         }
     }
 

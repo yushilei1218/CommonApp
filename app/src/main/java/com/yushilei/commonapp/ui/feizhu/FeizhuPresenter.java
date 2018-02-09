@@ -40,7 +40,7 @@ public class FeizhuPresenter extends BasePresenter<FeizhuConstract.IView> implem
 
     @Override
     public void onStarBtnClick() {
-        mView.showStarFilterView();
+        mView.showStarFilterView(model.getPrice(),model.getTypes());
     }
 
     @Override

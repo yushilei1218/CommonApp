@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:visibility="gone"/>
     <!--星级价格-->
     <LinearLayout
         android:id="@+id/filter_star_layout"
@@ -18,6 +19,42 @@
         android:background="#FFF"
         android:orientation="vertical"
         android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/filter_type_grid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:horizontalSpacing="2dp"
+            android:numColumns="4"
+            android:verticalSpacing="2dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/filter_star_clear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="清空"/>
+
+            <TextView
+                android:id="@+id/filter_star_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="确定"/>
+        </LinearLayout>
 
     </LinearLayout>
     <!--酒店位置-->

@@ -17,8 +17,10 @@ import com.yushilei.commonapp.common.loadmore2.Load2RecyclerView;
 import com.yushilei.commonapp.common.mvp.MvpBaseActivity;
 import com.yushilei.commonapp.common.widget.PtrFirstHeader;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelBean;
+import com.yushilei.commonapp.ui.feizhu.bean.HotelType;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelWrap;
 import com.yushilei.commonapp.ui.feizhu.bean.LoadState;
+import com.yushilei.commonapp.ui.feizhu.bean.PriceBean;
 import com.yushilei.commonapp.ui.feizhu.bean.SortBean;
 import com.yushilei.commonapp.ui.feizhu.widget.BaseFilter;
 
@@ -129,8 +131,8 @@ public class FeizhuActivity extends MvpBaseActivity<FeizhuConstract.IPresenter> 
     }
 
     @Override
-    public void showStarFilterView() {
-        mBaseFilter.showStarFilterView();
+    public void showStarFilterView(PriceBean bean, List<HotelType> data) {
+        mBaseFilter.showStarFilterView(bean, data);
     }
 
     @Override

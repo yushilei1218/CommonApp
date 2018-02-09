@@ -2,8 +2,10 @@ package com.yushilei.commonapp.ui.feizhu;
 
 import com.yushilei.commonapp.common.mvp.IBasePresenter;
 import com.yushilei.commonapp.common.mvp.IBaseView;
+import com.yushilei.commonapp.ui.feizhu.bean.HotelType;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelWrap;
 import com.yushilei.commonapp.ui.feizhu.bean.LoadState;
+import com.yushilei.commonapp.ui.feizhu.bean.PriceBean;
 import com.yushilei.commonapp.ui.feizhu.bean.SortBean;
 import com.yushilei.commonapp.ui.feizhu.callback.CallBack;
 
@@ -40,7 +42,7 @@ public interface FeizhuConstract {
     interface IFilter {
         void showSortFilterView(List<SortBean> data);
 
-        void showStarFilterView();
+        void showStarFilterView(PriceBean bean, List<HotelType> data);
 
         void showLocationFilterView();
 
@@ -49,6 +51,10 @@ public interface FeizhuConstract {
 
     interface IModel {
         List<SortBean> getSorts();
+
+        PriceBean getPrice();
+
+        List<HotelType> getTypes();
 
         void load(boolean isRefresh, CallBack<HotelWrap> callBack);
     }

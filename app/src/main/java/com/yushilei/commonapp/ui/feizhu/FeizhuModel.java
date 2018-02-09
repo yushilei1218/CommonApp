@@ -7,7 +7,9 @@ import android.os.SystemClock;
 import com.shileiyu.imageloader.net.ThreadPools;
 import com.yushilei.commonapp.ui.feizhu.bean.DataState;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelBean;
+import com.yushilei.commonapp.ui.feizhu.bean.HotelType;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelWrap;
+import com.yushilei.commonapp.ui.feizhu.bean.PriceBean;
 import com.yushilei.commonapp.ui.feizhu.bean.SortBean;
 import com.yushilei.commonapp.ui.feizhu.callback.CallBack;
 
@@ -25,11 +27,25 @@ public class FeizhuModel implements FeizhuConstract.IModel {
 
     private final List<HotelBean> mData = new ArrayList<>();
 
+    private final PriceBean mPriceBean = new PriceBean();
+
+    private final List<HotelType> mHotelTypes = HotelType.getList();
+
     private int index = 0;
 
     @Override
     public List<SortBean> getSorts() {
         return mSorts;
+    }
+
+    @Override
+    public PriceBean getPrice() {
+        return mPriceBean;
+    }
+
+    @Override
+    public List<HotelType> getTypes() {
+        return mHotelTypes;
     }
 
     @Override
