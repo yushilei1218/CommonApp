@@ -5,11 +5,14 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yushilei.commonapp.R;
 import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
 import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.MultiListAdapter;
+import com.yushilei.commonapp.common.base.BaseApp;
+import com.yushilei.commonapp.common.widget.SeekBar;
 import com.yushilei.commonapp.ui.feizhu.FeizhuConstract;
 import com.yushilei.commonapp.ui.feizhu.bean.HotelType;
 import com.yushilei.commonapp.ui.feizhu.bean.PriceBean;
@@ -39,6 +42,8 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
     View mStarClearTv;
     @BindView(R.id.filter_star_confirm)
     View mStarConfirmTv;
+    @BindView(R.id.filter_star_seek)
+    SeekBar mSeekBar;
 
     private final ViewGroup mRoot;
     private MultiListAdapter mSortAdapter;
@@ -47,6 +52,13 @@ public abstract class BaseFilter implements FeizhuConstract.IFilter {
     public BaseFilter(ViewGroup filterLayout) {
         mRoot = filterLayout;
         ButterKnife.bind(this, filterLayout);
+        mSeekBar.setChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onChange(int min, int max) {
+                String msg = "Min= " + min + " Max=" + max;
+                Toast.makeText(BaseApp.AppContext,msg , Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

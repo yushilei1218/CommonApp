@@ -26,8 +26,10 @@
             android:layout_height="80dp">
 
             <com.yushilei.commonapp.common.widget.SeekBar
+                android:id="@+id/filter_star_seek"
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 app:leftindicater="@mipmap/seek_left"
                 app:phase="10"
                 app:rightindicater="@mipmap/seek_right"/>
