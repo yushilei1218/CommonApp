@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#6e6e6e"
-                android:orientation="vertical"
-                tools:context="com.yushilei.commonapp.ui.test.TestActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#6e6e6e"
+              android:orientation="vertical"
+              tools:context="com.yushilei.commonapp.ui.test.TestActivity">
 
 
     <com.yushilei.commonapp.common.widget.NumAdaptiveTextView
@@ -26,6 +26,11 @@
     <com.yushilei.commonapp.common.widget.TestListView
         android:id="@+id/act_test_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="200dp"/>
+
+    <ListView
+        android:id="@+id/test_2_lv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
 
 </LinearLayout>

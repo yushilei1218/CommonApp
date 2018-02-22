@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RotateDrawable;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.yushilei.commonapp.common.adapter.BaseViewHolder;
 import com.yushilei.commonapp.common.adapter.ItemWrapper;
 import com.yushilei.commonapp.common.adapter.MultiBaseAdapter;
 import com.yushilei.commonapp.common.adapter.MultiRecyclerAdapter;
+import com.yushilei.commonapp.common.adapter2.BaseRecyclerHolder;
+import com.yushilei.commonapp.common.adapter2.HolderDelegate;
 import com.yushilei.commonapp.common.adapter2.MultiListAdapter;
 import com.yushilei.commonapp.common.base.BaseActivity;
 import com.yushilei.commonapp.common.bean.BeanA;
@@ -48,8 +51,20 @@ public class TestActivity extends BaseActivity {
     @Override
     public void initView() {
         mView = (TextView) findView(R.id.num_id_1);
+
         setOnClick(R.id.num_id_1);
         ListView lv = (ListView) findView(R.id.act_test_lv);
+        ListView lv2 = findView(R.id.test_2_lv);
+
+        MultiListAdapter adapter2 = new MultiListAdapter(1);
+        adapter2.setMatch(BeanA.class, new DrawDelegate());
+        lv2.setAdapter(adapter2);
+        ArrayList<BeanA> root = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            root.add(new BeanA("item+ " + i));
+        }
+        adapter2.setRootData(root);
+
         MultiListAdapter adapter = new MultiListAdapter(1);
         adapter.setMatch(BeanA.class, new BeanADelegate());
 
@@ -78,6 +93,40 @@ public class TestActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    private final class DrawDelegate extends HolderDelegate<BeanA> implements DrawerLayout.DrawerListener {
+
+        @Override
+        public int getLayoutId() {
+            return R.layout.item_drawer;
+        }
+
+        @Override
+        public void onBindData(BaseRecyclerHolder holder, BeanA beanA, int pos) {
+            DrawerLayout drawerLayout = (DrawerLayout) holder.itemView;
+            drawerLayout.addDrawerListener(this);
+        }
+
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+            drawerView.getParent().requestDisallowInterceptTouchEvent(true);
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            drawerView.getParent().requestDisallowInterceptTouchEvent(false);
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            drawerView.getParent().requestDisallowInterceptTouchEvent(false);
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
         }
     }
 }
