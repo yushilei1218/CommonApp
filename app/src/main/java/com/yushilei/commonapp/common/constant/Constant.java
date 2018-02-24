@@ -46,4 +46,5 @@ public interface Constant {
     String GLIDE = "GLIDE";
     String STATIC = "STATIC";
     String FEIZHU = "FEIZHU";
+    String VR = "VR";
 }

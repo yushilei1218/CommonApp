@@ -39,6 +39,7 @@ import com.yushilei.commonapp.ui.floatmenu.FloatMenuActivity;
 import com.yushilei.commonapp.ui.fragment.PagerFragmentActivity;
 import com.yushilei.commonapp.ui.glide.GlideActivity;
 import com.yushilei.commonapp.ui.greendao.GreenDaoActivity;
+import com.yushilei.commonapp.ui.gvr.GVRWidgetActivity;
 import com.yushilei.commonapp.ui.loadmorelistview.LoadListActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.Load2FootActivity;
 import com.yushilei.commonapp.ui.loadmorerecycler.LoadMoreAdapterActivity;
@@ -134,6 +135,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item37 = new HomeItem(new HomeBean(Constant.GLIDE));
         HomeItem item38 = new HomeItem(new HomeBean(Constant.STATIC));
         HomeItem item39 = new HomeItem(new HomeBean(Constant.FEIZHU));
+        HomeItem item40 = new HomeItem(new HomeBean(Constant.VR));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -174,6 +176,7 @@ public class MainActivity extends BaseActivity {
         data.add(item37);
         data.add(item38);
         data.add(item39);
+        data.add(item40);
         adapter.addAll(data);
     }
 
@@ -335,6 +338,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.FEIZHU:
                     intent = new Intent(MainActivity.this, FeizhuActivity.class);
+                    break;
+                case Constant.VR:
+                    intent = new Intent(MainActivity.this, GVRWidgetActivity.class);
                     break;
                 default:
                     break;
