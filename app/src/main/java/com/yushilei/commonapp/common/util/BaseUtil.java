@@ -12,6 +12,10 @@ import com.yushilei.commonapp.common.bean.basedata.JobType;
 import com.yushilei.commonapp.common.bean.basedata.JobTypeClass;
 import com.yushilei.commonapp.common.bean.basedata.Province;
 import com.yushilei.commonapp.common.bean.basedata.SubJobType;
+import com.yushilei.commonapp.common.bean.composite.Component;
+import com.yushilei.commonapp.common.bean.composite.Composite;
+import com.yushilei.commonapp.common.bean.composite.child.Address;
+import com.yushilei.commonapp.common.bean.composite.child.Holder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +49,45 @@ public class BaseUtil {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static Holder
+    getHolder(Context context) {
+        long time1 = System.currentTimeMillis();
+        init(context);
+        List<List<String>> city = sBaseData.getCity();
+        List<Address> list = Address.getList(city);
+        if (SetUtil.isEmpty(list)) {
+            return null;
+        }
+        Holder holder = new Holder(null, new Address(0, 489, "全国"));
+        addChild(holder, list);
+        long time2 = System.currentTimeMillis();
+
+        Log.d(TAG, city.size() + " 耗时：" + (time2 - time1) + "毫秒");
+        return holder;
+    }
+
+    private static void addChild(Composite parent, List<Address> data) {
+        if (!parent.hasChild()) {
+            return;
+        }
+        for (Address d : data) {
+            if (parent.getId() == d.parentId) {
+                Composite child = parent.newChild(d);
+                if (child == null) {
+                    return;
+                }
+                parent.addChild(child);
+            }
+        }
+        List<Composite> children = parent.getChildren();
+        if (SetUtil.isEmpty(children)) {
+            return;
+        }
+        for (Composite c : children) {
+            addChild(c, data);
         }
     }
 

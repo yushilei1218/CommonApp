@@ -31,6 +31,7 @@ import com.yushilei.commonapp.ui.adaptertest.AdapterNotifyActivity;
 import com.yushilei.commonapp.ui.basedata.BaseDataActivity;
 import com.yushilei.commonapp.ui.basedata.JobTypeActivity;
 import com.yushilei.commonapp.ui.calendar.CalendarActivity;
+import com.yushilei.commonapp.ui.composite.CompositeActivity;
 import com.yushilei.commonapp.ui.constraintlayout.ConstraintActivity;
 import com.yushilei.commonapp.ui.contact.ContactActivity;
 import com.yushilei.commonapp.ui.coordinatorLayout.CoordinatorActivity;
@@ -138,6 +139,7 @@ public class MainActivity extends BaseActivity {
         HomeItem item39 = new HomeItem(new HomeBean(Constant.FEIZHU));
         HomeItem item40 = new HomeItem(new HomeBean(Constant.VR));
         HomeItem item41 = new HomeItem(new HomeBean(Constant.CALENDAR1));
+        HomeItem item42 = new HomeItem(new HomeBean(Constant.COMPOSITE));
         data.add(item0);
         data.add(item1);
         data.add(item2);
@@ -180,6 +182,7 @@ public class MainActivity extends BaseActivity {
         data.add(item39);
         data.add(item40);
         data.add(item41);
+        data.add(item42);
         adapter.addAll(data);
     }
 
@@ -347,6 +350,9 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Constant.CALENDAR1:
                     intent = new Intent(MainActivity.this, CalendarActivity.class);
+                    break;
+                case Constant.COMPOSITE:
+                    intent = new Intent(MainActivity.this, CompositeActivity.class);
                     break;
                 default:
                     break;

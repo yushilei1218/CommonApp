@@ -149,6 +149,8 @@
 
         <activity android:name=".ui.calendar.CalendarActivity">
         </activity>
+        <activity android:name=".ui.composite.CompositeActivity">
+        </activity>
     </application>
 
 </manifest>

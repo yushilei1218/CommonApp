@@ -48,4 +48,5 @@ public interface Constant {
     String FEIZHU = "FEIZHU";
     String VR = "VR";
     String CALENDAR1 = "CALENDAR1";
+    String COMPOSITE = "COMPOSITE";
 }
