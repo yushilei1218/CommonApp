@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CompositeActivity extends BaseActivity {
 
+    Holder mHolder;
 
     @Override
     protected int getLayoutId() {
@@ -38,6 +39,7 @@ public class CompositeActivity extends BaseActivity {
                 .subscribe(new Consumer<Holder>() {
                     @Override
                     public void accept(Holder holder) throws Exception {
+                        mHolder = holder;
                         showToast("完毕");
                     }
                 });

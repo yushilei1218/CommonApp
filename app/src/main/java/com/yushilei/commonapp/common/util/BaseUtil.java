@@ -52,8 +52,7 @@ public class BaseUtil {
         }
     }
 
-    public static Holder
-    getHolder(Context context) {
+    public static Holder getHolder(Context context) {
         long time1 = System.currentTimeMillis();
         init(context);
         List<List<String>> city = sBaseData.getCity();
