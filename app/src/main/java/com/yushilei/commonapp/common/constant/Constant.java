@@ -47,4 +47,5 @@ public interface Constant {
     String STATIC = "STATIC";
     String FEIZHU = "FEIZHU";
     String VR = "VR";
+    String CALENDAR1 = "CALENDAR1";
 }

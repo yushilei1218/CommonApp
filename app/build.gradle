@@ -73,6 +73,17 @@ dependencies {
     // add library
 
     //weex
+    compile(name: 'weex_sdk-0.17.0', ext: 'aar')
+    //    compile 'android.arch.lifecycle:extensions:1.0.0'
+    compile('com.alibaba.android:vlayout:1.2.9@aar') {
+        transitive = true
+    }
+    // 依赖以下两个库，会自动引用基础库与Android库
+    // If you want to use Navi for providers
+    compile project(':imageloader')
+
+
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -93,34 +104,23 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.1.0'
     compile 'org.greenrobot:eventbus:3.1.0-RC'
     compile 'org.greenrobot:greendao:3.2.2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-    testCompile 'junit:junit:4.12'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     compile 'com.orhanobut:logger:2.1.1'
     compile 'com.alibaba:fastjson:1.1.46.android'
-    compile(name: 'weex_sdk-0.17.0', ext: 'aar')
-    //    compile 'android.arch.lifecycle:extensions:1.0.0'
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     compile 'com.google.zxing:core:3.3.0'
     compile 'com.getbase:floatingactionbutton:1.10.1'
-    compile('com.alibaba.android:vlayout:1.2.9@aar') {
-        transitive = true
-    }
-    // 依赖以下两个库，会自动引用基础库与Android库
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
-    // If you want to use Navi for providers
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
-    compile project(':imageloader')
-
     compile 'com.jakewharton:butterknife:8.0.1'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
-
     compile 'com.google.vr:sdk-panowidget:1.120.0'
     compile 'com.google.vr:sdk-audio:1.120.0'
     compile 'com.google.vr:sdk-base:1.120.0'
-
     compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 }
 packer {
     archiveNameFormat = '${buildType}-v${versionName}-${channel}'

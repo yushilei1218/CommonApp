@@ -146,6 +146,9 @@
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
+
+        <activity android:name=".ui.calendar.CalendarActivity">
+        </activity>
     </application>
 
 </manifest>
