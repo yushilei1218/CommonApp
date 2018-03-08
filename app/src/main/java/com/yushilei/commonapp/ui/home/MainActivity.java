@@ -71,6 +71,7 @@ import com.yushilei.commonapp.ui.weex.route.BaseRoute;
 import com.yushilei.commonapp.ui.weex.route.JsBean;
 import com.yushilei.commonapp.ui.weex.route.RConstant;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -80,6 +81,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<Integer> listb = new ArrayList<>();
+        boolean b = lista.getClass() == listb.getClass();
+        showToast("泛型类是否相等 =" + b);
         AndPermission.with(this).permission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .requestCode(1)
                 .callback(new PermissionListener() {
