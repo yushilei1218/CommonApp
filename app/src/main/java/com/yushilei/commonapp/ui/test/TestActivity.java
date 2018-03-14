@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -57,7 +58,18 @@ public class TestActivity extends BaseActivity {
         ListView lv = (ListView) findView(R.id.act_test_lv);
         ListView lv2 = findView(R.id.test_2_lv);
 
-        TextInputLayout view = (TextInputLayout) findView(R.id.test_hint_layout2);
+        final TextInputLayout view = (TextInputLayout) findView(R.id.test_hint_layout2);
+        EditText et = (EditText) findView(R.id.test_hint_input2);
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    view.setHint("密码");
+                } else {
+                    view.setHint("请输入密码");
+                }
+            }
+        });
 
 
         MultiListAdapter adapter2 = new MultiListAdapter(1);
