@@ -47,9 +47,10 @@
         app:passwordToggleEnabled="true">
 
         <android.support.design.widget.TextInputEditText
+            android:padding="5dp"
             android:layout_width="match_parent"
+            android:theme="@style/Style_TextInput_Color"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:inputType="text"
             android:textColor="@color/black"
             android:textSize="18sp"/>

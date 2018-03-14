@@ -47,4 +47,9 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#1f53ff</item>
     </style>
+    <style name="Style_TextInput_Color" parent="Base.Theme.AppCompat.Light">
+        <item name="colorControlNormal">#000000</item>
+        <item name="colorControlActivated">#231fff</item>
+
+    </style>
 </resources>
