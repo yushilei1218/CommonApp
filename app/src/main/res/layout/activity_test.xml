@@ -22,6 +22,39 @@
         android:text="99999"
         android:textSize="20sp"/>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/test_hint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入账号"
+        app:hintAnimationEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/test_hint_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:hint="请输入密码"
+        android:textColorHint="#ff6e1a"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/Style_TextInput"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+    </android.support.design.widget.TextInputLayout>
+
 
     <com.yushilei.commonapp.common.widget.TestListView
         android:id="@+id/act_test_lv"

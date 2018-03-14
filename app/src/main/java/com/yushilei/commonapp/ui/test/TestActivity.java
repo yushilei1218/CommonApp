@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RotateDrawable;
 import android.os.Handler;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,9 @@ public class TestActivity extends BaseActivity {
         setOnClick(R.id.num_id_1);
         ListView lv = (ListView) findView(R.id.act_test_lv);
         ListView lv2 = findView(R.id.test_2_lv);
+
+        TextInputLayout view = (TextInputLayout) findView(R.id.test_hint_layout2);
+
 
         MultiListAdapter adapter2 = new MultiListAdapter(1);
         adapter2.setMatch(BeanA.class, new DrawDelegate());
