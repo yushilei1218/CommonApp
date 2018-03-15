@@ -2,7 +2,12 @@ package com.yushilei.commonapp.common.bean;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yushilei.commonapp.common.bean.factory.Generic2;
 import com.yushilei.commonapp.common.util.JsonUtil;
+
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.Arrays;
 
 /**
  * @author shilei.yu
@@ -27,10 +32,16 @@ public class Procesor {
 
         TypeToken<HttpResponse<BeanA>> token = new TypeToken<HttpResponse<BeanA>>() {
         };
+        Class<? extends TypeToken> aClass = token.getClass();
+        Type genericSuperclass = aClass.getGenericSuperclass();
+        TypeVariable<? extends Class<? extends TypeToken>>[] parameters = aClass.getTypeParameters();
+        System.out.println(Arrays.toString(parameters));
+        System.out.println(genericSuperclass);
+        System.out.println();
+
         HttpResponse<BeanA> testBean = getT(token, json);
 
-        BaseCallBack<BeanA> callBack = new BaseCallBack<BeanA>(new TypeToken<HttpResponse<BeanA>>() {
-        }) {
+        BaseCallBack<BeanA> callBack = new BaseCallBack<BeanA>(token) {
             @Override
             public void onSuccess(HttpResponse<BeanA> response) {
                 BeanA data = response.getData();
@@ -51,5 +62,13 @@ public class Procesor {
     public static <T> T getT(TypeToken<T> token, String json) {
         java.lang.reflect.Type type = token.getType();
         return new Gson().fromJson(json, type);
+    }
+
+    public static class A<T> {
+
+    }
+
+    public static class B<T extends String> extends A<T> {
+
     }
 }
