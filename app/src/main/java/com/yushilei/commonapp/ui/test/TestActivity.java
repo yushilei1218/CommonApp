@@ -59,7 +59,21 @@ public class TestActivity extends BaseActivity {
         ListView lv2 = findView(R.id.test_2_lv);
 
         final TextInputLayout view = (TextInputLayout) findView(R.id.test_hint_layout2);
-        EditText et = (EditText) findView(R.id.test_hint_input2);
+        view.setHint(" ");
+       final EditText et = (EditText) findView(R.id.test_hint_input2);
+        et.requestFocus();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean focused = et.isFocused();
+                if (focused) {
+                    view.setHint("密码");
+                } else {
+                    view.setHint("请输入密码");
+                }
+
+            }
+        },100);
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
